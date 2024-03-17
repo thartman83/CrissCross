@@ -1,0 +1,26 @@
+import Grid from "../../types/grid";
+import SquareInput from "../ui/square";
+
+const GridLayout = ({grid, dispatch}: {grid: Grid, dispatch: any}) => {
+  return <div className="grid">
+           {
+             grid.fill.map((_,i) => {
+               return <div key={`row-${i}`}>
+                        {
+                          grid.fill.map((_, j) => {
+                            return <SquareInput x={i} y={j}
+                                           state={grid.fill[i][j].state}
+                                           value={grid.fill[i][j].value}
+                                           answerNo={grid.fill[i][j].answerNo}
+                                           key={`square-${i}x${j}`}
+                                           gridDispatch={dispatch}
+                                   />;
+                          })
+                        }
+                      </div>;
+             })
+           }
+         </div>;
+};
+
+export default GridLayout;
