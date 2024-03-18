@@ -5,7 +5,7 @@ const GridLayout = ({grid, dispatch}: {grid: Grid, dispatch: any}) => {
   return <div className="grid">
            {
              grid.fill.map((_,i) => {
-               return <div key={`row-${i}`}>
+               return <div className='grid-row' key={`row-${i}`}>
                         {
                           grid.fill.map((_, j) => {
                             const focus = (i == grid.xPos && j == grid.yPos);

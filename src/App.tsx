@@ -11,6 +11,7 @@ function App() {
                                                             defaultGridSize));
   return (
     <>
+      <div className='header'>CrissCross</div>
       <GridLayout grid={grid} dispatch={dispatch} />
     </>
   );

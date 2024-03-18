@@ -13,17 +13,34 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.header {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
 .grid {
     font-size: 1.5rem;
+}
+
+.grid-row {
+    margin: 0;
+    padding: 0;
 }
 
 .grid-square {
     text-transform: uppercase;
     text-align: center;
     font-size: inherit;
-    height: 1.75rem;
-    width: 1.75rem;
-    margin-right: 2px;
+    height: 2.2rem;
+    width: 2.2rem;
+    padding-top: 3px;
+    margin-right: 0px;
+    border: 1px solid black;
+}
+
+.grid-square:focus {
+    outline: none;
+    background-color: cadetblue;
 }
 
 label[data-answerno]::before {
@@ -32,6 +49,7 @@ label[data-answerno]::before {
     font-size: 11px;
     color: black;
     margin-left: 2px;
+    margin-top: -1px;
     font-weight: bold;
 }
 

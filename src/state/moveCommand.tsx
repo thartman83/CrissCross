@@ -14,6 +14,10 @@ class MoveCommand implements GridCommand {
   }
 
   do(grid: Grid): Grid {
+    if(this._x < 0 || this._x >= grid.width ||
+       this._y < 0 || this._y >= grid.height)
+      return grid;
+
     return fillCurrentHighlighted({
       ...grid,
       xPos: this._x,
