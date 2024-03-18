@@ -13,7 +13,8 @@ type SquareArgs = {
   gridDispatch: Dispatch<Grid>
 };
 
-const SquareInput = ({value, state, x, y, answerNo, gridDispatch, autofocus}: SquareArgs) => {
+const SquareInput = ({value, state, x, y, answerNo, gridDispatch,
+                      autofocus, current}: SquareArgs) => {
 
   const inputEl = useRef(null);
 
@@ -60,6 +61,8 @@ const SquareInput = ({value, state, x, y, answerNo, gridDispatch, autofocus}: Sq
       gridDispatch({ type: GridActions.moveup});
     } else if (key === 'ARROWDOWN') {
       gridDispatch({ type: GridActions.movedown});
+    } else if (key === ' ') {
+      gridDispatch({ type: GridActions.toggleOrientation});
     }
   };
 
@@ -69,7 +72,8 @@ const SquareInput = ({value, state, x, y, answerNo, gridDispatch, autofocus}: Sq
 
   return (
     <>
-      <label data-answerno={answerNo === 0 ? "" : answerNo} />
+      <label data-answerno={answerNo === 0 ? "" : answerNo}
+             data-current={current} />
       <input value={value} type="text"
              className="grid-square"
              readOnly={state == SquareState.Black}
@@ -79,6 +83,7 @@ const SquareInput = ({value, state, x, y, answerNo, gridDispatch, autofocus}: Sq
              onKeyDown={onKeyDownHandler}
              onClick={onClickHandler}
              ref={inputEl}
+             data-current={current}
       />
     </>
   );

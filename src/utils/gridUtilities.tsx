@@ -18,7 +18,8 @@ export const initGrid = (width: number, height: number): Grid => {
         x: i,
         y: j,
         answerNo: 0,
-        focus: false
+        focus: false,
+        current: false
       };
       return square;
     })
@@ -35,7 +36,7 @@ export const initGrid = (width: number, height: number): Grid => {
     commandStack: []
   };
 
-  return fillAnswerNos(newGrid);
+  return fillCurrentHighlighted(fillAnswerNos(newGrid));
 };
 
 export const fillAnswerNos = (grid: Grid): Grid => {
@@ -54,6 +55,64 @@ export const fillAnswerNos = (grid: Grid): Grid => {
         };
       });
   });
+
+  return {
+    ...grid,
+    fill: newFill
+  };
+};
+
+export const fillCurrentHighlighted = (grid: Grid): Grid => {
+  let curX = grid.xPos;
+  let curY = grid.yPos;
+  const newFill = grid.fill.map((row,_) => row.map((square, _) => {
+    return { ...square,
+             current: false };
+  }));
+
+  if(grid.orientation === Orientation.across) {
+    while (curY < grid.width &&
+      grid.fill[curX][curY].state != SquareState.Black) {
+      newFill[curX][curY] = {
+        ...newFill[curX][curY],
+        current: true
+      };
+      curY++;
+    }
+
+    curX = grid.xPos;
+    curY = grid.yPos;
+
+    while (curY >= 0 &&
+      grid.fill[curX][curY].state != SquareState.Black) {
+      newFill[curX][curY] = {
+        ...newFill[curX][curY],
+        current: true
+      };
+      curY--;
+    }
+  } else {
+    while (curX < grid.width &&
+      grid.fill[curX][curY].state != SquareState.Black) {
+      newFill[curX][curY] = {
+        ...newFill[curX][curY],
+        current: true
+      };
+      curX++;
+    }
+
+    curX = grid.xPos;
+    curY = grid.yPos;
+
+    while (curX >= 0 &&
+      grid.fill[curX][curY].state != SquareState.Black) {
+      newFill[curX][curY] = {
+        ...newFill[curX][curY],
+        current: true
+      };
+      curX--;
+    }
+  }
 
   return {
     ...grid,

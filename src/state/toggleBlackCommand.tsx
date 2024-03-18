@@ -1,7 +1,7 @@
 import Grid, { Fill } from "../types/grid";
 import GridCommand from "../types/gridCommand";
 import { SquareState } from "../types/square";
-import { findSymmetrySquare } from "../utils/gridUtilities";
+import { fillAnswerNos, findSymmetrySquare, fillCurrentHighlighted } from "../utils/gridUtilities";
 
 class ToggleBlackCommand implements GridCommand {
   private _x: number;
@@ -14,11 +14,11 @@ class ToggleBlackCommand implements GridCommand {
 
   do(grid: Grid): Grid {
 
-    return {
+    return fillCurrentHighlighted(fillAnswerNos({
       ...grid,
       fill: this.toggle(grid),
       commandStack: [...grid.commandStack, this]
-    };
+    }));
   }
 
   undo(grid: Grid): Grid {

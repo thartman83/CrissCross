@@ -16,6 +16,7 @@ const GridLayout = ({grid, dispatch}: {grid: Grid, dispatch: any}) => {
                                                 key={`square-${i}x${j}`}
                                                 gridDispatch={dispatch}
                                                 autofocus={focus}
+                                                current={grid.fill[i][j].current}
                                    />;
                           })
                         }

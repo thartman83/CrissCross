@@ -10,7 +10,8 @@ type Square = {
   x: number,
   y: number,
   answerNo: number,
-  focus: boolean
+  focus: boolean,
+  current: boolean,
 };
 
 export default Square;

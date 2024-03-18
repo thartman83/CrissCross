@@ -35,6 +35,10 @@ label[data-answerno]::before {
     font-weight: bold;
 }
 
+input[data-current=true] {
+    background-color: lightblue;
+}
+
 .grid-square:read-only {
     background-color: black;
     border-color: black;
