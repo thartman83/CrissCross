@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch } from "react";
+import { ChangeEvent, Dispatch, useEffect, useRef } from "react";
 import Grid from "../../types/grid";
 import { SquareState } from "../../types/square";
 import { GridActions, GridReducerPayload } from "../../state/gridContext";
@@ -8,25 +8,22 @@ type SquareArgs = {
   x: number,
   y: number,
   state: SquareState,
+  autofocus: boolean,
   answerNo: number,
   gridDispatch: Dispatch<Grid>
 };
 
-const SquareInput = ({value, state, x, y, answerNo, gridDispatch}: SquareArgs) => {
+const SquareInput = ({value, state, x, y, answerNo, gridDispatch, autofocus}: SquareArgs) => {
+
+  const inputEl = useRef(null);
+
+  useEffect(() => {
+    if(autofocus) {
+      inputEl.current?.focus();
+    }
+  });
 
   const onChangeHandler = (e: ChangeEvent) => {
-    // const el: Element = e.target;
-    // const x = el.attributes['data-xpos'].value;
-    // const y = el.attributes['data-ypos'].value;
-
-    // const payload: GridReducerPayload = {
-    //   x: x,
-    //   y: y,
-    //   value: el.value
-    // };
-
-    // gridDispatch({type: GridActions.keyDown, payload: payload });
-
   };
 
   const onKeyDownHandler = (e: KeyboardEvent) => {
@@ -41,16 +38,34 @@ const SquareInput = ({value, state, x, y, answerNo, gridDispatch}: SquareArgs) =
       value: e.key
     };
 
-    if(/[A-Z0-9]/.test(e.key.toUpperCase())) {
+    const key = e.key.toUpperCase();
+
+    if(/[A-Z0-9]/.test(key) && e.key.length === 1) {
       gridDispatch({ type: GridActions.updateFill, payload: payload});
       e.preventDefault();
     } else if(e.key === '.') {
       gridDispatch({ type: GridActions.toggleBlack, payload: payload});
       e.preventDefault();
+    } else if(key === 'BACKSPACE'
+              || key === 'DELETE') {
+      payload.value = '';
+      gridDispatch({ type: GridActions.deleteFill, payload: {
+        x: x, y: y, value: e.target.value
+      }});
+    } else if (key === 'ARROWRIGHT') {
+      gridDispatch({ type: GridActions.moveright});
+    } else if (key === 'ARROWLEFT') {
+      gridDispatch({ type: GridActions.moveleft });
+    } else if (key === 'ARROWUP') {
+      gridDispatch({ type: GridActions.moveup});
+    } else if (key === 'ARROWDOWN') {
+      gridDispatch({ type: GridActions.movedown});
     }
-
   };
 
+  const onClickHandler = (e: any) => {
+    gridDispatch({ type: GridActions.click, payload: {x:x, y:y}});
+  };
 
   return (
     <>
@@ -62,6 +77,8 @@ const SquareInput = ({value, state, x, y, answerNo, gridDispatch}: SquareArgs) =
              maxLength={1}
              onChange={onChangeHandler}
              onKeyDown={onKeyDownHandler}
+             onClick={onClickHandler}
+             ref={inputEl}
       />
     </>
   );

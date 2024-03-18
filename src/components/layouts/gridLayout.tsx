@@ -8,12 +8,14 @@ const GridLayout = ({grid, dispatch}: {grid: Grid, dispatch: any}) => {
                return <div key={`row-${i}`}>
                         {
                           grid.fill.map((_, j) => {
+                            const focus = (i == grid.xPos && j == grid.yPos);
                             return <SquareInput x={i} y={j}
-                                           state={grid.fill[i][j].state}
-                                           value={grid.fill[i][j].value}
-                                           answerNo={grid.fill[i][j].answerNo}
-                                           key={`square-${i}x${j}`}
-                                           gridDispatch={dispatch}
+                                                state={grid.fill[i][j].state}
+                                                value={grid.fill[i][j].value}
+                                                answerNo={grid.fill[i][j].answerNo}
+                                                key={`square-${i}x${j}`}
+                                                gridDispatch={dispatch}
+                                                autofocus={focus}
                                    />;
                           })
                         }

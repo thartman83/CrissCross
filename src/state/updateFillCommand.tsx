@@ -39,11 +39,9 @@ class UpdateFillCommand implements GridCommand {
       value: this._value
     };
 
-    console.log(newSquare);
-
     return grid.fill.map( (row, x) =>
-      x !== this._x ? row : row.map( (square, y) =>
-        y !== this._y ? square : newSquare
+      x != this._x ? row : row.map( (square, y) =>
+        y != this._y ? square : newSquare
       )
     );
   }

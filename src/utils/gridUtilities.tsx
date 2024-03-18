@@ -29,6 +29,8 @@ export const initGrid = (width: number, height: number): Grid => {
     height: height,
     width: width,
     answerCount: 0,
+    xPos: 0,
+    yPos: 0,
     orientation: Orientation.across,
     commandStack: []
   };

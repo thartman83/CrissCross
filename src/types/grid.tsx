@@ -13,6 +13,8 @@ type Grid = {
   width: number,
   fill: Fill,
   orientation: Orientation,
+  xPos: number,
+  yPos: number,
   answerCount: number,
   commandStack: Array<GridCommand>
 };
