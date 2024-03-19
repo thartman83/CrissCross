@@ -1,6 +1,6 @@
 import Grid, { Orientation } from "../types/grid";
 import GridCommand from "../types/gridCommand";
-import { fillCurrentHighlighted } from "../utils/gridUtilities";
+import { fillCurrentHighlighted } from "../utils/gridUtilities.ts";
 
 class MoveCommand implements GridCommand {
   private _x: number;

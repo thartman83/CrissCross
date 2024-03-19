@@ -63,6 +63,8 @@ const SquareInput = ({value, state, x, y, answerNo, gridDispatch,
       gridDispatch({ type: GridActions.movedown});
     } else if (key === ' ') {
       gridDispatch({ type: GridActions.toggleOrientation});
+    } else if (key === 'TAB') {
+      gridDispatch({ type: GridActions.toggleOrientation});
     }
   };
 

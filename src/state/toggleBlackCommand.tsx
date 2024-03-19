@@ -1,7 +1,7 @@
 import Grid, { Fill } from "../types/grid";
 import GridCommand from "../types/gridCommand";
 import { SquareState } from "../types/square";
-import { fillAnswerNos, findSymmetrySquare, fillCurrentHighlighted } from "../utils/gridUtilities";
+import { fillAnswerNos, findSymmetrySquare, fillCurrentHighlighted } from "../utils/gridUtilities.ts";
 
 class ToggleBlackCommand implements GridCommand {
   private _x: number;

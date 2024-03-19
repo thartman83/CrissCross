@@ -18,6 +18,21 @@
     margin-bottom: 1rem;
 }
 
+.header-icons {
+    float:right;
+}
+
+.header-icons button {
+    font-size: 1.5rem;
+    height: 2.25rem;
+    width: 2.25rem;
+    margin-right: .5rem;
+}
+
+.main {
+    display: flex;
+}
+
 .grid {
     font-size: 1.5rem;
 }
@@ -60,4 +75,40 @@ input[data-current=true] {
 .grid-square:read-only {
     background-color: black;
     border-color: black;
+}
+
+.grid-summary {
+    margin-left: 1rem;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    padding-bottom: .5rem;
+    border: 1px solid white;
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.grid-summary h3 {
+    margin-top: 0rem;
+}
+
+.clue-layout {
+    display: flex;
+}
+
+.clues-list-group {
+    margin-top: 2rem;
+    margin-left: .5rem;
+    padding-left: 2rem;
+    width: 50%;
+    border: 1px solid white;
+}
+
+.clues-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.general-grid-info {
+    list-style: none;
+    padding-left: .4rem;;
 }

@@ -7,6 +7,13 @@ export enum Orientation {
 };
 
 export type Fill = Array<Array<Square>>;
+export type Words = Array<Word>;
+
+export type Word = {
+  squares: Array<Square>;
+  wordNo: number,
+  orientation: Orientation,
+};
 
 type Grid = {
   height: number,
@@ -16,7 +23,8 @@ type Grid = {
   xPos: number,
   yPos: number,
   answerCount: number,
-  commandStack: Array<GridCommand>
+  commandStack: Array<GridCommand>,
+  words: Words,
 };
 
 export default Grid;

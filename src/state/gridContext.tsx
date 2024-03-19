@@ -12,6 +12,7 @@ export const GridActions = {
   moveright: 'moveright',
   moveup: 'moveup',
   movedown: 'movedown',
+  moveNext: 'movenext',
   click: 'click',
   toggleOrientation: 'toggleOrientation',
 };
@@ -22,7 +23,8 @@ export type GridReducerPayload = {
   value: string
 };
 
-const gridReducer = (state: Grid, action: {type: string, payload: GridReducerPayload}): Grid => {
+const gridReducer = (state: Grid, action: {type: string,
+                                           payload: GridReducerPayload}): Grid => {
   const payload: GridReducerPayload = action.payload;
 
   switch(action.type) {
