@@ -112,3 +112,16 @@ input[data-current=true] {
     list-style: none;
     padding-left: .4rem;;
 }
+
+.modal {
+    position: relative;
+    max-width: 20rem;
+    padding: 2rem;
+    border: 0;
+    border-radius: .5rem;
+    box-shadow: 0 0 0.5rem .25rem hsl(0 0% 0% / 10%);
+}
+
+.modal::backdrop {
+    background: hsl(0 0% 0% / 50%);
+}
