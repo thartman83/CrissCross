@@ -1,6 +1,5 @@
 import { getNextWord, getWordsRow } from "../gridUtilities";
-import {SquareState} from "../../types/square";
-import { Orientation, Fill } from "../../types/grid";
+import { Orientation, Fill, SquareState } from "../../types/grid";
 
 type Matrix = Array<Array<[number,number]>>;
 
@@ -11,7 +10,7 @@ const matrix2Fill = (matrix: Matrix): Fill => {
       const [state, wordNo] = s;
 
       return {
-        state: state === 1 ? SquareState.Black : SquareState.Letter,
+        state: state === 1 ? SquareState.Block : SquareState.Letter,
         answerNo: wordNo,
         x: i,
         y: j,
@@ -48,7 +47,7 @@ describe('gridUtilites unit tests', () => {
       const row = Array.apply(null, Array(15)).map((_: any, i: number) =>
         {
           return {
-            state: i == 5 ? SquareState.Black : SquareState.Letter,
+            state: i == 5 ? SquareState.Block : SquareState.Letter,
             answerNo: i === 0 ? 1 : 0,
             x: i,
             y: 0,

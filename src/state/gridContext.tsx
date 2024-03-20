@@ -1,5 +1,5 @@
 import Grid, { Orientation } from "../types/grid";
-import ToggleBlackCommand from "./toggleBlackCommand";
+import ToggleBlockCommand from "./toggleBlockCommand";
 import UpdateFillCommand from "./updateFillCommand";
 import MoveCommand from "./moveCommand";
 
@@ -7,7 +7,7 @@ export const GridActions = {
   keyDown: 'keydown',
   updateFill: 'updateFill',
   deleteFill: 'deleteFill',
-  toggleBlack: 'toggleBlack',
+  toggleBlock: 'toggleBlock',
   moveleft: 'moveleft',
   moveright: 'moveright',
   moveup: 'moveup',
@@ -28,8 +28,8 @@ const gridReducer = (state: Grid, action: {type: string,
   const payload: GridReducerPayload = action.payload;
 
   switch(action.type) {
-  case GridActions.toggleBlack:
-    return new ToggleBlackCommand(payload.x, payload.y).do(state);
+  case GridActions.toggleBlock:
+    return new ToggleBlockCommand(payload.x, payload.y).do(state);
   case GridActions.updateFill:
     return new MoveCommand(state.xPos, state.yPos+1,
                           state.orientation).do(new UpdateFillCommand(payload.x, payload.y, payload.value).do(state));

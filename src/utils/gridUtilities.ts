@@ -1,5 +1,4 @@
-import Grid, { Orientation, Word, Words, Fill } from "../types/grid";
-import Square, { SquareState } from "../types/square";
+import Grid, { Orientation, Word, Words, Fill, Square, SquareState } from "../types/grid";
 
 export const findSymmetrySquare =
   (x: number, y: number, state: Grid): { x: number, y: number } => {
@@ -45,9 +44,9 @@ export const fillAnswerNos = (grid: Grid): Grid => {
 
   const newFill = grid.fill.map((row: Array<Square>, i) => {
     return row.map((square: Square, j: number) => {
-      const num = ((grid.fill[i][j].state !== SquareState.Black) &&
-        (i == 0 || grid.fill[i - 1][j].state === SquareState.Black ||
-          j == 0 || grid.fill[i][j - 1].state === SquareState.Black))
+      const num = ((grid.fill[i][j].state !== SquareState.Block) &&
+        (i == 0 || grid.fill[i - 1][j].state === SquareState.Block ||
+          j == 0 || grid.fill[i][j - 1].state === SquareState.Block))
         ? answerCount++ : 0;
       return {
         ...square,
@@ -75,7 +74,7 @@ export const fillCurrentHighlighted = (grid: Grid): Grid => {
 
   if (grid.orientation === Orientation.across) {
     while (curY < grid.width &&
-      grid.fill[curX][curY].state != SquareState.Black) {
+      grid.fill[curX][curY].state != SquareState.Block) {
       newFill[curX][curY] = {
         ...newFill[curX][curY],
         current: true
@@ -87,7 +86,7 @@ export const fillCurrentHighlighted = (grid: Grid): Grid => {
     curY = grid.yPos;
 
     while (curY >= 0 &&
-      grid.fill[curX][curY].state != SquareState.Black) {
+      grid.fill[curX][curY].state != SquareState.Block) {
       newFill[curX][curY] = {
         ...newFill[curX][curY],
         current: true
@@ -96,7 +95,7 @@ export const fillCurrentHighlighted = (grid: Grid): Grid => {
     }
   } else {
     while (curX < grid.width &&
-      grid.fill[curX][curY].state != SquareState.Black) {
+      grid.fill[curX][curY].state != SquareState.Block) {
       newFill[curX][curY] = {
         ...newFill[curX][curY],
         current: true
@@ -108,7 +107,7 @@ export const fillCurrentHighlighted = (grid: Grid): Grid => {
     curY = grid.yPos;
 
     while (curX >= 0 &&
-      grid.fill[curX][curY].state != SquareState.Black) {
+      grid.fill[curX][curY].state != SquareState.Block) {
       newFill[curX][curY] = {
         ...newFill[curX][curY],
         current: true
@@ -133,7 +132,7 @@ export const getNextWord =
 
     const retRow = [...row];
     let cur = retRow.shift() || null;
-    while (cur !== null && cur.state != SquareState.Black) {
+    while (cur !== null && cur.state != SquareState.Block) {
       if (word.wordNo == 0) {
         word.wordNo = cur.answerNo;
       }

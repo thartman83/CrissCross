@@ -1,5 +1,20 @@
 import GridCommand from "./gridCommand";
-import Square from "./square";
+
+export enum SquareState {
+  Letter = 0,
+  Block,
+  Rebus
+};
+
+export type Square = {
+  state: SquareState,
+  value: string,
+  x: number,
+  y: number,
+  answerNo: number,
+  focus: boolean,
+  current: boolean,
+};
 
 export enum Orientation {
   across = 0,

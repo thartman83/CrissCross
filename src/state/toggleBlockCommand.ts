@@ -1,9 +1,8 @@
-import Grid, { Fill } from "../types/grid";
-import GridCommand from "../types/gridCommand";
-import { SquareState } from "../types/square";
+import Grid, { Fill, SquareState } from "../types/grid.tsx";
+import GridCommand from "../types/gridCommand.tsx";
 import { fillAnswerNos, findSymmetrySquare, fillCurrentHighlighted } from "../utils/gridUtilities.ts";
 
-class ToggleBlackCommand implements GridCommand {
+class ToggleBlockCommand implements GridCommand {
   private _x: number;
   private _y: number;
 
@@ -37,7 +36,7 @@ class ToggleBlackCommand implements GridCommand {
     const symPos = findSymmetrySquare(this._x, this._y, grid);
     const state = newFill[this._x][this._y].state;
     const newState =
-          state === SquareState.Black ? SquareState.Letter : SquareState.Black;
+          state === SquareState.Block ? SquareState.Letter : SquareState.Block;
     const newSquare = {
       ...grid.fill[this._x][this._y],
       state: newState
@@ -55,4 +54,4 @@ class ToggleBlackCommand implements GridCommand {
   }
 }
 
-export default ToggleBlackCommand;
+export default ToggleBlockCommand;

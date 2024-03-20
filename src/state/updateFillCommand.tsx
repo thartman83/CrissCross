@@ -1,6 +1,5 @@
-import Grid, {Fill} from '../types/grid';
+import Grid, {Fill, Square} from '../types/grid';
 import GridCommand from '../types/gridCommand';
-import Square from '../types/square';
 
 
 class UpdateFillCommand implements GridCommand {

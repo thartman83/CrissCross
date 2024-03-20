@@ -1,6 +1,5 @@
 import { ChangeEvent, Dispatch, useEffect, useRef } from "react";
-import Grid from "../../types/grid";
-import { SquareState } from "../../types/square";
+import Grid, { SquareState } from "../../types/grid";
 import { GridActions, GridReducerPayload } from "../../state/gridContext";
 
 type SquareArgs = {
@@ -10,7 +9,8 @@ type SquareArgs = {
   state: SquareState,
   autofocus: boolean,
   answerNo: number,
-  gridDispatch: Dispatch<Grid>
+  gridDispatch: Dispatch<Grid>,
+  current: boolean
 };
 
 const SquareInput = ({value, state, x, y, answerNo, gridDispatch,
@@ -45,7 +45,7 @@ const SquareInput = ({value, state, x, y, answerNo, gridDispatch,
       gridDispatch({ type: GridActions.updateFill, payload: payload});
       e.preventDefault();
     } else if(e.key === '.') {
-      gridDispatch({ type: GridActions.toggleBlack, payload: payload});
+      gridDispatch({ type: GridActions.toggleBlock, payload: payload});
       e.preventDefault();
     } else if(key === 'BACKSPACE'
               || key === 'DELETE') {
@@ -78,7 +78,7 @@ const SquareInput = ({value, state, x, y, answerNo, gridDispatch,
              data-current={current} />
       <input value={value} type="text"
              className="grid-square"
-             readOnly={state == SquareState.Black}
+             readOnly={state == SquareState.Block}
              data-xpos={x} data-ypos={y}
              maxLength={1}
              onChange={onChangeHandler}
