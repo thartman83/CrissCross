@@ -2,6 +2,7 @@ import Grid, { Orientation } from "../types/grid";
 import ToggleBlockCommand from "./toggleBlockCommand";
 import UpdateFillCommand from "./updateFillCommand";
 import MoveCommand from "./moveCommand";
+import NextWordCommand from "./nextWordCommand";
 
 export const GridActions = {
   keyDown: 'keydown',
@@ -15,6 +16,7 @@ export const GridActions = {
   moveNext: 'movenext',
   click: 'click',
   toggleOrientation: 'toggleOrientation',
+  nextWord: 'nextWord',
 };
 
 export type GridReducerPayload = {
@@ -63,6 +65,8 @@ const gridReducer = (state: Grid, action: {type: string,
     return new MoveCommand(state.xPos, state.yPos,
                            state.orientation === Orientation.across ?
                            Orientation.down : Orientation.across).do(state);
+  case GridActions.nextWord:
+    return new NextWordCommand().do(state);
   default:
     return state;
   };

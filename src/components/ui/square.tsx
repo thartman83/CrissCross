@@ -13,8 +13,7 @@ type SquareArgs = {
   current: boolean
 };
 
-const SquareInput = ({value, state, x, y, answerNo, gridDispatch,
-                      autofocus, current}: SquareArgs) => {
+const SquareInput = ({value, state, x, y, answerNo, gridDispatch, autofocus, current}: SquareArgs) => {
 
   const inputEl = useRef(null);
 
@@ -24,7 +23,7 @@ const SquareInput = ({value, state, x, y, answerNo, gridDispatch,
     }
   });
 
-  const onChangeHandler = (e: ChangeEvent) => {
+  const onChangeHandler = (_: ChangeEvent) => {
   };
 
   const onKeyDownHandler = (e: KeyboardEvent) => {
@@ -51,7 +50,7 @@ const SquareInput = ({value, state, x, y, answerNo, gridDispatch,
               || key === 'DELETE') {
       payload.value = '';
       gridDispatch({ type: GridActions.deleteFill, payload: {
-        x: x, y: y, value: e.target.value
+        x: x, y: y, value: e?.target?.value
       }});
     } else if (key === 'ARROWRIGHT') {
       gridDispatch({ type: GridActions.moveright});
@@ -64,12 +63,17 @@ const SquareInput = ({value, state, x, y, answerNo, gridDispatch,
     } else if (key === ' ') {
       gridDispatch({ type: GridActions.toggleOrientation});
     } else if (key === 'TAB') {
-      gridDispatch({ type: GridActions.toggleOrientation});
+      gridDispatch({ type: GridActions.nextWord});
+      e.preventDefault();
     }
   };
 
-  const onClickHandler = (e: any) => {
+  const onClickHandler = (_: any) => {
     gridDispatch({ type: GridActions.click, payload: {x:x, y:y}});
+  };
+
+  const onDoubleClickHandler = (_, any) => {
+    gridDispatch({type: GridActions.toggleOrientation});
   };
 
   return (
@@ -84,6 +88,7 @@ const SquareInput = ({value, state, x, y, answerNo, gridDispatch,
              onChange={onChangeHandler}
              onKeyDown={onKeyDownHandler}
              onClick={onClickHandler}
+             onDoubleClick={onDoubleClickHandler}
              ref={inputEl}
              data-current={current}
       />

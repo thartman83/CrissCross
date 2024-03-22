@@ -1,12 +1,11 @@
 import { useReducer, useState } from 'react';
 import './App.css';
-import GridLayout from './components/layouts/gridLayout';
+import GridLayout from "./components/layouts/gridLayout";
 import GridSummary from './components/ui/gridSummary';
 import gridReducer from './state/gridContext';
 import { initGrid } from './utils/gridUtilities.ts';
 import ClueLayout from './components/layouts/clueLayout.tsx';
 import HelpModal from './components/layouts/helpModal.tsx';
-import CurrentWord from './components/layouts/currentWord.tsx';
 
 const defaultGridSize = 15;
 

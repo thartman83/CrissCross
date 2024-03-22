@@ -1,0 +1,10 @@
+#+TITLE: CrissCross - Crossword Construtor
+#+AUTHOR: Tom Hartman
+* Installation
+
+Currently this software is in active development to view progress run the following commands after cloning the repository:
+
+#+begin_src shell
+npm install
+npm run dev
+#+end_src

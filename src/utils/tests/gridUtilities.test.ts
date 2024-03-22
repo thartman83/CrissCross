@@ -1,9 +1,9 @@
-import { fillAnswerNos, getNextWord, getWordByPosition,
+import { getNextWord, getWordByPosition,
          getWordsRow, initGrid } from "../gridUtilities";
 import Grid, { Orientation, Fill, SquareState } from "../../types/grid";
 
 type Matrix = Array<Array<[number,number]>>;
-type FillMatrix = Array<Array<number>>;
+//type FillMatrix = Array<Array<number>>;
 
 // helper
 const matrix2Fill = (matrix: Matrix): Fill => {
@@ -24,34 +24,34 @@ const matrix2Fill = (matrix: Matrix): Fill => {
   });
 };
 
-const matrix2Gird = (matrix: FillMatrix): Grid => {
-  const fill: Fill = matrix.map((row: Array<number>, i: number) => {
-    return row.map((s: number, j: number) => {
-      return {
-        state: s === 1 ? SquareState.Block : SquareState.Letter,
-        answerNo: 0,
-        x: i,
-        y: j,
-        current: false,
-        focus: false,
-        value: ''
-      };
-    });
-  });
+// const matrix2Gird = (matrix: FillMatrix): Grid => {
+//   const fill: Fill = matrix.map((row: Array<number>, i: number) => {
+//     return row.map((s: number, j: number) => {
+//       return {
+//         state: s === 1 ? SquareState.Block : SquareState.Letter,
+//         answerNo: 0,
+//         x: i,
+//         y: j,
+//         current: false,
+//         focus: false,
+//         value: ''
+//       };
+//     });
+//   });
 
-  return fillAnswerNos({
-    fill: fill,
-    xPos: 0,
-    yPos: 0,
-    orientation: Orientation.across,
-    width: fill.length,
-    height: fill[0].length,
-    answerCount: 0,
-    commandStack: [],
-    words: [],
-    currentWordIdx: 0,
-  });
-}
+//   return fillAnswerNos({
+//     fill: fill,
+//     xPos: 0,
+//     yPos: 0,
+//     orientation: Orientation.across,
+//     width: fill.length,
+//     height: fill[0].length,
+//     answerCount: 0,
+//     commandStack: [],
+//     words: [],
+//     currentWordIdx: 0,
+//   });
+// }
 
 
 describe('gridUtilites unit tests', () => {
@@ -153,7 +153,9 @@ describe('gridUtilites unit tests', () => {
     it('should return 1 across on a blank grid at position 0,0 across', () => {
       const grid = initGrid(3,3);
 
-      const word = getWordByPosition(grid);
+      const wordIdx = getWordByPosition(grid.words, grid.xPos, grid.yPos,
+                                        grid.orientation);
+      const word = grid.words[wordIdx];
       expect(word.orientation).toBe(Orientation.across);
       expect(word.wordNo).toBe(1);
       expect(word.squares[0].x).toBe(0);
@@ -167,7 +169,9 @@ describe('gridUtilites unit tests', () => {
         yPos: 1,
       };
 
-      const word = getWordByPosition(grid);
+      const wordIdx = getWordByPosition(grid.words, grid.xPos, grid.yPos,
+                                        grid.orientation);
+      const word = grid.words[wordIdx];
       expect(grid.words.length).toBe(6);
       expect(word.orientation).toBe(Orientation.across);
       expect(word.wordNo).toBe(4);
@@ -183,7 +187,9 @@ describe('gridUtilites unit tests', () => {
         yPos: 1,
       };
 
-      const word = getWordByPosition(grid);
+      const wordIdx = getWordByPosition(grid.words, grid.xPos, grid.yPos,
+                                        grid.orientation);
+      const word = grid.words[wordIdx];
       expect(grid.words.length).toBe(6);
       expect(word.orientation).toBe(Orientation.down);
       expect(word.wordNo).toBe(2);
