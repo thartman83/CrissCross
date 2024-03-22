@@ -7,6 +7,7 @@ class NextWordCommand implements GridCommand {
   do(grid: Grid): Grid {
     throw new Error("Method not implemented.");
   }
+
   undo(grid: Grid): Grid {
     throw new Error("Method not implemented.");
   }

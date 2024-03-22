@@ -1,4 +1,5 @@
-import Grid, { Orientation, Word, Words, Fill, Square, SquareState } from "../types/grid";
+import Grid, { Orientation, Word, Words, Fill,
+               Square, SquareState } from "../types/grid";
 
 export const findSymmetrySquare =
   (x: number, y: number, state: Grid): { x: number, y: number } => {
@@ -34,9 +35,10 @@ export const initGrid = (width: number, height: number): Grid => {
     orientation: Orientation.across,
     commandStack: [],
     words: [],
+    currentWordIdx: 0
   };
 
-  return fillCurrentHighlighted(fillAnswerNos(newGrid));
+  return fillAnswerNos(newGrid);
 };
 
 export const fillAnswerNos = (grid: Grid): Grid => {
@@ -55,120 +57,78 @@ export const fillAnswerNos = (grid: Grid): Grid => {
     });
   });
 
+  const words = getWords(newFill);
+  const currentWordIdx = getWordByPosition(words, grid.xPos, grid.yPos,
+                                          grid.orientation);
+
   return {
     ...grid,
     fill: newFill,
-    words: getWords(newFill)
+    words: words,
+    currentWordIdx: currentWordIdx
   };
 };
 
-export const fillCurrentHighlighted = (grid: Grid): Grid => {
-  let curX = grid.xPos;
-  let curY = grid.yPos;
-  const newFill = grid.fill.map((row, _) => row.map((square, _) => {
-    return {
-      ...square,
-      current: false
-    };
-  }));
+export const getNextWord = (row: Array<Square>, orientation: Orientation): [Word | null, Array<Square>] => {
+  const word: Word = {
+    squares: [],
+    orientation: orientation,
+    wordNo: 0
+  };
 
-  if (grid.orientation === Orientation.across) {
-    while (curY < grid.width &&
-      grid.fill[curX][curY].state != SquareState.Block) {
-      newFill[curX][curY] = {
-        ...newFill[curX][curY],
-        current: true
-      };
-      curY++;
+  const retRow = [...row];
+  let cur = retRow.shift() || null;
+  while (cur !== null && cur.state != SquareState.Block) {
+    if (word.wordNo == 0) {
+      word.wordNo = cur.answerNo;
     }
-
-    curX = grid.xPos;
-    curY = grid.yPos;
-
-    while (curY >= 0 &&
-      grid.fill[curX][curY].state != SquareState.Block) {
-      newFill[curX][curY] = {
-        ...newFill[curX][curY],
-        current: true
-      };
-      curY--;
-    }
-  } else {
-    while (curX < grid.width &&
-      grid.fill[curX][curY].state != SquareState.Block) {
-      newFill[curX][curY] = {
-        ...newFill[curX][curY],
-        current: true
-      };
-      curX++;
-    }
-
-    curX = grid.xPos;
-    curY = grid.yPos;
-
-    while (curX >= 0 &&
-      grid.fill[curX][curY].state != SquareState.Block) {
-      newFill[curX][curY] = {
-        ...newFill[curX][curY],
-        current: true
-      };
-      curX--;
-    }
+    word.squares.push(cur);
+    cur = retRow.shift() || null;
   }
 
-  return {
-    ...grid,
-    fill: newFill,
-  };
+  return [word.squares.length === 0 ? null : word, retRow];
 };
 
-export const getNextWord =
-  (row: Array<Square>, orientation: Orientation): [Word | null, Array<Square>] => {
-    const word: Word = {
-      squares: [],
-      orientation: orientation,
-      wordNo: 0
-    };
+export const getWordsRow =(row: Array<Square>, orientation: Orientation): Words => {
+  let words: Words = [];
+  let word;
+  let retRow = [...row];
 
-    const retRow = [...row];
-    let cur = retRow.shift() || null;
-    while (cur !== null && cur.state != SquareState.Block) {
-      if (word.wordNo == 0) {
-        word.wordNo = cur.answerNo;
-      }
-      word.squares.push(cur);
-      cur = retRow.shift() || null;
-    }
+  while (retRow.length > 0) {
+    [word, retRow] = getNextWord(retRow, orientation);
+    if (word !== null)
+      words = [...words, word];
+  }
 
-    return [word.squares.length === 0 ? null : word, retRow];
+  return words;
+};
+
+export const getWordByPosition = (words: Words, x: number, y: number, orientation: Orientation): number => {
+  const wordHasIndex = (word: Word, x: number, y: number,
+                         orientation: Orientation) => {
+    return word.squares.findIndex((square: Square, _: number) => {
+      return square.x === x && square.y === y && word.orientation === orientation;
+    }) !== -1;
   };
 
-export const getWordsRow =
-  (row: Array<Square>, orientation: Orientation): Words => {
-    let words: Words = [];
-    let word;
-    let retRow = [...row];
+  const ret = words.findIndex((word: Word, _: number) => {
+    return wordHasIndex(word, x, y, orientation);
+  });
 
-    while (retRow.length > 0) {
-      [word, retRow] = getNextWord(retRow, orientation);
-      if (word !== null)
-        words = [...words, word];
-    }
-
-    return words;
-  };
+  return ret;
+};
 
 export const getWords = (fill: Fill): Array<Word> => {
-  const acrossWords = fill.map((row: Array<Square>, _) =>
+  const acrossWords = fill.flatMap((row: Array<Square>, _) =>
     getWordsRow(row, Orientation.across)
-  );
+  )
 
   // transpose the matrix for columns
   const columns = fill[0].map((_, colIndex) => fill.map(row => row[colIndex]));
 
-  const downWords = columns.map((col: Array<Square>, _) =>
+  const downWords = columns.flatMap((col: Array<Square>, _) =>
     getWordsRow(col, Orientation.down)
-  );
+  )
 
   return Array<Word>().concat(...acrossWords).concat(...downWords);
 };

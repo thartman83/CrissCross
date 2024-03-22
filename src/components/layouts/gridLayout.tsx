@@ -1,5 +1,6 @@
 import Grid from "../../types/grid";
 import SquareInput from "../ui/square";
+import CurrentWord from "./currentWord";
 
 const GridLayout = ({grid, dispatch}: {grid: Grid, dispatch: any}) => {
   return <div className="grid">
@@ -23,6 +24,7 @@ const GridLayout = ({grid, dispatch}: {grid: Grid, dispatch: any}) => {
                       </div>;
              })
            }
+           <CurrentWord grid={grid} />
          </div>;
 };
 

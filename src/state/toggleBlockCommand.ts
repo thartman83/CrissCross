@@ -1,6 +1,6 @@
-import Grid, { Fill, SquareState } from "../types/grid.tsx";
+import Grid, { Fill, SquareState } from "../types/grid";
 import GridCommand from "../types/gridCommand.tsx";
-import { fillAnswerNos, findSymmetrySquare, fillCurrentHighlighted } from "../utils/gridUtilities.ts";
+import { fillAnswerNos, findSymmetrySquare } from "../utils/gridUtilities.ts";
 
 class ToggleBlockCommand implements GridCommand {
   private _x: number;
@@ -13,11 +13,11 @@ class ToggleBlockCommand implements GridCommand {
 
   do(grid: Grid): Grid {
 
-    return fillCurrentHighlighted(fillAnswerNos({
+    return fillAnswerNos({
       ...grid,
       fill: this.toggle(grid),
       commandStack: [...grid.commandStack, this]
-    }));
+    });
   }
 
   undo(grid: Grid): Grid {

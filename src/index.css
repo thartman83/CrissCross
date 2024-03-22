@@ -125,3 +125,29 @@ input[data-current=true] {
 .modal::backdrop {
     background: hsl(0 0% 0% / 50%);
 }
+
+.currentWord-layout {
+    margin-top: 1rem;
+    font-size: 1.25rem;
+}
+
+.currentWord-layout span {
+    margin-right: .5rem;
+}
+
+.currentWord-word {
+    position: relative;
+    top: -.25rem;
+}
+
+.word-square {
+    text-transform: uppercase;
+    padding-bottom: .25rem;
+    text-align: center;
+    color: white;
+    background-color: unset;
+    border-right: unset;
+    border-bottom: 1px solid white;
+    margin-right: .15rem;
+    width: 1.5rem;
+}

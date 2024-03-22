@@ -40,6 +40,7 @@ type Grid = {
   answerCount: number,
   commandStack: Array<GridCommand>,
   words: Words,
+  currentWordIdx: number
 };
 
 export default Grid;

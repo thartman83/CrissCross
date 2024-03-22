@@ -6,6 +6,7 @@ import gridReducer from './state/gridContext';
 import { initGrid } from './utils/gridUtilities.ts';
 import ClueLayout from './components/layouts/clueLayout.tsx';
 import HelpModal from './components/layouts/helpModal.tsx';
+import CurrentWord from './components/layouts/currentWord.tsx';
 
 const defaultGridSize = 15;
 

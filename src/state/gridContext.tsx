@@ -34,11 +34,8 @@ const gridReducer = (state: Grid, action: {type: string,
     return new MoveCommand(state.xPos, state.yPos+1,
                           state.orientation).do(new UpdateFillCommand(payload.x, payload.y, payload.value).do(state));
   case GridActions.deleteFill:
-    if(payload.value === '')
-      return new MoveCommand(payload.x, payload.y-1,
+    return new MoveCommand(payload.x, payload.y-1,
                             state.orientation).do(new UpdateFillCommand(payload.x, payload.y, '').do(state));
-    else
-      return new UpdateFillCommand(payload.x, payload.y, '').do(state);
   case GridActions.moveleft:
     if(state.yPos > 0)
       return new MoveCommand(state.xPos, state.yPos-1,
