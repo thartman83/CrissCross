@@ -1,4 +1,4 @@
-import Grid, { Orientation, Word } from "../types/grid";
+import Grid, { Orientation } from "../types/grid";
 import GridCommand from "../types/gridCommand";
 import { getWordByPosition } from "../utils/gridUtilities";
 

@@ -127,8 +127,9 @@ export const getWords = (fill: Fill): Array<Word> => {
   const columns = fill[0].map((_, colIndex) => fill.map(row => row[colIndex]));
 
   const downWords = columns.flatMap((col: Array<Square>, _) =>
-    getWordsRow(col, Orientation.down)
-  )
+    getWordsRow(col, Orientation.down)).sort((a: Word, b: Word) => {
+      return a.wordNo < b.wordNo ? -1 : 1;
+    });
 
   return Array<Word>().concat(...acrossWords).concat(...downWords);
 };
