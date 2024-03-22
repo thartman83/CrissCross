@@ -25,19 +25,26 @@ export type GridReducerPayload = {
   value: string
 };
 
-const gridReducer = (state: Grid, action: {type: string,
-                                           payload: GridReducerPayload}): Grid => {
+const gridReducer = (state: Grid, action: {type: string, payload: GridReducerPayload}): Grid => {
   const payload: GridReducerPayload = action.payload;
+  let newCoords: [number, number] = [0,0];
+
 
   switch(action.type) {
   case GridActions.toggleBlock:
     return new ToggleBlockCommand(payload.x, payload.y).do(state);
   case GridActions.updateFill:
-    return new MoveCommand(state.xPos, state.yPos+1,
+    newCoords = state.orientation == Orientation.across ?
+      [state.xPos, state.yPos + 1] : [state.xPos + 1, state.yPos];
+
+    return new MoveCommand(...newCoords,
                           state.orientation).do(new UpdateFillCommand(payload.x, payload.y, payload.value).do(state));
   case GridActions.deleteFill:
-    return new MoveCommand(payload.x, payload.y-1,
-                            state.orientation).do(new UpdateFillCommand(payload.x, payload.y, '').do(state));
+    newCoords = state.orientation == Orientation.across ?
+      [state.xPos, state.yPos - 1] : [state.xPos - 1, state.yPos];
+
+    return new MoveCommand(...newCoords,
+                           state.orientation).do(new UpdateFillCommand(payload.x, payload.y, '').do(state));
   case GridActions.moveleft:
     if(state.yPos > 0)
       return new MoveCommand(state.xPos, state.yPos-1,
