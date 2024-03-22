@@ -1,0 +1,17 @@
+.help-commands-list {
+    list-style: none;
+    padding: 0;
+}
+
+.help-commands-list li {
+    margin-bottom: .5rem;
+}
+
+span.help-key {
+    border: 2px solid black;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    border-radius: 3px;;
+    margin-right: .5rem;
+    font-weight: bold;
+}
