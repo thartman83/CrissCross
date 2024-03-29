@@ -68,13 +68,17 @@ label[data-answerno]::before {
     font-weight: bold;
 }
 
-input[data-current=true] {
+input[data-highlight=true] {
     background-color: lightblue;
 }
 
 .grid-square:read-only {
     background-color: black;
     border-color: black;
+}
+
+.grid-square:read-only:focus {
+    border-color: white;
 }
 
 .grid-summary {

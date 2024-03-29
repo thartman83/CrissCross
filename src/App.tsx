@@ -1,38 +1,34 @@
-import { useReducer, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import GridLayout from "./components/layouts/gridLayout";
-import GridSummary from './components/ui/gridSummary';
-import gridReducer from './state/gridContext';
-import { initGrid } from './utils/gridUtilities.ts';
-import ClueLayout from './components/layouts/clueLayout.tsx';
 import HelpModal from './components/layouts/helpModal.tsx';
-
-const defaultGridSize = 15;
+import CrosswordContextProvider from './context/crosswordContext.tsx';
 
 function App() {
-  const [grid, dispatch] = useReducer(gridReducer, initGrid(defaultGridSize,
-                                                            defaultGridSize));
-
   const [openHelpModal, setOpenHelpModal] = useState(false);
+  const [openSettingsModal, setOpenSettingsModal] = useState(false);
 
   const onHelpButtonClickHandler = () => {
     setOpenHelpModal(!openHelpModal);
+  };
+
+  const onSettingsClickHandler = () => {
+    setOpenSettingsModal(!openSettingsModal);
   };
 
   return (
     <>
       <div className='header'>CrissCross
         <div className='header-icons'>
-          <button>&#10227;</button>
+          <button title="undo">&#8634;</button>
+          <button onClick={onSettingsClickHandler} title="settings">&#9881;</button>
           <button onClick={onHelpButtonClickHandler}>?</button>
         </div>
       </div>
       <div className='main'>
-        <GridLayout grid={grid} dispatch={dispatch} />
-        <GridSummary grid={grid} />
-      </div>
-      <div className='clues'>
-        <ClueLayout grid={grid} />
+        <CrosswordContextProvider>
+          <GridLayout/>
+        </CrosswordContextProvider>
       </div>
       <HelpModal isOpen={openHelpModal} setIsOpen={setOpenHelpModal}/>
     </>

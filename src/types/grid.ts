@@ -1,5 +1,3 @@
-import GridCommand from "./gridCommand";
-
 export enum SquareState {
   Letter = 0,
   Block,
@@ -35,10 +33,8 @@ type Grid = {
   width: number,
   fill: Fill,
   orientation: Orientation,
-  xPos: number,
-  yPos: number,
-  answerCount: number,
-  commandStack: Array<GridCommand>,
+  x: number,
+  y: number,
   words: Words,
   currentWordIdx: number
 };

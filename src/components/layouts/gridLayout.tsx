@@ -1,36 +1,35 @@
-import Grid, { Square } from "../../types/grid";
-import SquareInput from "../ui/square";
-import CurrentWord from "./currentWord";
+import SquareInput from "../ui/squareInput";
+import { useCrossword } from "../../context/crosswordContext";
+import { answerGrid, currentWordGrid } from "../../utils/gridUtilities";
 
-export const GridLayout = ({ grid, dispatch }: { grid: Grid; dispatch: any; }) => {
-  const squareInCurrentWord = (x: number, y: number) => {
-    if(grid.currentWordIdx === -1)
-      return false;
+export const GridLayout = () => {
+  const {crossword} = useCrossword();
 
-    const currentWord = grid.words[grid.currentWordIdx];
-    return currentWord.squares.findIndex((s: Square, _: number) => {
-      return s.x === x && s.y === y;
-    }) !== -1;
-  };
+  // grid with corresponding word numbers for the grid
+  const wordNos = answerGrid(crossword);
 
-  return <div className="grid">
-    {grid.fill.map((_, i) => {
-      return <div className='grid-row' key={`row-${i}`}>
-        {grid.fill.map((_, j) => {
-          const focus = (i == grid.xPos && j == grid.yPos);
-          return <SquareInput x={i} y={j}
-                              state={grid.fill[i][j].state}
-                              value={grid.fill[i][j].value}
-                              answerNo={grid.fill[i][j].answerNo}
-                              key={`square-${i}x${j}`}
-                              gridDispatch={dispatch}
-                              autofocus={focus}
-                              current={squareInCurrentWord(i,j)} />;
-        })}
-      </div>;
-    })}
-    <CurrentWord grid={grid} />
-  </div>;
+  // grid with the current word highlighted
+  const currentWord = currentWordGrid(crossword);
+
+  return (
+    <div className="grid">
+      {
+        crossword.grid.map((row, i) =>
+          <div className="grid-row" key={`grid-row-${i}`}>
+            {
+              row.map((val, j) =>
+                <SquareInput x={i} y={j} value={val} key={`square-${i}-${j}`}
+                             focus={crossword.position.x == i &&
+                                    crossword.position.y == j}
+                             highlight={currentWord[i][j] == 1}
+                             wordNo={wordNos[i][j]}
+                />)
+            }
+          </div>
+        )
+      }
+    </div>
+  );
 };
 
 export default GridLayout;

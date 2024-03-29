@@ -16,19 +16,15 @@ class UpdateFillCommand implements GridCommand {
   do(grid: Grid): Grid {
     return {
       ...grid,
-      fill: this.updateFill(grid),
-      commandStack: [...grid.commandStack, this]
+      fill: this.updateFill(grid)
     };
   }
 
   undo(grid: Grid): Grid {
-    const newStack = [...grid.commandStack];
-    newStack.pop();
     this._value = '';
     return {
       ...grid,
-      fill: this.updateFill(grid),
-      commandStack: newStack
+      fill: this.updateFill(grid)
     };
   }
 
