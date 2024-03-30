@@ -19,7 +19,7 @@ export enum MoveDirection {
 export type CrosswordContextType = {
   crossword: Crossword,
   onKeyDown: (e: SquareKeyDownEvent) => void
-  onClick: (e: SquareMouseEvent) => void
+  onClick: (x: number, y: number, e: SquareMouseEvent) => void
 };
 
 const CrosswordContext = createContext<CrosswordContextType|undefined>(undefined);
@@ -101,9 +101,7 @@ const CrosswordContextProvider = ({children}: {children: ReactNode}) => {
     }
   };
 
-  const onClick = (e: SquareMouseEvent) => {
-    const x: number = Number(e.currentTarget.attributes['data-xpos'].value);
-    const y: number = Number(e.currentTarget.attributes['data-ypos'].value);
+  const onClick = (x: number, y: number, e: SquareMouseEvent) => {
     if(e.type == 'click'){
         movePosition(x,y,MoveDirection.JUMP);
     } else if(e.type === 'dblclick') {

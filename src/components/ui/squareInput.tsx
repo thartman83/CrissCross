@@ -40,13 +40,13 @@ const SquareInput = ({value, x, y, focus, highlight, wordNo}: SquareArgs) => {
 
   // set the current position when an input is click
   const onClickHandler = (e: SquareMouseEvent) => {
-    onClick(e);
+    onClick(x,y,e);
     e.preventDefault();
   };
 
   // On double click switch the orientation of the cursor
   const onDoubleClickHandler = (e: SquareMouseEvent) => {
-    onClick(e);
+    onClick(x,y,e);
     e.preventDefault();
   };
 

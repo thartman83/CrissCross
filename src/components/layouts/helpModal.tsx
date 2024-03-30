@@ -1,7 +1,7 @@
 import Modal from "./modal";
 import "./helpModal.css";
 
-const HelpModal = ({isOpen, setIsOpen}) => {
+const HelpModal = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: (isOpen: boolean) => void}) => {
 
   const children = <>
                      Grid Commands

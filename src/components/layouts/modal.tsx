@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 type ModalProps = {
   isOpen: boolean,
   children: React.ReactNode;
+  closeModalHandler: () => void;
 };
 
 const Modal = ({isOpen, children, closeModalHandler}: ModalProps) => {
