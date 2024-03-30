@@ -1,29 +1,89 @@
-//import Crossword from "../types/crossword";
+import Crossword from "../types/crossword";
+import Orientation from "../types/orientation";
+import UpdateGridCommand from "./updateGridCommand";
+import MovePositionCommand from "./movePositionCommand";
+import ToggleOrientationCommand from "./toggleOrientationCommand";
+import DeleteFillCommand from "./deleteFillCommand";
+import ToggleBlockCommand from "./toggleBlockCommand";
 
 export const CrosswordActions = {
-  updateFill: 'updateFile',
+  updateFill: 'updateFill',
+  deleteFill: 'deleteFill',
+  movePosition: 'movePosition',
+  toggleOrientation: 'toggleOrientation',
+  toggleBlock: 'toggleBlock'
 };
 
 export type CrosswordActionPayload = {
   x: number,
   y: number,
-  value: string
+  value: string,
 };
 
-//const crosswordReducer = (crossword: Crossword, action: {type: string, payload: CrosswordActionPayload}) => {
-
-const crosswordReducer = (state, action) => {
-
+const crosswordReducer = (crossword: Crossword, action: {type: string, payload: CrosswordActionPayload}) => {
   const payload = action.payload;
   const actionType = action.type;
 
-  console.log('dispatching');
+  const getNextSquare = (x: number, y: number, orientation: Orientation):
+        [number, number] => {
+          return orientation === Orientation.across ?
+            [x, y + 1] : [x + 1, y];
+        };
+  const getPrevSquare = (x: number, y: number, orientation: Orientation):
+        [number, number] => {
+          return orientation === Orientation.across ?
+            [x, y - 1] : [x - 1, y];
+        };
+  const currentPos: [number, number] = [crossword.position.x, crossword.position.y];
+  const currentVal = crossword.grid[crossword.position.x][crossword.position.y];
 
   switch(actionType) {
-    case CrosswordActions.updateFill:
-      console.log('updating fill');
-      return crossword;
-    default:
+  case CrosswordActions.updateFill: {
+    const nextSquare = getNextSquare(...currentPos, crossword.orientation);
+    const moveCmd = MovePositionCommand(...nextSquare, ...currentPos);
+
+    const updateCmd = UpdateGridCommand(payload.x, payload.y, payload.value,
+                                        currentVal);
+
+    // check if we are updating a block square
+    if(currentVal === '.') {
+      const toggleCmd = ToggleBlockCommand(payload.x, payload.y);
+      return moveCmd.do(updateCmd.do(toggleCmd.do(crossword)));
+    }
+
+    // otherwise update an move on
+    return moveCmd.do(updateCmd.do(crossword));
+  }
+  case CrosswordActions.movePosition: {
+    const moveCmd = MovePositionCommand(payload.x, payload.y, ...currentPos);
+    return moveCmd.do(crossword);
+  }
+  case CrosswordActions.toggleOrientation: {
+    const toggleCmd = ToggleOrientationCommand();
+    return toggleCmd.do(crossword);
+  }
+  case CrosswordActions.deleteFill: {
+    const prevSquare = getPrevSquare(...currentPos, crossword.orientation);
+    const moveCmd = MovePositionCommand(...prevSquare, ...currentPos);
+
+    // check if we are removing a block square
+    if(currentVal === '.') {
+      const toggleCmd = ToggleBlockCommand(payload.x, payload.y);
+      return moveCmd.do(toggleCmd.do(crossword));
+    }
+
+    // otherwise simply delete the square
+    const deleteCmd = DeleteFillCommand(payload.x, payload.y, currentVal);
+    return moveCmd.do(deleteCmd.do(crossword));
+  }
+  case CrosswordActions.toggleBlock: {
+    const nextSquare = getNextSquare(...currentPos, crossword.orientation);
+    const moveCmd = MovePositionCommand(...nextSquare,
+                                        crossword.position.x, crossword.position.y);
+    const toggleBlockCmd = ToggleBlockCommand(payload.x, payload.y);
+    return moveCmd.do(toggleBlockCmd.do(crossword));
+  }
+  default:
       return crossword;
   }
 };

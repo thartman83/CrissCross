@@ -1,6 +1,5 @@
-import { KeyboardEvent, ChangeEvent } from 'react';
-import { useEffect, useRef } from "react";
-import { useCrossword, MoveDirection } from "../../context/crosswordContext";
+import { KeyboardEvent, MouseEvent, ChangeEvent, useRef, useEffect } from "react";
+import { useCrossword } from "../../context/crosswordContext";
 
 type SquareArgs = {
   value: string,
@@ -11,8 +10,9 @@ type SquareArgs = {
   wordNo: number,
 };
 
-type SquareKeyDown = KeyboardEvent<HTMLInputElement>;
+type SquareKeyDownEvent = KeyboardEvent<HTMLInputElement>;
 type SquareChangeEvent = ChangeEvent<HTMLInputElement>;
+type SquareMouseEvent = MouseEvent<HTMLInputElement>;
 
 const SquareInput = ({value, x, y, focus, highlight, wordNo}: SquareArgs) => {
   const inputEl = useRef<HTMLInputElement>(null);
@@ -23,38 +23,13 @@ const SquareInput = ({value, x, y, focus, highlight, wordNo}: SquareArgs) => {
     }
   });
 
-  const {updateFill, movePosition, toggleOrientation, deleteFill,
-         toggleBlock} = useCrossword();
+  const { onKeyDown, onClick } = useCrossword();
 
   // trap key events and fire them off to the crossword context for
   // processing
-  const onKeyDownHandler = (e: SquareKeyDown) => {
-
-    // Probably a better way of handling this than a massive switch
-    // block consider moving to a dictionary map
-    const key = e.key.toUpperCase();
-
-    // all letters and numbers are valid
-    if(/[A-Z0-9]/.test(key) && e.key.length === 1) {
-      updateFill(x, y, key);
-      e.preventDefault();
-    } else if(key === '.') {
-      toggleBlock(x, y);
-      e.preventDefault();
-    } else if(key === 'ARROWRIGHT') {
-      movePosition(x, y+1, MoveDirection.RIGHT);
-    } else if(key === 'ARROWLEFT') {
-      movePosition(x, y-1, MoveDirection.LEFT);
-    } else if(key === 'ARROWUP') {
-      movePosition(x-1, y, MoveDirection.UP);
-    } else if(key === 'ARROWDOWN') {
-      movePosition(x+1, y, MoveDirection.DOWN);
-    } else if(key === ' ') {
-      toggleOrientation();
-    } else if (key === 'DELETE' || key === 'BACKSPACE') {
-      deleteFill(x, y);
-      e.preventDefault();
-    }
+  const onKeyDownHandler = (e: SquareKeyDownEvent) => {
+    onKeyDown(e);
+    e.preventDefault();
   };
 
   // by default we don't want to do anything if we don't intend to
@@ -64,13 +39,15 @@ const SquareInput = ({value, x, y, focus, highlight, wordNo}: SquareArgs) => {
   };
 
   // set the current position when an input is click
-  const onClickHandler = () => {
-    movePosition(x, y, MoveDirection.JUMP);
+  const onClickHandler = (e: SquareMouseEvent) => {
+    onClick(e);
+    e.preventDefault();
   };
 
   // On double click switch the orientation of the cursor
-  const onDoubleClickHandler = () => {
-    toggleOrientation();
+  const onDoubleClickHandler = (e: SquareMouseEvent) => {
+    onClick(e);
+    e.preventDefault();
   };
 
   return (
