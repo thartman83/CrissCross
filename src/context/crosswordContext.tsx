@@ -3,9 +3,7 @@ import { KeyboardEvent, MouseEvent } from 'react';
 import Crossword from "../types/crossword";
 import Orientation from "../types/orientation";
 import crosswordReducer, { CrosswordActions} from "./crosswordReducer";
-
-const defaultHeight = 15;
-const defaultWidth = 15;
+import { useApp } from "./applicationContext";
 
 type SquareKeyDownEvent = KeyboardEvent<HTMLInputElement>;
 type SquareMouseEvent = MouseEvent<HTMLInputElement>;
@@ -37,14 +35,17 @@ export const useCrossword = () => {
 };
 
 const initCrossword = (): Crossword => {
+  const app = useApp();
+
   return {
     title: '',
     author: '',
     position: {x:0, y:0},
     orientation: Orientation.across,
-    height: defaultHeight,
-    width: defaultWidth,
-    grid: Array.from(Array(defaultWidth), () => new Array(defaultHeight).fill(''))
+    height: app.appSettings.height,
+    width: app.appSettings.width,
+    grid: Array.from(Array(app.appSettings.height), () =>
+      new Array(app.appSettings.width).fill(''))
   };
 };
 

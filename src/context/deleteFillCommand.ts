@@ -3,7 +3,6 @@ import Crossword from "../types/crossword";
 const DeleteFillCommand = (x: number, y: number, prevValue: string) => {
   return {
     do: (crossword: Crossword): Crossword => {
-      console.log(`${x} ${y}`);
       return {
         ...crossword,
         grid: crossword.grid.map(

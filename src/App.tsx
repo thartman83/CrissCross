@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import './App.css';
 import GridLayout from "./components/layouts/gridLayout";
-import HelpModal from './components/layouts/helpModal.tsx';
-import CrosswordContextProvider from './context/crosswordContext.tsx';
+import HelpModal from './components/layouts/helpModal';
+import CrosswordContextProvider from './context/crosswordContext';
+import AppContextProvider from './context/applicationContext';
 
 function App() {
   const [openHelpModal, setOpenHelpModal] = useState(false);
@@ -26,9 +27,11 @@ function App() {
         </div>
       </div>
       <div className='main'>
-        <CrosswordContextProvider>
-          <GridLayout/>
-        </CrosswordContextProvider>
+        <AppContextProvider>
+          <CrosswordContextProvider>
+            <GridLayout/>
+          </CrosswordContextProvider>
+        </AppContextProvider>
       </div>
       <HelpModal isOpen={openHelpModal} setIsOpen={setOpenHelpModal}/>
     </>
