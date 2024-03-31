@@ -5,6 +5,7 @@ import HelpModal from './components/layouts/helpModal';
 import SettingsModal from './components/layouts/settingsModal';
 import CrosswordContextProvider from './context/crosswordContext';
 import AppContextProvider from './context/applicationContext';
+import TabLayout from './components/layouts/tablayout';
 
 function App() {
   const [openHelpModal, setOpenHelpModal] = useState(false);
@@ -32,6 +33,7 @@ function App() {
         <AppContextProvider>
           <CrosswordContextProvider>
             <GridLayout/>
+            <TabLayout/>
           </CrosswordContextProvider>
           <HelpModal isOpen={openHelpModal} setIsOpen={setOpenHelpModal}/>
           <SettingsModal isOpen={openSettingsModal}
