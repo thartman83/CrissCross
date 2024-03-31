@@ -23,6 +23,7 @@ export type CrosswordActionPayload = {
 const crosswordReducer = (crossword: Crossword, action: {type: string, payload: CrosswordActionPayload}) => {
   const payload = action.payload;
   const actionType = action.type;
+  let newCrosswordState = crossword;
 
   const getNextSquare = (x: number, y: number, orientation: Orientation):
         [number, number] => {
@@ -48,19 +49,22 @@ const crosswordReducer = (crossword: Crossword, action: {type: string, payload: 
     // check if we are updating a block square
     if(currentVal === '.') {
       const toggleCmd = ToggleBlockCommand(payload.x, payload.y);
-      return moveCmd.do(updateCmd.do(toggleCmd.do(crossword)));
+      newCrosswordState = moveCmd.do(updateCmd.do(toggleCmd.do(crossword)));
+    } else {
+      // otherwise update an move on
+      newCrosswordState = moveCmd.do(updateCmd.do(crossword));
     }
-
-    // otherwise update an move on
-    return moveCmd.do(updateCmd.do(crossword));
+    break;
   }
   case CrosswordActions.movePosition: {
     const moveCmd = MovePositionCommand(payload.x, payload.y, ...currentPos);
-    return moveCmd.do(crossword);
+    newCrosswordState = moveCmd.do(crossword);
+    break;
   }
   case CrosswordActions.toggleOrientation: {
     const toggleCmd = ToggleOrientationCommand();
-    return toggleCmd.do(crossword);
+    newCrosswordState = toggleCmd.do(crossword);
+    break;
   }
   case CrosswordActions.deleteFill: {
     const prevSquare = getPrevSquare(...currentPos, crossword.orientation);
@@ -69,23 +73,29 @@ const crosswordReducer = (crossword: Crossword, action: {type: string, payload: 
     // check if we are removing a block square
     if(currentVal === '.') {
       const toggleCmd = ToggleBlockCommand(payload.x, payload.y);
-      return moveCmd.do(toggleCmd.do(crossword));
+      newCrosswordState = moveCmd.do(toggleCmd.do(crossword));
+    } else {
+      // otherwise simply delete the square
+      const deleteCmd = DeleteFillCommand(payload.x, payload.y, currentVal);
+      newCrosswordState = moveCmd.do(deleteCmd.do(crossword));
     }
-
-    // otherwise simply delete the square
-    const deleteCmd = DeleteFillCommand(payload.x, payload.y, currentVal);
-    return moveCmd.do(deleteCmd.do(crossword));
+    break;
   }
   case CrosswordActions.toggleBlock: {
     const nextSquare = getNextSquare(...currentPos, crossword.orientation);
     const moveCmd = MovePositionCommand(...nextSquare,
                                         crossword.position.x, crossword.position.y);
     const toggleBlockCmd = ToggleBlockCommand(payload.x, payload.y);
-    return moveCmd.do(toggleBlockCmd.do(crossword));
+    newCrosswordState = moveCmd.do(toggleBlockCmd.do(crossword));
+    break;
   }
   default:
-      return crossword;
+      newCrosswordState = crossword;
   }
+
+  localStorage.setItem('crossword', JSON.stringify(newCrosswordState));
+
+  return newCrosswordState;
 };
 
 export default crosswordReducer;

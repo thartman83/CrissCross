@@ -35,6 +35,11 @@ export const useCrossword = () => {
 };
 
 const initCrossword = (): Crossword => {
+  const crossword = localStorage.getItem('crossword');
+  if(crossword) {
+    return JSON.parse(crossword);
+  }
+
   const app = useApp();
 
   return {
