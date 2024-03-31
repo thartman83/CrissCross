@@ -24,7 +24,7 @@
     "esModuleInterop": true
 
   },
-  "include": ["src/**/*", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!context!applicationReducer.ts~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!context!applicationContext.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!types!appSettings.ts~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!context!applicationContext.ts~"],
+  "include": ["src/**/*", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!context!applicationReducer.ts~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!context!applicationContext.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!types!appSettings.ts~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!context!applicationContext.ts~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!ui!settingSelect.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!ui!settingNumberInput.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!ui!SettingNumberInput.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!ui!settingInput.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!layouts!settingsModal.tsx~"],
   "exclude": ["src/**/tests/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 
 type ModalProps = {
+  title: string,
   isOpen: boolean,
   children: React.ReactNode;
   closeModalHandler: () => void;
 };
 
-const Modal = ({isOpen, children, closeModalHandler}: ModalProps) => {
+const Modal = ({title, isOpen, children, closeModalHandler}: ModalProps) => {
   const [isModalOpen, setModalOpen] = useState(isOpen);
   const modalRef = useRef<HTMLDialogElement | null>(null);
 
@@ -23,6 +24,7 @@ const Modal = ({isOpen, children, closeModalHandler}: ModalProps) => {
 
   return (
     <dialog ref={modalRef} className="modal" onClick={closeModalHandler}>
+      <h3>{title}</h3>
       {children}
     </dialog>
   );

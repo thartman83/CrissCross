@@ -1,10 +1,10 @@
 export enum GridSymmetry {
-  Rotational=0,
-  Horizontal,
-  Vertical,
-  NESWDiagonal,
-  NWSEDiagonal,
-  None,
+  Rotational="Rotational",
+  Horizontal="Horizonal",
+  Vertical="Veritcatl",
+  NESWDiagonal="NESWDiagonal",
+  NWSEDiagonal="NWSEDiagonal",
+  None="None",
 };
 
 type AppSettings = {
