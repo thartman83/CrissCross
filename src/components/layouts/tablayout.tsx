@@ -1,13 +1,22 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import './tablayout.css';
 import TabLink from '../ui/tabLink';
+import SummaryView from './summaryView';
+import StatisticsView from './statisticsView';
+import CluesView from './cluesView';
+import WordListView from './WordListView';
 
 const TabLayout = () => {
   const [activeTab, setActiveTab] = useState<string>("Summary");
 
-  const tabs = ["Summary", "Statistics", "Clues", "Word List"];
+  const tabs: { [key: string]: ReactNode } = {
+    "Summary": <SummaryView/>,
+    "Statistics": <StatisticsView/>,
+    "Clues": <CluesView/>,
+    "Word List": <WordListView/>
+  };
 
-  const tabLinks = tabs.map((t: string, _) =>
+  const tabLinks = Object.keys(tabs).map((t: string, _) =>
     <TabLink key={`tab-link-${t}`} title={t} active={activeTab === t} setActiveTab={setActiveTab}/>
   );
 
@@ -17,7 +26,7 @@ const TabLayout = () => {
         { tabLinks }
       </ul>
       <div className="tab-content">
-
+        {tabs[activeTab]}
       </div>
     </div>
   );

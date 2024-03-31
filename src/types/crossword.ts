@@ -8,7 +8,15 @@ type Crossword = {
   orientation: Orientation,
   height: number,
   width: number,
-  grid: Array<Array<string>>
+  grid: Array<Array<string>>,
+  // clues: {
+  //   acrosses: {
+  //     [key: number]: string
+  //   },
+  //   downs: {
+  //     [key: number]: string
+  //   }
+  // }
 };
 
 export default Crossword;

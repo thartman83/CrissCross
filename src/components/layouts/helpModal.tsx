@@ -4,7 +4,6 @@ import "./helpModal.css";
 const HelpModal = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: (isOpen: boolean) => void}) => {
 
   const children = <>
-                     Grid Commands
                      <ul className="help-commands-list">
                        <li><span className="help-key">.</span>
                          Toggle Block Square</li>
@@ -19,7 +18,7 @@ const HelpModal = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: (isOpen: bo
   };
 
   return (
-    <Modal isOpen={isOpen} children={children}
+    <Modal title="Grid Commands" isOpen={isOpen} children={children}
            closeModalHandler={closeModalHandler}/>
   );
 };

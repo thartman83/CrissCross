@@ -21,7 +21,8 @@ function App() {
 
   return (
     <>
-      <div className='header'>CrissCross
+      <div className='header'>
+        Criss/Cross
         <div className='header-icons'>
           <button title="undo">&#8634;</button>
           <button onClick={onSettingsClickHandler} title="settings">

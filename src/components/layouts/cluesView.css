@@ -1,0 +1,17 @@
+.clues-view {
+    display: flex;
+}
+
+.clues-set {
+    width: 50%;
+}
+
+ul.clues-list {
+    margin-top: 2rem;
+    list-style: none;
+}
+
+ul.clues-list li {
+    margin-left: none;
+    padding-left: none;
+}

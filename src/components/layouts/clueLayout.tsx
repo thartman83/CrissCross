@@ -1,4 +1,5 @@
 import Grid, { Orientation, Word } from "../../types/grid";
+import "./clueLayout.css";
 
 const ClueLayout = ({grid}: {grid: Grid}) => {
 

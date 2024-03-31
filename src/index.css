@@ -18,6 +18,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+    margin-left: 4rem;
+    margin-right: 4rem;
+}
+
 .header {
     font-size: 1.75rem;
     margin-bottom: 1rem;
@@ -36,7 +41,6 @@
 
 .main {
     display: flex;
-    margin-left: 4rem;
 }
 
 @media all and (max-width: 1200px) {
@@ -48,6 +52,7 @@
 .grid {
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    margin-right: 2rem;
 }
 
 .grid-row {
@@ -196,4 +201,9 @@ input[data-highlight=true] {
     margin-left: auto;
     width: 10rem;
     background-color: white;
+}
+
+.statistics-layout {
+    display: flex;
+    flex-direction: column;
 }

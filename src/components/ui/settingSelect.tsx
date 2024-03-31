@@ -18,7 +18,7 @@ const SettingSelect = ({label, name, defaultValue, options, updater}:
               defaultValue={defaultValue} onChange={onChangeHandler}>
         {
           options.map((opt: string, _) => {
-            return <option value={opt}>{opt}</option>;
+            return <option key={`opt-${name}-${opt}`}value={opt}>{opt}</option>;
           })
         }
       </select>
