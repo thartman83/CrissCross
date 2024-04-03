@@ -4,7 +4,7 @@ import TabLink from '../ui/tabLink';
 import SummaryView from './summaryView';
 import StatisticsView from './statisticsView';
 import CluesView from './cluesView';
-import WordListView from './WordListView';
+import WordListView from './wordListView';
 
 const TabLayout = () => {
   const [activeTab, setActiveTab] = useState<string>("Summary");

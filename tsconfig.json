@@ -25,6 +25,10 @@
 
   },
   "include": ["src/**/*"],
-  "exclude": ["src/**/tests/*"],
+  "exclude": [
+    "src/**/tests/*",
+    "**/*.tsx~",
+    "**/*.ts~"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

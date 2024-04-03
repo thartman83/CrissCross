@@ -42,4 +42,6 @@ li.tab.active {
 .tab-content {
     padding: 1rem;
     background-color: var(--bgcolor-alt);
+    overflow-y: auto;
+    max-height: 42rem;
 }

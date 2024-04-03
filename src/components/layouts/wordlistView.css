@@ -1,0 +1,16 @@
+.word-list {
+    display: flex;
+    flex-direction: column;
+}
+
+label.remaining-words {
+    text-align: center;
+}
+
+.wordlist-word {
+    display: flex;
+}
+
+label.wordlist-wordvalue {
+    margin-left: auto;
+}
