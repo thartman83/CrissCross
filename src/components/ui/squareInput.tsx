@@ -1,5 +1,7 @@
-import { KeyboardEvent, MouseEvent, ChangeEvent, useRef, useEffect } from "react";
+import { KeyboardEvent, MouseEvent, ChangeEvent, useRef,
+         useEffect, useState } from "react";
 import { useCrossword } from "../../context/crosswordContext";
+import Popup from "../layouts/popup";
 
 type SquareArgs = {
   value: string,
@@ -16,6 +18,7 @@ type SquareMouseEvent = MouseEvent<HTMLInputElement>;
 
 const SquareInput = ({value, x, y, focus, highlight, wordNo}: SquareArgs) => {
   const inputEl = useRef<HTMLInputElement>(null);
+  const [isHovering, setIsHovering] = useState<Boolean>(false);
 
   useEffect(() => {
     if(focus) {
@@ -50,11 +53,21 @@ const SquareInput = ({value, x, y, focus, highlight, wordNo}: SquareArgs) => {
     e.preventDefault();
   };
 
+  const onMouseEnter = () => {
+    setIsHovering(true);
+  };
+
+  const onMouseLeave = () => {
+    setIsHovering(false);
+  };
+
   return (
-    <>
+    <div className="grid-square"
+         onMouseEnter={onMouseEnter}
+         onMouseLeave={onMouseLeave}>
       <label data-answerno={wordNo === 0 ? "" : wordNo} />
       <input value={value} type="text"
-             className="grid-square"
+             className="grid-square-input"
              readOnly={value === '.'}
              data-xpos={x} data-ypos={y}
              maxLength={1}
@@ -65,7 +78,8 @@ const SquareInput = ({value, x, y, focus, highlight, wordNo}: SquareArgs) => {
              data-highlight={highlight}
              ref={inputEl}
       />
-    </>
+      {/* isHovering && (<Popup/>) */}
+    </div>
   );
 };
 

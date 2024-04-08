@@ -60,7 +60,7 @@ body {
     padding: 0;
 }
 
-.grid-square {
+.grid-square-input {
     text-transform: uppercase;
     text-align: center;
     font-size: inherit;
@@ -71,7 +71,7 @@ body {
     border: 1px solid black;
 }
 
-.grid-square:focus {
+.grid-square-input:focus {
     outline: none;
     background-color: cadetblue;
 }
@@ -90,12 +90,12 @@ input[data-highlight=true] {
     background-color: lightblue;
 }
 
-.grid-square:read-only {
+.grid-square-input:read-only {
     background-color: black;
     border-color: black;
 }
 
-.grid-square:read-only:focus {
+.grid-square-input:read-only:focus {
     border-color: white;
 }
 
@@ -206,4 +206,8 @@ input[data-highlight=true] {
 .statistics-layout {
     display: flex;
     flex-direction: column;
+}
+
+.grid-square {
+    display: contents;
 }

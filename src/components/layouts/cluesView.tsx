@@ -5,11 +5,15 @@ const CluesView = () => {
   const words = useWords();
 
   const acrossList = Object.keys(words.acrosses).map((num: string) => {
-    return <li key={`word-across-${num}`}>{num + ". " + words.acrosses[num]}</li>;
+    return <li key={`word-across-${num}`}>
+             {num + ". " + words.acrosses[num].join('')}
+           </li>;
   });
 
   const downsList = Object.keys(words.downs).map((num: string) => {
-    return <li key={`word-downs-${num}`}>{num + ". " + words.downs[num]}</li>;
+    return <li key={`word-downs-${num}`}>
+             {num + ". " + words.downs[num].join('')}
+           </li>;
   });
 
   return (

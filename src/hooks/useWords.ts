@@ -6,16 +6,14 @@ type Word = {
   squares: string[]
 };
 
-export type WordList = {
-  [key: string]: string[]
-};
-
-export type WordsList = {
-  'acrosses': WordList
-  'downs': WordList
+// This really needs to be renamed to prevent conflicts/confusion with
+// the wordlist for autofill
+export type crosswordWordView = {
+  'acrosses': {[key: string]: string[]},
+  'downs': {[key: string]: string[]}
 }
 
-const useWords = (): WordsList => {
+const useWords = (): crosswordWordView => {
   const {crossword} = useCrossword();
 
   const acrosses: WordList = {};
