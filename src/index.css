@@ -211,3 +211,9 @@ input[data-highlight=true] {
 .grid-square {
     display: contents;
 }
+
+.btn {
+    margin-right: .25rem;
+    height: 2rem;
+    border-radius: 5px;
+}

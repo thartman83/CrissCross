@@ -18,8 +18,9 @@ export enum MoveDirection {
 
 export type CrosswordContextType = {
   crossword: Crossword,
-  onKeyDown: (e: SquareKeyDownEvent) => void
-  onClick: (x: number, y: number, e: SquareMouseEvent) => void
+  onKeyDown: (e: SquareKeyDownEvent) => void,
+  onClick: (x: number, y: number, e: SquareMouseEvent) => void,
+  onNew: (height: number, widht: number) => void,
 };
 
 const CrosswordContext = createContext<CrosswordContextType|undefined>(undefined);
@@ -115,11 +116,17 @@ const CrosswordContextProvider = ({children}: {children: ReactNode}) => {
     }
   };
 
+  const onNew = (height: number, width: number) => {
+    dispatch({type: CrosswordActions.newCrossword,
+              payload: {x: width, y: height, value: ''}});
+  };
+
   return (
     <CrosswordContext.Provider value={{
       crossword: crosswordState,
       onKeyDown: onKeyDown,
       onClick: onClick,
+      onNew: onNew,
     }}>
         {children}
     </CrosswordContext.Provider>
