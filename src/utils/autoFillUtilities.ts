@@ -15,8 +15,8 @@ export const availableWords = (constraint: string[], wordList: WordList) => {
 };
 
 
-export const mostConstrainedWord = ({acrosses, downs}: crosswordWordView, wordList: WordList):
-[wordNo: string, orientation: Orientation] => {
+export const mostConstrainedWord = ({ acrosses, downs }: crosswordWordView, wordList: WordList):
+  [wordNo: string, orientation: Orientation] => {
   const minAcross = Object.keys(acrosses).reduce(
     (acc: [number, string], wordNo: string): [number, string] => {
 
@@ -43,32 +43,96 @@ export const mostConstrainedWord = ({acrosses, downs}: crosswordWordView, wordLi
         return [possibleWords.length, wordNo];
 
       return acc;
-  }, [maxWords, '0']);
+    }, [maxWords, '0']);
 
   // Prefer acrosses for the moment
-  if(minAcross[0] <= minDown[0] && minAcross[0] !== -1 && minAcross[0] !== 0)
+  if (minAcross[0] <= minDown[0] && minAcross[0] !== -1 && minAcross[0] !== 0)
     return [minAcross[1], Orientation.across];
-  else if(minDown[0] !== -1 && minDown[0] !== 0)
+  else if (minDown[0] !== -1 && minDown[0] !== 0)
     return [minDown[1], Orientation.down];
   else
     return ['0', Orientation.across];
 }
 
-export const isPuzzleValid = (acrosses: {[key:string]: string[]},
-                              downs: {[key: string]: string[]},
-                              wordList: WordList): boolean => {
-  if(!Object.keys(acrosses).reduce((acc: boolean, key: string) =>
-    acc && availableWords(acrosses[key], wordList).length > 0 ,true))
+export const isPuzzleValid = (acrosses: { [key: string]: string[] },
+  downs: { [key: string]: string[] },
+  wordList: WordList): boolean => {
+  if (!Object.keys(acrosses).reduce((acc: boolean, key: string) =>
+    acc && availableWords(acrosses[key], wordList).length > 0, true))
     return false;
 
-  if(!Object.keys(downs).reduce((acc: boolean, key: string) =>
-        acc && availableWords(downs[key], wordList).length > 0, true))
+  if (!Object.keys(downs).reduce((acc: boolean, key: string) =>
+    acc && availableWords(downs[key], wordList).length > 0, true))
     return false;
 
   return true;
 }
 
-export const generateAutoFill = async (crossword: Crossword, wordList: WordList) => {
+// export const fillNextWord = async (crossword: Crossword): Promise<Crossword | null> => {
+//   const words = getWordsView(crossword);
+
+//   // check if the puzzle is still valid
+//   if (!isPuzzleValid(words.acrosses, words.downs, wordList))
+//     return null;
+
+//   // Check to see if the grid is filled, as an end state
+//   if (crossword.grid.reduce((acc, row: string[]) =>
+//     row.reduce((acc, square: string) => acc && square !== '', acc), true))
+//     return crossword;
+
+//   const [wordNo, orientation] = mostConstrainedWord(words, wordList);
+//   const possibleWords = availableWords(orientation === Orientation.across ?
+//     words.acrosses[wordNo] : words.downs[wordNo], wordList);
+
+//   while (possibleWords.length > 0) {
+//     const randIdx = Math.floor(Math.random() * possibleWords.length);
+//     const randWord = possibleWords.splice(randIdx)[0];
+//     const newCrossword = {
+//       ...crossword,
+//       grid: insertWord(crossword, wordNo, orientation, randWord.word)
+//     }
+
+//     const res = await fillNextWord(newCrossword);
+//     if (res !== null)
+//       return res;
+//   });
+// }
+
+const gaf = async (crossword: Crossword, wordList: WordList): Promise<Crossword | null> => {
+  const words = getWordsView(crossword);
+
+  // check if the puzzle is still valid
+  if (!isPuzzleValid(words.acrosses, words.downs, wordList))
+    return null;
+
+  // Check to see if the grid is filled, as an end state
+  if (crossword.grid.reduce((acc, row: string[]) =>
+    row.reduce((acc, square: string) => acc && square !== '', acc), true))
+    return crossword;
+
+  const [wordNo, orientation] = mostConstrainedWord(words, wordList);
+  const possibleWords = availableWords(orientation === Orientation.across ?
+    words.acrosses[wordNo] : words.downs[wordNo], wordList);
+
+  while (possibleWords.length > 0) {
+    const randIdx = Math.floor(Math.random() * possibleWords.length);
+    const randWord = possibleWords.splice(randIdx)[0];
+    const newCrossword = {
+      ...crossword,
+      grid: insertWord(crossword, wordNo, orientation, randWord.word)
+    }
+
+    const res = await gaf(newCrossword, wordList);
+    if (res !== null)
+      return res;
+  }
+
+  // if we get here we need to bail, we've exhausted the available
+  // possible words for this clue and need to backtrack
+  return null;
+};
+
+export const generateAutoFill = async (crossword: Crossword, wordList: WordList): Promise<void> => {
   // Auto fill strategy
   // 1. Sort current word list by most constrained
   // 2. Pick random word that meets constraints
@@ -78,39 +142,7 @@ export const generateAutoFill = async (crossword: Crossword, wordList: WordList)
   // 4b. if no pick new word
   // 4bi. if words list is exhausted, pop the previous word
 
-  const gaf = (crossword: Crossword): Crossword | null => {
-    const words = getWordsView(crossword);
-
-    // check if the puzzle is still valid
-    if(!isPuzzleValid(words.acrosses, words.downs, wordList))
-      return null;
-    
-    // Check to see if the grid is filled, as an end state
-    if(crossword.grid.reduce((acc, row: string[]) =>
-      row.reduce((acc, square: string) => acc && square !== '', acc), true))
-      return crossword;
-
-    const [wordNo, orientation] = mostConstrainedWord(words, wordList);
-    const possibleWords = availableWords(orientation === Orientation.across ?
-      words.acrosses[wordNo] : words.downs[wordNo], wordList);
-
-    while (possibleWords.length > 0) {
-      const randIdx = Math.floor(Math.random() * possibleWords.length);
-      const randWord = possibleWords.splice(randIdx)[0];
-      const newCrossword = {
-        ...crossword,
-        grid: insertWord(crossword, wordNo, orientation, randWord.word)
-      }
-
-      const res = gaf(newCrossword);
-      if (res !== null)
-        return res;
-    }
-
-    return null;
-  };
-
-  // copy the grid before proceeding
+  // deep copy the grid
   const autoFillGrid = {
     ...crossword,
     grid: crossword.grid.map((row: string[]) => {
@@ -118,5 +150,6 @@ export const generateAutoFill = async (crossword: Crossword, wordList: WordList)
     })
   }
 
-  return gaf(autoFillGrid);
+  await gaf(autoFillGrid, wordList);
+  console.log('done autofill');
 }

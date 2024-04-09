@@ -7,7 +7,6 @@ import CluesView from './cluesView';
 import WordListView from './wordListView';
 import { useCrossword } from '../../context/crosswordContext';
 import { generateAutoFill } from '../../utils/autoFillUtilities';
-import Crossword from '../../types/crossword';
 import { useWordList } from '../../context/wordListContext';
 
 const TabLayout = () => {
@@ -27,12 +26,12 @@ const TabLayout = () => {
     <TabLink key={`tab-link-${t}`} title={t} active={activeTab === t} setActiveTab={setActiveTab}/>
   );
 
-  const onAutoFillClickHandler = () => {
-    generateAutoFill(crossword, wordList.filter(
-      (val: {word: string, value: number}) => val.value > 30))
-      .then( (newCrossword: Crossword | null) => {
-        console.log(newCrossword?.grid || 'No solves');
-      });
+    const onAutoFillClickHandler = () => {
+        setTimeout(() => {
+            generateAutoFill(crossword, wordList.filter(
+                (val: {word: string, value: number}) => val.value > 30));
+        },300);
+
   };
 
   return (
