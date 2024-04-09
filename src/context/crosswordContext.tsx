@@ -1,9 +1,16 @@
-import { ReactNode, createContext, useContext, useReducer } from "react";
+import { ReactNode, createContext, useContext, useReducer, useState } from "react";
 import { KeyboardEvent, MouseEvent } from 'react';
 import Crossword from "../types/crossword";
 import Orientation from "../types/orientation";
 import crosswordReducer, { CrosswordActions} from "./crosswordReducer";
 import { useApp } from "./applicationContext";
+import UpdateGridCommand from "./updateGridCommand";
+import CrosswordCommand from "../types/crosswordCommand";
+import ToggleBlockCommand from "./toggleBlockCommand";
+import MovePositionCommand from "./movePositionCommand";
+import ToggleOrientationCommand from "./toggleOrientationCommand";
+import DeleteFillCommand from "./deleteFillCommand";
+import NewCrosswordCommand from "./newCrosswordCommand";
 
 type SquareKeyDownEvent = KeyboardEvent<HTMLInputElement>;
 type SquareMouseEvent = MouseEvent<HTMLInputElement>;
@@ -58,67 +65,134 @@ const initCrossword = (): Crossword => {
 const CrosswordContextProvider = ({children}: {children: ReactNode}) => {
   const initState: Crossword = initCrossword();
   const [crosswordState, dispatch] = useReducer(crosswordReducer, initState);
-
-  const movePosition = (x: number, y: number, direction: MoveDirection) => {
-    // if the movement direction is orthogonal to the current orientation
-    // toggle the orientation instead of moving
-    const changeOrientationDown =
-          crosswordState.orientation === Orientation.across &&
-          (direction === MoveDirection.UP || direction === MoveDirection.DOWN);
-    const changeOrientationAcross =
-          crosswordState.orientation === Orientation.down &&
-          (direction === MoveDirection.LEFT || direction === MoveDirection.RIGHT);
-
-    if(changeOrientationDown || changeOrientationAcross) {
-      dispatch({type: CrosswordActions.toggleOrientation, payload:
-                {x: x, y: y, value: ''}});
-    } else {
-      dispatch({type: CrosswordActions.movePosition, payload:
-                {x: x, y: y, value: '', }});
-    }
-  };
+  const [commandStack, setCommandStack] = useState<CrosswordCommand[]>([]);
 
   const {x,y} = crosswordState.position;
+  const orientation = crosswordState.orientation;
 
   const onKeyDown = (e: SquareKeyDownEvent) => {
     const key = e.key.toUpperCase();
 
+    // undo previous command
+    if(e.ctrlKey && key === 'Z') {
+      if(commandStack.length > 0) {
+        const newStack = [...commandStack];
+        const cmd = newStack.pop();
+
+        if(typeof cmd !== 'undefined') {
+          setCommandStack([...newStack]);
+          dispatch({type: CrosswordActions.undoCrosswordCommand, payload: cmd});
+        }
+      }
+    }
     // all letters and numbers are valid
-    if(/[A-Z0-9]/.test(key) && e.key.length === 1) {
-      dispatch({type: CrosswordActions.updateFill, payload: {
-        x: x, y: y, value: key }});
+    else if(/[A-Z0-9]/.test(key) && e.key.length === 1) {
+
+      const cmd = UpdateGridCommand(x, y, key, crosswordState.grid[x][y]);
+      setCommandStack([...commandStack, cmd]);
+      dispatch({type: CrosswordActions.crosswordCommand, payload: cmd});
+
+      const deltaX = orientation === Orientation.down ? 1 : 0;
+      const deltaY = deltaX === 1 ? 0 : 1;
+      dispatch({type: CrosswordActions.crosswordCommand, payload:
+                MovePositionCommand(x + deltaX, y + deltaY, x, y)});
+
     } else if(key === '.') {
-      dispatch({type: CrosswordActions.toggleBlock,
-              payload: {x: x, y: y, value: ''}});
+
+      const cmd = ToggleBlockCommand(x, y);
+      setCommandStack([...commandStack, cmd]);
+      dispatch({type: CrosswordActions.crosswordCommand, payload: cmd});
+
+      const deltaX = orientation === Orientation.down ? 1 : 0;
+      const deltaY = deltaX === 1 ? 0 : 1;
+      dispatch({type: CrosswordActions.crosswordCommand, payload:
+                MovePositionCommand(x + deltaX, y + deltaY, x, y)});
+
     } else if(key === 'ARROWRIGHT') {
-      movePosition(x, y+1, MoveDirection.RIGHT);
+
+      if(orientation === Orientation.across) {
+        const cmd = MovePositionCommand(x, y + 1, x, y);
+        dispatch({type: CrosswordActions.crosswordCommand, payload: cmd});
+      } else {
+        const cmd = ToggleOrientationCommand();
+        dispatch({type: CrosswordActions.crosswordCommand, payload: cmd});
+      }
+
     } else if(key === 'ARROWLEFT') {
-      movePosition(x, y-1, MoveDirection.LEFT);
+
+      if(orientation === Orientation.across) {
+        const cmd = MovePositionCommand(x, y - 1, x, y);
+        dispatch({type: CrosswordActions.crosswordCommand, payload: cmd});
+      } else {
+        const cmd = ToggleOrientationCommand();
+        dispatch({type: CrosswordActions.crosswordCommand, payload: cmd});
+      }
+
     } else if(key === 'ARROWUP') {
-      movePosition(x-1, y, MoveDirection.UP);
+
+      if(orientation === Orientation.down) {
+        const cmd = MovePositionCommand(x - 1, y, x, y);
+        dispatch({type: CrosswordActions.crosswordCommand, payload: cmd});
+      } else {
+        const cmd = ToggleOrientationCommand();
+        dispatch({type: CrosswordActions.crosswordCommand, payload: cmd});
+      }
+
     } else if(key === 'ARROWDOWN') {
-      movePosition(x+1, y, MoveDirection.DOWN);
+
+      if(orientation === Orientation.down) {
+        const cmd = MovePositionCommand(x + 1, y, x, y);
+        dispatch({type: CrosswordActions.crosswordCommand, payload: cmd});
+      } else {
+        const cmd = ToggleOrientationCommand();
+        dispatch({type: CrosswordActions.crosswordCommand, payload: cmd});
+      }
+
     } else if(key === ' ') {
-      dispatch({type: CrosswordActions.toggleOrientation,
-              payload: {x: 0, y: 0, value: ''}});
+
+      const cmd = ToggleOrientationCommand();
+      dispatch({type: CrosswordActions.crosswordCommand, payload: cmd});
+
     } else if (key === 'DELETE' || key === 'BACKSPACE') {
-      dispatch({type: CrosswordActions.deleteFill,
-              payload: {x: x, y: y, value: ''}});
+
+      // if the current state is a block, we need to make sure we are
+      // symetrically handling the deletion
+      if(crosswordState.grid[x][y] === '.') {
+
+        const cmd = ToggleBlockCommand(x, y,);
+        setCommandStack([...commandStack, cmd]);
+        dispatch({type: CrosswordActions.crosswordCommand, payload: cmd});
+
+      } else {
+
+        const cmd = DeleteFillCommand(x, y, crosswordState.grid[x][y]);
+        setCommandStack([...commandStack, cmd]);
+        dispatch({type: CrosswordActions.crosswordCommand, payload: cmd});
+
+      }
+
+      const deltaX = orientation === Orientation.down ? 1 : 0;
+      const deltaY = deltaX === 1 ? 0 : 1;
+      dispatch({type: CrosswordActions.crosswordCommand, payload:
+                MovePositionCommand(x - deltaX, y - deltaY, x, y)});
     }
   };
 
   const onClick = (x: number, y: number, e: SquareMouseEvent) => {
-    if(e.type == 'click'){
-        movePosition(x,y,MoveDirection.JUMP);
-    } else if(e.type === 'dblclick') {
-      dispatch({type: CrosswordActions.toggleOrientation,
-                payload: {x: 0, y: 0, value: ''}});
+    const pos = crosswordState.position;
+    const cmd = MovePositionCommand(x, y, pos.x, pos.y);
+    dispatch({type: CrosswordActions.crosswordCommand, payload: cmd});
+
+    if(e.type === 'dblclick') {
+      const cmd = ToggleOrientationCommand();
+      dispatch({type: CrosswordActions.crosswordCommand, payload: cmd});
     }
   };
 
   const onNew = (height: number, width: number) => {
-    dispatch({type: CrosswordActions.newCrossword,
-              payload: {x: width, y: height, value: ''}});
+    const cmd = NewCrosswordCommand(height, width);
+    setCommandStack([]);
+    dispatch({type: CrosswordActions.newCrossword, payload: cmd});
   };
 
   return (

@@ -14,6 +14,7 @@ const UpdateGridCommand =
       undo: (crossword: Crossword): Crossword => {
         return {
           ...crossword,
+          position: {x, y},
           grid: crossword.grid.map(
             (row, i) => i != x ? row : row.map(
               (square, j) => j != y ? square : prevValue))

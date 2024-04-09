@@ -3,7 +3,9 @@ import Orientation from "../types/orientation";
 
 type Word = {
   wordNo: number,
-  squares: string[]
+  squares: string[],
+  x: number,
+  y: number,
 };
 
 // This really needs to be renamed to prevent conflicts/confusion with
@@ -72,7 +74,9 @@ export const getWordsView = (crossword: Crossword): crosswordWordView => {
 
   let currentWord: Word = {
     wordNo: 0,
-    squares: []
+    squares: [],
+    x: 0,
+    y: 0
   };
 
   crossword.grid.flat().forEach((s: string, i: number) => {
@@ -84,16 +88,18 @@ export const getWordsView = (crossword: Crossword): crosswordWordView => {
       if(currentWord.wordNo !== 0)
         acrosses[currentWord.wordNo] = currentWord.squares;
 
-      currentWord = { wordNo: 0, squares: []};
+      currentWord = { wordNo: 0, squares: [], x: 0, y: 0};
     } else if(y === (crossword.width-1)) {
       currentWord.squares.push(s);
 
       if(currentWord.wordNo !== 0)
         acrosses[currentWord.wordNo] = currentWord.squares;
 
-      currentWord = { wordNo: 0, squares: []};
+      currentWord = { wordNo: 0, squares: [], x: 0, y: 0};
     } else if(currentWord.wordNo === 0) {
       currentWord.wordNo = answers[x][y];
+      currentWord.x = x;
+      currentWord.y = y;
       currentWord.squares.push(s);
     } else {
       currentWord.squares.push(s);
@@ -104,7 +110,7 @@ export const getWordsView = (crossword: Crossword): crosswordWordView => {
   const columnGrid = crossword.grid[0].map(
     (_, colIndex) => crossword.grid.map(row => row[colIndex]));
 
-  currentWord = { wordNo: 0, squares: []};
+  currentWord = { wordNo: 0, squares: [], x: 0, y: 0};
 
   columnGrid.flat().forEach((s: string, i: number) => {
     const y = Math.floor(i / crossword.height);
@@ -115,16 +121,18 @@ export const getWordsView = (crossword: Crossword): crosswordWordView => {
       if(currentWord.wordNo !== 0)
         downs[currentWord.wordNo] = currentWord.squares;
 
-      currentWord = { wordNo: 0, squares: []};
+      currentWord = { wordNo: 0, squares: [], x: 0, y: 0};
     } else if(x === (crossword.height-1)) {
       currentWord.squares.push(s);
 
       if(currentWord.wordNo !== 0)
         downs[currentWord.wordNo] = currentWord.squares;
 
-      currentWord = { wordNo: 0, squares: []};
+      currentWord = { wordNo: 0, squares: [], x: 0, y: 0};
     } else if(currentWord.wordNo === 0) {
       currentWord.wordNo = answers[x][y];
+      currentWord.x = x;
+      currentWord.y = y;
       currentWord.squares.push(s);
     } else {
       currentWord.squares.push(s);

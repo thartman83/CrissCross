@@ -31,7 +31,7 @@ function App() {
       <div className='header'>
         Criss/Cross
         <div className='header-icons'>
-          <button title="undo">&#8634;</button>
+          <button title="Undo">&#8634;</button>
           <button onClick={onNewClickHandler} title="new">&#43;</button>
           <button onClick={onSettingsClickHandler} title="settings">
             &#9881;</button>

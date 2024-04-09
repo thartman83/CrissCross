@@ -30,6 +30,7 @@ const ToggleBlockCommand = (x: number, y: number) => {
 
       return {
         ...crossword,
+        position: {x, y},
         grid: newGrid
       }
     }
