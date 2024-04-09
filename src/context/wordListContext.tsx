@@ -1,6 +1,6 @@
 import { createContext, useContext, ReactNode, useEffect, useState } from "react";
 
-type WordList = {
+export type WordList = {
   word: string,
   value: number
 }[];

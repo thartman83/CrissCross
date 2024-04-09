@@ -17,21 +17,17 @@ const mockWords = [
   {word: 'BOFO', value: 100},
 ];
 
-jest.mock('../../context/wordListContext', () => ({
-  useWordList: () => ({wordList: mockWords}),
-}));
-
 describe('autoFillUnitTests unit tests', () => {
 
   describe('available words unit tests', () => {
     it('should return all X letter words when letter constraints present', () => {
-      expect(availableWords(['', '', '']).length).toEqual(5);
-      expect(availableWords(['', '', '', '']).length).toEqual(7);
+      expect(availableWords(['', '', ''], mockWords).length).toEqual(5);
+      expect(availableWords(['', '', '', ''], mockWords).length).toEqual(7);
     });
 
     it('should return only 3 words for B__', () => {
-      expect(availableWords(['B', '', '']).length).toEqual(3);
-      expect(availableWords(['F', '', '']).length).toEqual(2);
+      expect(availableWords(['B', '', ''], mockWords).length).toEqual(3);
+      expect(availableWords(['F', '', ''], mockWords).length).toEqual(2);
     })
   });
 
@@ -45,7 +41,7 @@ _ _ _`,
            acrosses: {'1': ['','',''], '2': ['','',''], '3': ['','','']},
            downs: {'1': ['','',''], '2': ['','',''], '3': ['','','']},
          };
-         const [wordNo, orientation] = mostConstrainedWord(words);
+         const [wordNo, orientation] = mostConstrainedWord(words, mockWords);
          expect(wordNo).toBe('1');
          expect(orientation).toEqual(Orientation.across);
        });
@@ -62,7 +58,7 @@ _ _ _ _
            downs: {'1': ['B','',''], '2': ['O','','', ''],
                    '3': ['B','','',''], '5': ['','','']  },
          };
-         const [wordNo, orientation] = mostConstrainedWord(words);
+         const [wordNo, orientation] = mostConstrainedWord(words, mockWords);
          expect(wordNo).toBe("1");
          expect(orientation).toBe(Orientation.down);
        });
@@ -72,7 +68,7 @@ _ _ _ _
         acrosses: {'1': ['B','O','B'], '4': ['A','R','E'], '5': ['R','B','I']},
         downs: {'1': ['B', 'A', 'R'], '2': ['O', 'R', 'B'], '3': ['B','O','I']}
       }
-      const [wordNo, orientation] = mostConstrainedWord(words);
+      const [wordNo, orientation] = mostConstrainedWord(words, mockWords);
       expect(wordNo).toBe('0');
       expect(orientation).toBe(Orientation.across);
     });
@@ -82,7 +78,7 @@ _ _ _ _
         acrosses: {'1': ['B','O','B'], '4': ['A','R',''], '5': ['R','B','I']},
         downs: {'1': ['B', 'A', 'R'], '2': ['O', 'R', 'B'], '3': ['B','', 'I']}
       }
-      const [wordNo, orientation] = mostConstrainedWord(words);
+      const [wordNo, orientation] = mostConstrainedWord(words, mockWords);
       expect(wordNo).toBe('0');
       expect(orientation).toBe(Orientation.across);
     });

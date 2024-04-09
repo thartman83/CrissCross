@@ -42,17 +42,17 @@ function App() {
         <AppContextProvider>
           <CrosswordContextProvider>
             <WordListContextProvider>
-              <GridLayout/>
-              <TabLayout/>
+              <GridLayout />
+              <TabLayout />
             </WordListContextProvider>
-
-            <HelpModal isOpen={openHelpModal} setIsOpen={setOpenHelpModal}/>
+            <HelpModal isOpen={openHelpModal} setIsOpen={setOpenHelpModal} />
             <SettingsModal isOpen={openSettingsModal}
-                           setIsOpen={setOpenSettingsModal} />
-            <NewModal isOpen={openNewModal} setIsOpen={setOpenNewModal}/>
+              setIsOpen={setOpenSettingsModal} />
+            <NewModal isOpen={openNewModal} setIsOpen={setOpenNewModal} />
           </CrosswordContextProvider>
         </AppContextProvider>
       </div>
+
     </>
   );
 }

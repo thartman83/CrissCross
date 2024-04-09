@@ -1,9 +1,9 @@
 import { useCrossword } from "../../context/crosswordContext";
-import useWords from "../../hooks/useWords";
+import { getWordsView } from "../../utils/gridUtilities";
 
 const StatisticsView = () => {
   const {crossword} = useCrossword();
-  const {acrosses, downs} = useWords();
+  const {acrosses, downs} = getWordsView(crossword);
 
   const squareCount: {[key: string]: number} = {};
 

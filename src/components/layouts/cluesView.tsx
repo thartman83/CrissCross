@@ -1,8 +1,10 @@
-import useWords from "../../hooks/useWords";
+import { useCrossword } from "../../context/crosswordContext";
+import { getWordsView } from "../../utils/gridUtilities";
 import "./cluesView.css";
 
 const CluesView = () => {
-  const words = useWords();
+  const {crossword} = useCrossword();
+  const words = getWordsView(crossword);
 
   const acrossList = Object.keys(words.acrosses).map((num: string) => {
     return <li key={`word-across-${num}`}>

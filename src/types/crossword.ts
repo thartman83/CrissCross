@@ -1,6 +1,8 @@
 import Coords from "./coords";
 import Orientation from "./orientation";
 
+export type CrosswordGrid = Array<Array<string>>
+
 type Crossword = {
   title: string,
   author: string,
@@ -8,15 +10,7 @@ type Crossword = {
   orientation: Orientation,
   height: number,
   width: number,
-  grid: Array<Array<string>>,
-  // clues: {
-  //   acrosses: {
-  //     [key: number]: string
-  //   },
-  //   downs: {
-  //     [key: number]: string
-  //   }
-  // }
+  grid: CrosswordGrid,
 };
 
 export default Crossword;

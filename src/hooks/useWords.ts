@@ -1,5 +1,6 @@
-import { useCrossword } from "../context/crosswordContext";
+import Crossword from "../types/crossword";
 import { answerGrid } from "../utils/gridUtilities";
+
 
 type Word = {
   wordNo: number,
@@ -13,11 +14,11 @@ export type crosswordWordView = {
   'downs': {[key: string]: string[]}
 }
 
-const useWords = (): crosswordWordView => {
-  const {crossword} = useCrossword();
+const useWords = (crossword: Crossword): crosswordWordView => {
+//  const {crossword} = useCrossword();
 
-  const acrosses: WordList = {};
-  const downs: WordList = {};
+  const acrosses: {[key: string]: string[]} = {};
+  const downs: {[key: string]: string[]} = {};
 
   const answers = answerGrid(crossword);
 
