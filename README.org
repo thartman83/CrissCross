@@ -1,5 +1,9 @@
 #+TITLE: CrissCross - Crossword Construtor
 #+AUTHOR: Tom Hartman
+
+* CrissCross Crossword Constructor
+A simple react application to assist in creating and designing crossword puzzles.
+
 * Installation
 
 Currently this software is in active development to view progress run the following commands after cloning the repository:
