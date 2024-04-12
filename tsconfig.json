@@ -24,7 +24,7 @@
     "esModuleInterop": true
 
   },
-  "include": ["src/**/*", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!layouts!mainMenu.tsx~"],
+  "include": ["src/**/*"],
   "exclude": [
     "src/**/tests/*",
     "src/**/*.tsx~",

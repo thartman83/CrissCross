@@ -7,6 +7,7 @@
   --bgcolor-alt: #2d040e;
   --fgcolor: rgba(255,255,255,0.87);
   --bgcolor-highlight: black;
+  --body-gutter: 4rem;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -19,24 +20,13 @@
 }
 
 body {
-    margin-left: 4rem;
-    margin-right: 4rem;
+    margin-left: var(--body-gutter);
+    margin-right: var(--body-gutter);
 }
 
 .header {
     font-size: 1.75rem;
     margin-bottom: 1rem;
-}
-
-.header-icons {
-    float:right;
-}
-
-.header-icons button {
-    font-size: 1.5rem;
-    height: 2.25rem;
-    width: 2.25rem;
-    margin-right: .5rem;
 }
 
 .main {
@@ -212,8 +202,48 @@ input[data-highlight=true] {
     display: contents;
 }
 
+.btn-group {
+    justify-content: right;
+    display: flex;
+}
+
 .btn {
-    margin-right: .25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 2rem;
-    border-radius: 5px;
+    margin-left: .5rem;
+}
+
+.main-menu {
+    position: absolute;
+    display: flex;
+    top: 1rem;
+    right: 0;
+    margin-right: 4rem;
+}
+
+.main-menu button {
+    font-size: 1.5rem;
+    height: 2.25rem;
+    width: 2.25rem;
+}
+
+ul.menu-list {
+    position: absolute;
+    overflow: hidden;
+    height: 0rem;
+    transition: all 750ms;
+    list-style: none;
+    right: 0rem;
+    margin-top: 3rem;
+}
+
+ul.menu-list.active {
+    height: 40rem;
+    transition: all 1000ms;
+}
+
+ul.menu-list li {
+    margin-bottom: .25rem;
 }

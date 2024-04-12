@@ -1,4 +1,4 @@
-import { createContext, useContext, ReactNode, useReducer } from "react";
+import { createContext, useContext, ReactNode, useReducer, useState } from "react";
 import AppSettings, { GridSymmetry } from "../types/appSettings";
 import appReducer, { AppActions } from "./applicationReducer";
 
@@ -7,6 +7,10 @@ const defaultGridSize = 15;
 export type AppContextType = {
   appSettings: AppSettings,
   updateDimensions: (height: number, width: number) => void
+  openHelpModal: boolean,
+  setOpenHelpModal: (openHelpModal: boolean) => void,
+  openNewModal: boolean,
+  setOpenNewModal: (openNewModal: boolean) => void,
 };
 
 const AppContext = createContext<AppContextType|undefined>(undefined);
@@ -31,6 +35,8 @@ const defaultAppSettings = () => {
 const AppContextProvider = ({children}: {children: ReactNode}) => {
   const initState: AppSettings = defaultAppSettings();
   const [appState, dispatch] = useReducer(appReducer, initState);
+  const [openHelpModal, setOpenHelpModal] = useState(false);
+  const [openNewModal, setOpenNewModal] = useState(false);
 
   const updateDimensions = (height: number, width: number) => {
     dispatch({type: AppActions.updateDimensions, payload: {
@@ -42,7 +48,11 @@ const AppContextProvider = ({children}: {children: ReactNode}) => {
   return (
     <AppContext.Provider value={{
       appSettings: appState,
-      updateDimensions: updateDimensions
+      updateDimensions: updateDimensions,
+      openHelpModal: openHelpModal,
+      setOpenHelpModal: setOpenHelpModal,
+      openNewModal: openNewModal,
+      setOpenNewModal: setOpenNewModal
     }}>
       {children}
     </AppContext.Provider>

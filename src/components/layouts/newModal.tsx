@@ -19,28 +19,22 @@ const NewModal = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: (isOpen: boo
     setIsOpen(false);
   };
 
-  const children = <>
-                     <SettingNumberInput name="gridHeight" label="Grid Height"
-                                     defaultValue={height} updater={setHeight} />
-                     <SettingNumberInput name="gridWidth" label="Grid Width"
-                                     defaultValue={width} updater={setWidth} />
-                     <button className='btn btn-primary'
-                             id="create" onClick={onCreateClickHandler}>
-                       Create
-                     </button>
-                     <button className='btn btn-secondary'
-                             id="cancel" onClick={onCancelClickHandler}>
-                       Cancel
-                     </button>
-                   </>;
-
   const closeModalHandler = () => {
 
   };
 
   return (
-    <Modal title="New Crossword" isOpen={isOpen} children={children}
-           closeModalHandler={closeModalHandler}/>
+    <Modal title="New Crossword" isOpen={isOpen}
+           closeModalHandler={closeModalHandler}>
+      <SettingNumberInput name="gridHeight" label="Grid Height"
+                          defaultValue={height} updater={setHeight} />
+      <SettingNumberInput name="gridWidth" label="Grid Width"
+                          defaultValue={width} updater={setWidth} />
+      <div className='btn-group'>
+        <button className='btn' onClick={onCreateClickHandler}>Create</button>
+        <button className='btn' onClick={onCancelClickHandler}>Cancel</button>
+      </div>
+    </Modal>
   );
 };
 

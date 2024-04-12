@@ -29,6 +29,7 @@ export type CrosswordContextType = {
   onKeyDown: (e: SquareKeyDownEvent) => void,
   onClick: (pos: number, e: SquareMouseEvent) => void,
   onNew: (height: number, widht: number) => void,
+  undo: () => void,
 };
 
 const CrosswordContext = createContext<CrosswordContextType|undefined>(undefined);
@@ -89,15 +90,7 @@ const CrosswordContextProvider = ({children}: {children: ReactNode}) => {
 
     // undo previous command
     if(e.ctrlKey && key === 'Z') {
-      if(commandStack.length > 0) {
-        const newStack = [...commandStack];
-        const cmd = newStack.pop();
-
-        if(typeof cmd !== 'undefined') {
-          setCommandStack([...newStack]);
-          dispatch({type: CrosswordActions.undoCrosswordCommand, payload: [cmd]});
-        }
-      }
+      undo();
     }
     // all letters and numbers are valid
     else if(/[A-Z0-9]/.test(key) && e.key.length === 1) {
@@ -219,6 +212,18 @@ const CrosswordContextProvider = ({children}: {children: ReactNode}) => {
     }
   };
 
+  const undo = () => {
+    if(commandStack.length > 0) {
+      const newStack = [...commandStack];
+      const cmd = newStack.pop();
+
+      if(typeof cmd !== 'undefined') {
+        setCommandStack([...newStack]);
+        dispatch({type: CrosswordActions.undoCrosswordCommand, payload: [cmd]});
+      }
+    }
+  };
+
   const onNew = (height: number, width: number) => {
     const cmd = NewCrosswordCommand(height, width);
     setCommandStack([]);
@@ -231,6 +236,7 @@ const CrosswordContextProvider = ({children}: {children: ReactNode}) => {
       onKeyDown: onKeyDown,
       onClick: onClick,
       onNew: onNew,
+      undo: undo,
     }}>
         {children}
     </CrosswordContext.Provider>

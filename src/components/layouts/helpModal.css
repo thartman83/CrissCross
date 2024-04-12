@@ -5,6 +5,16 @@
 
 .help-commands-list li {
     margin-bottom: .5rem;
+    display: flex;
+}
+
+.help-action {
+    align-items: left;
+    width: 10rem;
+}
+
+span.help-text {
+    margin-left: auto;
 }
 
 span.help-key {
