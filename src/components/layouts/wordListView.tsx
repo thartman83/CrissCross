@@ -1,8 +1,8 @@
+import './wordlistView.css';
 import { useEffect, useState, ChangeEvent, ReactNode } from "react";
 import { useWordList } from "../../context/wordListContext";
 import SearchInput from "../ui/searchInput";
-import './wordlistView.css';
-import useCurrentWord from "../../hooks/useCurrentWord";
+import { useCrossword } from "../../context/crosswordContext";
 
 type ChangeSearchEvent = ChangeEvent<HTMLInputElement>;
 
@@ -12,14 +12,15 @@ const WordListView = () => {
   const [currentWords, setCurrentWords] = useState<Array<ReactNode>>([]);
   const [remainingFiltered, setRemainingFiltered] = useState<number>(0);
 
-  const currentWord = useCurrentWord();
+  const {crossword} = useCrossword();
 
   useEffect(() => {
+    const currentWord = crossword.currentWord();
     const filteredWords = wordList
           .filter(({word}: {word: string}) =>
             word.includes(currentFilter.toUpperCase()) &&
-              word.length === currentWord.length &&
-              currentWord.reduce((acc: boolean, val: string, i: number): boolean =>
+              word.length === currentWord.squares.length &&
+              currentWord.squares.reduce((acc: boolean, val: string, i: number): boolean =>
                 acc && (val === '' || val === word[i]), true))
           .sort((a: {word: string, value: number},
                  b: {word: string, value: number}) => b.value - a.value);
@@ -37,7 +38,7 @@ const WordListView = () => {
     setCurrentWords(wordEls);
     setRemainingFiltered(filteredWords.length - 25 > 0 ?
                          filteredWords.length - 25 : 0);
-  }, [currentFilter,currentWord]);
+  }, [currentFilter, crossword]);
 
   const onSearchInputChanged = (event: ChangeSearchEvent) => {
     setCurrentFilter(event.currentTarget.value);

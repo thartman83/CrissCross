@@ -13,26 +13,28 @@ export type CrosswordActionPayload = {
   value: string,
 };
 
-const crosswordReducer = (crossword: Crossword,
-                          action: {type: string, payload: CrosswordCommand }) => {
+const crosswordReducer =
+  (crossword: Crossword,
+   action: {type: string, payload: CrosswordCommand[] }) => {
   const actionType = action.type;
+
   let newCrosswordState = crossword;
-  const cmd = action.payload;
+  const cmds = action.payload;
 
   switch (actionType) {
 
     case CrosswordActions.crosswordCommand: {
-      newCrosswordState = cmd.do(crossword);
+      newCrosswordState = cmds.reduce((acc, cmd) => cmd.do(acc), crossword);
       break;
     }
 
     case CrosswordActions.undoCrosswordCommand: {
-      newCrosswordState = cmd.undo(crossword);
+      newCrosswordState = cmds.reduce((acc, cmd) => cmd.undo(acc), crossword);
       break;
     }
 
     case CrosswordActions.newCrossword: {
-      newCrosswordState = cmd.do(crossword);
+      newCrosswordState = cmds[0].do(crossword);
       break;
     }
 

@@ -1,17 +1,16 @@
 import Crossword from "../types/crossword";
 import RotationalSymetricSquare from "./rotationalSymetricSquare";
 
-const ToggleBlockCommand = (x: number, y: number) => {
+const ToggleBlockCommand = (pos: number) => {
   return {
     do: (crossword: Crossword): Crossword => {
-      const symSquare = RotationalSymetricSquare(x, y, crossword.height,
+      const symSquare = RotationalSymetricSquare(pos, crossword.height,
                                                  crossword.width);
-      const value = crossword.grid[x][y] === '.' ? '' : '.';
+      const value = crossword.grid[pos] === '.' ? '' : '.';
 
-      const newGrid = crossword.grid.map(
-        (row, i) => row.map((square, j) =>
-          ((i == x && j == y) || (i == symSquare.x && j == symSquare.y)) ?
-          value : square))
+      const newGrid = crossword.grid.map((square: string, idx: number) =>
+        idx === pos || idx === symSquare ? value : square
+        );
 
       return {
         ...crossword,
@@ -19,18 +18,17 @@ const ToggleBlockCommand = (x: number, y: number) => {
       };
     },
     undo: (crossword: Crossword): Crossword => {
-      const symSquare = RotationalSymetricSquare(x, y, crossword.height,
+      const symSquare = RotationalSymetricSquare(pos, crossword.height,
                                                  crossword.width);
-      const value = crossword.grid[x][y] === '.' ? '' : '.';
+      const value = crossword.grid[pos] === '.' ? '' : '.';
 
-      const newGrid = crossword.grid.map(
-        (row, i) => row.map((square, j) =>
-          ((i == x && j == y) || (i == symSquare.x && j == symSquare.y)) ?
-          value : square))
+      const newGrid = crossword.grid.map((square: string, idx: number) =>
+        idx === pos || idx === symSquare ? value : square
+        );
 
       return {
         ...crossword,
-        position: {x, y},
+        position: pos,
         grid: newGrid
       }
     }

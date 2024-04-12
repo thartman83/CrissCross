@@ -1,6 +1,6 @@
 import SquareInput from "../ui/squareInput";
 import { useCrossword } from "../../context/crosswordContext";
-import { answerGrid, currentWordGrid } from "../../utils/gridUtilities";
+import { answerGrid } from "../../utils/gridUtilities";
 
 export const GridLayout = () => {
   const {crossword} = useCrossword();
@@ -9,21 +9,23 @@ export const GridLayout = () => {
   const wordNos = answerGrid(crossword);
 
   // grid with the current word highlighted
-  const currentWord = currentWordGrid(crossword);
+  const currentWord = crossword.currentWord();
 
   return (
     <div className="grid">
       {
-        crossword.grid.map((row, i) =>
+        crossword.gridView().map((row, i) =>
           <div className="grid-row" key={`grid-row-${i}`}>
             {
-              row.map((val, j) =>
-                <SquareInput x={i} y={j} value={val} key={`square-${i}-${j}`}
-                             focus={crossword.position.x == i &&
-                                    crossword.position.y == j}
-                             highlight={currentWord[i][j] == 1}
-                             wordNo={wordNos[i][j]}
-                />)
+              row.map((val, j) => {
+                const pos = i * crossword.width + j;
+                return <SquareInput pos={pos} value={val}
+                                    key={`square-${pos}`}
+                                    focus={pos === crossword.position}
+                                    highlight={currentWord.indicies.includes(pos)}
+                                    wordNo={wordNos[i][j]}
+                       />;
+              })
             }
           </div>
         )

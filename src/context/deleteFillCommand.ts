@@ -1,21 +1,19 @@
 import Crossword from "../types/crossword";
 
-const DeleteFillCommand = (x: number, y: number, prevValue: string) => {
+const DeleteFillCommand = (pos: number, prevValue: string) => {
   return {
     do: (crossword: Crossword): Crossword => {
       return {
         ...crossword,
-        grid: crossword.grid.map(
-            (row, i) => i != x ? row : row.map(
-              (square, j) => j != y ? square: ''))
+        grid: [...crossword.grid.slice(0, pos), '',
+               ...crossword.grid.slice(pos+1)],
       };
     },
     undo: (crossword: Crossword): Crossword => {
       return {
         ...crossword,
-        grid: crossword.grid.map(
-            (row, i) => i != x ? row : row.map(
-              (square, j) => j != y ? square : prevValue))
+        grid: [...crossword.grid.slice(0, pos), prevValue,
+               ...crossword.grid.slice(pos+1)],
       };
     }
   };

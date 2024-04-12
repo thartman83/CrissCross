@@ -1,22 +1,13 @@
 import { useCrossword } from "../../context/crosswordContext";
-import { getWordsView } from "../../utils/gridUtilities";
+import Orientation from "../../types/orientation";
 import "./cluesView.css";
 
 const CluesView = () => {
   const {crossword} = useCrossword();
-  const words = getWordsView(crossword);
+  const words = crossword.wordView();
 
-  const acrossList = Object.keys(words.acrosses).map((num: string) => {
-    return <li key={`word-across-${num}`}>
-             {num + ". " + words.acrosses[num].join('')}
-           </li>;
-  });
-
-  const downsList = Object.keys(words.downs).map((num: string) => {
-    return <li key={`word-downs-${num}`}>
-             {num + ". " + words.downs[num].join('')}
-           </li>;
-  });
+  const acrosses = words.filter(word => word.orientation === Orientation.across);
+  const downs = words.filter(word => word.orientation === Orientation.down);
 
   return (
     <>
@@ -24,13 +15,23 @@ const CluesView = () => {
         <div className="clues-set">
           Acrosses
           <ul className="clues-list">
-            { acrossList }
+            {
+              acrosses.map(word =>
+                <li key={`word-across-${word.wordNo}`}>
+                  {word.wordNo + ". " + word.squares.join('')}
+                </li>)
+            }
           </ul>
         </div>
         <div className="clues-set">
           Downs
           <ul className="clues-list">
-            { downsList }
+            {
+              downs.map(word =>
+                <li key={`word-down-${word.wordNo}`}>
+                  {word.wordNo + ". " + word.squares.join('')}
+                </li>)
+            }
           </ul>
         </div>
       </div>

@@ -1,7 +1,10 @@
 import "./searchInput.css";
+import { ChangeEvent } from "react";
 
-const SearchInput = ({onChangeHandler}) => {
+type ChangeSearchEvent = ChangeEvent<HTMLInputElement>;
 
+const SearchInput = ({onChangeHandler}:
+                     {onChangeHandler: (event: ChangeSearchEvent) => void}) => {
   return (
     <>
       <div className="input-group">

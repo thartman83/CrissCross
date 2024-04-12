@@ -1,31 +1,18 @@
 import { useCrossword } from "../../context/crosswordContext";
-import { getWordsView } from "../../utils/gridUtilities";
 
 const StatisticsView = () => {
   const {crossword} = useCrossword();
-  const {acrosses, downs} = getWordsView(crossword);
+  const words = crossword.wordView();
 
-  const squareCount: {[key: string]: number} = {};
-
-  // convert the grid into a dictionary of the number of instances of
-  // each character in the grid
-  crossword.grid.forEach((row) => row.forEach(
-    (s) => s in squareCount ? squareCount[s]++ : squareCount[s] = 1 ));
-
-  const blockCount = squareCount['.'];
+  const blockCount = crossword.grid.filter(s => s === '.').length;
   const blockPercent = ((blockCount/(crossword.height*crossword.width))
                         *100).toFixed(2);
 
   const letterCount = (crossword.height*crossword.width) - blockCount;
-  const wordCount = Object.keys(acrosses).length + Object.keys(downs).length;
+  const wordCount = words.length;
 
-  const averageWordLen =
-        ((Object.keys(acrosses).map((key) => {
-          return acrosses[key].length;
-        }).reduce((total,val) => total + val) +
-        Object.keys(downs).map((key) => {
-          return downs[key].length;
-        }).reduce((total,val) => total + val)) / wordCount).toFixed(2);
+  const averageWordLen = words.reduce((acc, word) => acc += word.squares.length,0) /
+        words.length;
 
   return (
     <div className="statistics-layout">
@@ -33,6 +20,8 @@ const StatisticsView = () => {
       <label>Average Word Length: {averageWordLen}</label>
       <label>Block Count: {blockCount} ({blockPercent}%)</label>
       <label>Letter Count: {letterCount} </label>
+      <label>Word Count: {wordCount}</label>
+      <label>Current Position: {crossword.position}</label>
     </div>
   );
 };

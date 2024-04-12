@@ -1,12 +1,11 @@
 import { KeyboardEvent, MouseEvent, ChangeEvent, useRef,
-         useEffect, useState } from "react";
+         useEffect /*, useState */ } from "react";
 import { useCrossword } from "../../context/crosswordContext";
-import Popup from "../layouts/popup";
+//import Popup from "../layouts/popup";
 
 type SquareArgs = {
   value: string,
-  x: number,
-  y: number,
+  pos: number,
   focus: boolean,
   highlight: boolean,
   wordNo: number,
@@ -16,9 +15,9 @@ type SquareKeyDownEvent = KeyboardEvent<HTMLInputElement>;
 type SquareChangeEvent = ChangeEvent<HTMLInputElement>;
 type SquareMouseEvent = MouseEvent<HTMLInputElement>;
 
-const SquareInput = ({value, x, y, focus, highlight, wordNo}: SquareArgs) => {
+const SquareInput = ({value, pos, focus, highlight, wordNo}: SquareArgs) => {
   const inputEl = useRef<HTMLInputElement>(null);
-  const [isHovering, setIsHovering] = useState<Boolean>(false);
+//  const [isHovering, setIsHovering] = useState<Boolean>(false);
 
   useEffect(() => {
     if(focus) {
@@ -43,33 +42,34 @@ const SquareInput = ({value, x, y, focus, highlight, wordNo}: SquareArgs) => {
 
   // set the current position when an input is click
   const onClickHandler = (e: SquareMouseEvent) => {
-    onClick(x,y,e);
+    onClick(pos,e);
     e.preventDefault();
   };
 
   // On double click switch the orientation of the cursor
   const onDoubleClickHandler = (e: SquareMouseEvent) => {
-    onClick(x,y,e);
+    onClick(pos,e);
     e.preventDefault();
   };
 
-  const onMouseEnter = () => {
-    setIsHovering(true);
-  };
+  // const onMouseEnter = () => {
+  //   setIsHovering(true);
+  // };
 
-  const onMouseLeave = () => {
-    setIsHovering(false);
-  };
+  // const onMouseLeave = () => {
+  //   setIsHovering(false);
+  // };
 
   return (
     <div className="grid-square"
-         onMouseEnter={onMouseEnter}
-         onMouseLeave={onMouseLeave}>
+         /* onMouseEnter={onMouseEnter} */
+         /* onMouseLeave={onMouseLeave} */
+    >
       <label data-answerno={wordNo === 0 ? "" : wordNo} />
       <input value={value} type="text"
              className="grid-square-input"
              readOnly={value === '.'}
-             data-xpos={x} data-ypos={y}
+             data-pos={pos}
              maxLength={1}
              onChange={onChangeHandler}
              onKeyDown={onKeyDownHandler}

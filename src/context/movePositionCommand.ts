@@ -1,27 +1,36 @@
 import Crossword from "../types/crossword";
+import Orientation from "../types/orientation";
 
-const MovePositionCommand =
-  (x: number, y: number, prevX: number, prevY: number) => {
-    return {
-      do: (crossword: Crossword): Crossword => {
-        // boundary checks
-        if(x < 0 || y < 0 || y >= crossword.width || x >= crossword.height)
-          return crossword;
+const MovePositionCommand = (pos: number, prev: number) => {
+  return {
+    do: (crossword: Crossword): Crossword => {
+      // boundary checks
+      if(pos < 0 || pos >= (crossword.height * crossword.width))
+        return crossword;
 
-        // otherwise update the position
-        return {
-          ...crossword,
-          position: {x: x, y: y}
-        };
-      },
+      // Don't advance if we are in the last column
+      if(crossword.orientation === Orientation.across &&
+        (prev % crossword.width) === (crossword.width-1) && prev < pos)
+        return crossword;
 
-      undo: (crossword: Crossword): Crossword => {
-        return {
-          ...crossword,
-          position: {x: prevX, y: prevY}
-        }
+      // Don't go backwards if we are in the first column
+      if(crossword.orientation === Orientation.across &&
+        (prev % crossword.width) === 0 && prev > pos)
+        return crossword;
+
+      // otherwise update the position
+      return {
+        ...crossword,
+        position: pos
       }
-    };
-  };
+    },
 
+    undo: (crossword: Crossword): Crossword => {
+      return {
+        ...crossword,
+        position: prev
+      }
+    }
+  }
+}
 export default MovePositionCommand;
