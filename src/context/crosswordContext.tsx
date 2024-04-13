@@ -12,6 +12,7 @@ import ToggleOrientationCommand from "./toggleOrientationCommand";
 import DeleteFillCommand from "./deleteFillCommand";
 import NewCrosswordCommand from "./newCrosswordCommand";
 import { toGridView, toWordsView, toCurrentWord } from "../utils/gridUtilities";
+import UpdateMetadataCommand from "./updateMetadataCommand";
 
 type SquareKeyDownEvent = KeyboardEvent<HTMLInputElement>;
 type SquareMouseEvent = MouseEvent<HTMLInputElement>;
@@ -29,6 +30,7 @@ export type CrosswordContextType = {
   onKeyDown: (e: SquareKeyDownEvent) => void,
   onClick: (pos: number, e: SquareMouseEvent) => void,
   onNew: (height: number, widht: number) => void,
+  updateMetadata: (name: string, value: string) => void,
   undo: () => void,
 };
 
@@ -53,6 +55,8 @@ const initCrossword = (): Crossword => {
     crosswordData = {
       title: '',
       author: '',
+      copyrigh: '',
+      notes: '',
       position: 0,
       orientation: Orientation.across,
       height: app.appSettings.height,
@@ -230,12 +234,19 @@ const CrosswordContextProvider = ({children}: {children: ReactNode}) => {
     dispatch({type: CrosswordActions.newCrossword, payload: [cmd]});
   };
 
+  const updateMetadata = (name: string, value: string) => {
+    console.log('updating metadata');
+    const cmd = UpdateMetadataCommand(name, value);
+    dispatch({type: CrosswordActions.updateMetadata, payload: [cmd]});
+  };
+
   return (
     <CrosswordContext.Provider value={{
       crossword: crosswordState,
       onKeyDown: onKeyDown,
       onClick: onClick,
       onNew: onNew,
+      updateMetadata: updateMetadata,
       undo: undo,
     }}>
         {children}

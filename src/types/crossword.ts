@@ -19,6 +19,8 @@ export type CrosswordWords = {
 type Crossword = {
   title: string,
   author: string,
+  copyright: string,
+  notes: string,
   position: number,
   orientation: Orientation,
   height: number,

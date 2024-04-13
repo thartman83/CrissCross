@@ -4,7 +4,8 @@ import CrosswordCommand from "../types/crosswordCommand";
 export const CrosswordActions = {
   newCrossword: 'newCrossword',
   crosswordCommand: 'crosswordCommand',
-  undoCrosswordCommand: 'undoCrosswordCommand'
+  undoCrosswordCommand: 'undoCrosswordCommand',
+  updateMetadata: 'updateMetadata',
 };
 
 export type CrosswordActionPayload = {
@@ -34,6 +35,12 @@ const crosswordReducer =
     }
 
     case CrosswordActions.newCrossword: {
+      newCrosswordState = cmds[0].do(crossword);
+      break;
+    }
+
+    case CrosswordActions.updateMetadata: {
+      console.log('also here');
       newCrosswordState = cmds[0].do(crossword);
       break;
     }
