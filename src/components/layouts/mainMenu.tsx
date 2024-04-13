@@ -1,8 +1,9 @@
 import {useState} from 'react';
-import { FaBars, FaPlus, FaQuestion,
-         FaWrench, FaArrowsRotate, FaRotateLeft } from 'react-icons/fa6';
 import { useApp } from '../../context/applicationContext';
 import { useCrossword } from '../../context/crosswordContext';
+import { FaBars, FaArrowsRotate, FaQuestion, FaRotateLeft,
+         FaWrench, FaPlus } from '../ui/faIcons';
+
 
 const MainMenu = () => {
   const [displayMenu, setDisplayMenu] = useState(false);
