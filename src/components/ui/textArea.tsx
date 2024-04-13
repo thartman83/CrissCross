@@ -9,9 +9,8 @@ const TextArea = ({label, defaultValue, onChangeHandler}:
   return (
     <div className="textarea-group">
       <label className="textarea-label">{label}</label>
-      <textarea className="textarea" onChange={onChangeHandler}>
-        {defaultValue}
-      </textarea>
+      <textarea className="textarea" onChange={onChangeHandler}
+                defaultValue={defaultValue} />
     </div>
   );
 };

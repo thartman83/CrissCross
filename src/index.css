@@ -247,3 +247,13 @@ ul.menu-list.active {
 ul.menu-list li {
     margin-bottom: .25rem;
 }
+
+.stats-header {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 100px 100px 100px 100px 100px 100px;
+}
