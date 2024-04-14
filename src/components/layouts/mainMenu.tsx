@@ -37,6 +37,7 @@ const MainMenu = () => {
                            onClickHandler={onUndoClickHandler}/>
                <MenuButton title="Refresh Grid" icon={IconName.ArrowsRotate}
                            onClickHandler={onRefreshGridClick}/>
+               <MenuButton title="Autofill Mode" icon={IconName.WandSparkles} />
              </SubMenuButton>
              <SubMenuButton title="CrissCross Settings" icon={IconName.Wrench}
                             expandDirection={ExpandDirection.ExpandRight}>
