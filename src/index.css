@@ -7,7 +7,7 @@
   --bgcolor-alt: #2d040e;
   --fgcolor: rgba(255,255,255,0.87);
   --bgcolor-highlight: black;
-  --body-gutter: 4rem;
+  --body-gutter: 100px;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -27,6 +27,7 @@ body {
 .header {
     font-size: 1.75rem;
     margin-bottom: 1rem;
+    position: relative;
 }
 
 .main {
@@ -36,6 +37,10 @@ body {
 @media all and (max-width: 1200px) {
     .main {
         flex-direction: column;
+    }
+
+    .grid {
+        align-self: center;
     }
 }
 
@@ -219,33 +224,14 @@ input[data-highlight=true] {
     position: absolute;
     display: flex;
     top: 1rem;
-    right: 0;
-    margin-right: 4rem;
+    right: calc(var(--body-gutter) / 2 * -1);
+    width: var(--body-gutter);
 }
 
 .main-menu button {
     font-size: 1.5rem;
     height: 2.25rem;
     width: 2.25rem;
-}
-
-ul.menu-list {
-    position: absolute;
-    overflow: hidden;
-    height: 0rem;
-    transition: all 750ms;
-    list-style: none;
-    right: 0rem;
-    margin-top: 3rem;
-}
-
-ul.menu-list.active {
-    height: 40rem;
-    transition: all 1000ms;
-}
-
-ul.menu-list li {
-    margin-bottom: .25rem;
 }
 
 .stats-header {

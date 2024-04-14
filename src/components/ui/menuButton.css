@@ -1,0 +1,7 @@
+.menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: .15rem;
+    margin-left: .5rem;
+}

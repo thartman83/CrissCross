@@ -1,0 +1,27 @@
+.btn-submenu-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.btn-submenu {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    flex-grow: 0;
+    max-height: 0;
+    transition: max-height 0.5s ease-out;
+}
+
+.btn-submenu.show {
+    max-height: 500px;
+    transition: max-height 0.75s ease-out;
+}
+
+.btn-submenu.expand-below {
+    right: 0;
+}
+
+.btn-submenu.expand-right {
+    margin-left: 1.25rem;
+}

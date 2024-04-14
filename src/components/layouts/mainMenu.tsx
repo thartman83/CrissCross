@@ -1,47 +1,55 @@
-import {useState} from 'react';
 import { useApp } from '../../context/applicationContext';
 import { useCrossword } from '../../context/crosswordContext';
-import { FaBars, FaArrowsRotate, FaQuestion, FaRotateLeft,
-         FaWrench, FaPlus } from '../ui/faIcons';
+import { IconName } from '../ui/faIcons';
+import MenuButton from '../ui/menuButton';
+import SubMenuButton, { ExpandDirection } from '../ui/subMenuButton';
 
 
 const MainMenu = () => {
-  const [displayMenu, setDisplayMenu] = useState(false);
-  const {openHelpModal, setOpenHelpModal,
-         openNewModal, setOpenNewModal} = useApp();
-  const { undo } = useCrossword();
-
-  const onMenuClickHandler = () => {
-    setDisplayMenu(!displayMenu);
-  };
+  const {openHelpModal, setOpenHelpModal} = useApp();
+  const { undo, onNew, crossword } = useCrossword();
 
   const onHelpButtonClick = () => {
     setOpenHelpModal(!openHelpModal);
-  };
-
-  const onNewButtonClick = () => {
-    setOpenNewModal(!openNewModal);
   };
 
   const onUndoClickHandler = () => {
     undo();
   };
 
+  const onRefreshGridClick = () => {
+    onNew(crossword.height, crossword.width);
+  };
+
   return <div className='main-menu'>
-           <button className='btn' title="Undo"
-             onClick={onUndoClickHandler}><FaRotateLeft/></button>
-           <button className="btn" title="Main Menu"
-                   onClick={onMenuClickHandler}><FaBars></FaBars></button>
-           <ul className={"menu-list " + (displayMenu && "active")}>
-             <li><button className='btn' title="New Crossword"
-                 onClick={onNewButtonClick}><FaPlus/></button></li>
-             <li><button className='btn' title="Reset Current Crossword"
-                 ><FaArrowsRotate/></button></li>
-             <li><button className='btn' title="CrissCross Settings"
-                 ><FaWrench/></button></li>
-             <li><button className='btn' title="Help Menu"
-                         onClick={onHelpButtonClick}><FaQuestion/></button></li>
-           </ul>
+           <SubMenuButton title="Menu" icon={IconName.Bars}
+                          expandDirection={ExpandDirection.ExpandBelow}>
+             <SubMenuButton title="New Crossword" icon={IconName.Plus}
+                            expandDirection={ExpandDirection.ExpandRight}>
+               <button className="btn">5x5</button>
+               <button className="btn">11x11</button>
+               <button className="btn">15x15</button>
+               <button className="btn">Custom</button>
+             </SubMenuButton>
+             <SubMenuButton title="Edit Grid" icon={IconName.Pencil}
+                            expandDirection={ExpandDirection.ExpandRight}>
+               <MenuButton title="Undo Grid Action" icon={IconName.RotateLeft}
+                           onClickHandler={onUndoClickHandler}/>
+               <MenuButton title="Refresh Grid" icon={IconName.ArrowsRotate}
+                           onClickHandler={onRefreshGridClick}/>
+             </SubMenuButton>
+             <SubMenuButton title="CrissCross Settings" icon={IconName.Wrench}
+                            expandDirection={ExpandDirection.ExpandRight}>
+               <MenuButton title="Light Mode" icon={IconName.Sun} />
+               <MenuButton title="Dark Mode" icon={IconName.Moon} />
+             </SubMenuButton>
+             <SubMenuButton title="Share" icon={IconName.Share}
+                            expandDirection={ExpandDirection.ExpandRight}>
+               <MenuButton title="Download" icon={IconName.Download}/>
+             </SubMenuButton>
+             <MenuButton title="Help Menu" icon={IconName.Question}
+                         onClickHandler={onHelpButtonClick}/>
+           </SubMenuButton>
          </div>;
 };
 
