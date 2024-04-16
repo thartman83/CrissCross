@@ -35,13 +35,13 @@ a.tab-link {
 li.tab.active {
     border: 1px solid;
     border-radius: 3px 3px 0 0;
-    border-color: var(--bgcolor-highlight) var(--bgcolor-highlight) var(--bgcolor-alt);
-    background-color: var(--bgcolor-alt);
+    border-color: var(--bg-color-alt) var(--bg-color-alt) var(--bg-color-alt);
+    background-color: var(--bg-color-alt);
 }
 
 .tab-content {
     padding: 1rem;
-    background-color: var(--bgcolor-alt);
+    background-color: var(--bg-color-alt);
     overflow-y: auto;
     max-height: 42rem;
 }

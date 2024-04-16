@@ -1,3 +1,4 @@
+import "./squareInput.css";
 import { KeyboardEvent, MouseEvent, ChangeEvent, useRef,
          useEffect /*, useState */ } from "react";
 import { useCrossword } from "../../context/crosswordContext";

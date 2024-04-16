@@ -3,15 +3,30 @@
   line-height: 1.5;
   font-weight: 400;
 
-  --bgcolor: #242424;
-  --bgcolor-alt: #2d040e;
-  --fgcolor: rgba(255,255,255,0.87);
-  --bgcolor-highlight: black;
+  /* light mode variables */
+  --bg-color-lite: lightblue;
+  --bg-color-alt-lite: #eeeeee;
+  --bg-color-highlight-light: lightgray;
+  --bg-input-color-lite: azure;
+  --bg-input-color-focus-lite: #eeeeee;
+  --fg-color-lite: black;
+  --fg-input-color-lite: black;
+
+  /* Dark Mode variables */
+  --bg-color-dark: #242424;
+  --bg-color-alt-dark: #2d040e;
+  --bg-color-highlight-dark: #7e6cac;
+  --bg-input-color-focus-dark: #8b81a1;
+  --bg-input-color-dark: #5f537d;
+  --fg-color-dark: rgba(255,255,255,0.87);
+  --fg-input-color-dark: black;
+
   --body-gutter: 100px;
+  --darklite-transition-delay: .60s;
+  --darklite-transition-properties: color, background;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -22,6 +37,32 @@
 body {
     margin-left: var(--body-gutter);
     margin-right: var(--body-gutter);
+    background-color: var(--bg-color);
+    color: var(--fg-color);
+
+    --bg-color: var(--bg-color-lite);
+    --bg-color-alt: var(--bg-color-alt-lite);
+    --bg-color-highlight: var(--bg-color-highlight-lite);
+    --bg-input-color: var(--bg-input-color-lite);
+    --bg-input-color-focus: var(--bg-input-color-focus-lite);
+    --fg-color: var(--fg-color-lite);
+    --fg-input-color: var(--fg-input-color-lite);
+
+    transition: all var(--darklite-transition-delay) ease;
+    transition-property: color, background;
+}
+
+body.dark {
+    --bg-color: var(--bg-color-dark);
+    --bg-color-alt: var(--bg-color-alt-dark);
+    --bg-color-highlight: var(--bg-color-highlight-dark);
+    --bg-input-color: var(--bg-input-color-dark);
+    --bg-input-color-focus: var(--bg-input-color-focus-dark);
+    --fg-color: var(--fgcolor-dark);
+    --fg-input-color: var(--fg-input-color-dark);
+
+    transition: all var(--darklite-transition-delay) ease;
+    transition-property: color, background;
 }
 
 .header {
@@ -53,45 +94,6 @@ body {
 .grid-row {
     margin: 0;
     padding: 0;
-}
-
-.grid-square-input {
-    text-transform: uppercase;
-    text-align: center;
-    font-size: inherit;
-    height: 2.2rem;
-    width: 2.2rem;
-    padding-top: 3px;
-    margin-right: 0px;
-    border: 1px solid black;
-}
-
-.grid-square-input:focus {
-    outline: none;
-    background-color: cadetblue;
-}
-
-label[data-answerno]::before {
-    position: absolute;
-    content: attr(data-answerno);
-    font-size: 11px;
-    color: black;
-    margin-left: 2px;
-    margin-top: -1px;
-    font-weight: bold;
-}
-
-input[data-highlight=true] {
-    background-color: lightblue;
-}
-
-.grid-square-input:read-only {
-    background-color: black;
-    border-color: black;
-}
-
-.grid-square-input:read-only:focus {
-    border-color: white;
 }
 
 .grid-summary {

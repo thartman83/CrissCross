@@ -13,4 +13,9 @@ input.text-input {
     border-radius: 4px;
     width: 100%;
     height: 1.5rem;
+    background-color: var(--bg-input-color);
+    color: var(--fg-input-color);
+
+    transition: all var(--darklite-transition-delay) ease;
+    transition-property: var(--darklite-transition-properties);
 }

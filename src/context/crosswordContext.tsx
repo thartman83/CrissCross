@@ -235,7 +235,6 @@ const CrosswordContextProvider = ({children}: {children: ReactNode}) => {
   };
 
   const updateMetadata = (name: string, value: string) => {
-    console.log('updating metadata');
     const cmd = UpdateMetadataCommand(name, value);
     dispatch({type: CrosswordActions.updateMetadata, payload: [cmd]});
   };

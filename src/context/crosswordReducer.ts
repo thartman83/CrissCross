@@ -40,7 +40,6 @@ const crosswordReducer =
     }
 
     case CrosswordActions.updateMetadata: {
-      console.log('also here');
       newCrosswordState = cmds[0].do(crossword);
       break;
     }

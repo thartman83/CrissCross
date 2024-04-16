@@ -1,5 +1,6 @@
 import { useApp } from '../../context/applicationContext';
 import { useCrossword } from '../../context/crosswordContext';
+import useColorSchema from '../../hooks/useColorSchema';
 import { IconName } from '../ui/faIcons';
 import MenuButton from '../ui/menuButton';
 import SubMenuButton, { ExpandDirection } from '../ui/subMenuButton';
@@ -8,6 +9,7 @@ import SubMenuButton, { ExpandDirection } from '../ui/subMenuButton';
 const MainMenu = () => {
   const {openHelpModal, setOpenHelpModal} = useApp();
   const { undo, onNew, crossword } = useCrossword();
+  const { darkMode, setDarkMode } = useColorSchema();
 
   const onHelpButtonClick = () => {
     setOpenHelpModal(!openHelpModal);
@@ -20,6 +22,14 @@ const MainMenu = () => {
   const onRefreshGridClick = () => {
     onNew(crossword.height, crossword.width);
   };
+
+  const onLiteModeClick = () => {
+    setDarkMode(false);
+  };
+
+  const onDarkModeClick = () => {
+    setDarkMode(true);
+  }
 
   return <div className='main-menu'>
            <SubMenuButton title="Menu" icon={IconName.Bars}
@@ -41,8 +51,13 @@ const MainMenu = () => {
              </SubMenuButton>
              <SubMenuButton title="CrissCross Settings" icon={IconName.Wrench}
                             expandDirection={ExpandDirection.ExpandRight}>
-               <MenuButton title="Light Mode" icon={IconName.Sun} />
-               <MenuButton title="Dark Mode" icon={IconName.Moon} />
+               {
+                 darkMode ?
+                   <MenuButton title="Light Mode" onClickHandler={onLiteModeClick}
+                               icon={IconName.Sun} /> :
+                 <MenuButton title="Dark Mode" icon={IconName.Moon}
+                             onClickHandler={onDarkModeClick}/>
+               }
              </SubMenuButton>
              <SubMenuButton title="Share" icon={IconName.Share}
                             expandDirection={ExpandDirection.ExpandRight}>

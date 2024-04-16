@@ -9,7 +9,6 @@ import Modals from './components/layouts/modals';
 
 function App() {
   return (
-    <>
       <AppContextProvider>
         <CrosswordContextProvider>
           <WordListContextProvider>
@@ -25,7 +24,6 @@ function App() {
           </WordListContextProvider>
         </CrosswordContextProvider>
       </AppContextProvider>
-    </>
   );
 }
 
