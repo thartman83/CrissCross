@@ -9,6 +9,15 @@ label.remaining-words {
 
 .wordlist-word {
     display: flex;
+    border: none;
+    background-color: unset;
+    color: var(--fg-color);
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.wordlist-word label {
+    cursor: pointer;
 }
 
 label.wordlist-wordvalue {

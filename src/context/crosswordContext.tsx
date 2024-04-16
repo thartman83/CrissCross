@@ -13,6 +13,7 @@ import DeleteFillCommand from "./deleteFillCommand";
 import NewCrosswordCommand from "./newCrosswordCommand";
 import { toGridView, toWordsView, toCurrentWord } from "../utils/gridUtilities";
 import UpdateMetadataCommand from "./updateMetadataCommand";
+import UpdateCurrentWordCommand from "./updateCurrentWordCommand";
 
 type SquareKeyDownEvent = KeyboardEvent<HTMLInputElement>;
 type SquareMouseEvent = MouseEvent<HTMLInputElement>;
@@ -31,6 +32,7 @@ export type CrosswordContextType = {
   onClick: (pos: number, e: SquareMouseEvent) => void,
   onNew: (height: number, widht: number) => void,
   updateMetadata: (name: string, value: string) => void,
+  updateCurrentWord: (value: string) => void,
   undo: () => void,
 };
 
@@ -216,6 +218,11 @@ const CrosswordContextProvider = ({children}: {children: ReactNode}) => {
     }
   };
 
+  const updateCurrentWord = (value: string) => {
+    const cmd = UpdateCurrentWordCommand(value);
+    dispatch({type: CrosswordActions.updateCurrentWord, payload: [cmd]});
+  };
+
   const undo = () => {
     if(commandStack.length > 0) {
       const newStack = [...commandStack];
@@ -246,6 +253,7 @@ const CrosswordContextProvider = ({children}: {children: ReactNode}) => {
       onClick: onClick,
       onNew: onNew,
       updateMetadata: updateMetadata,
+      updateCurrentWord: updateCurrentWord,
       undo: undo,
     }}>
         {children}

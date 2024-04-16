@@ -17,4 +17,5 @@ textarea.textarea {
     color: var(-fg-color);
     transition: all var(--darklite-transition-delay) ease;
     transition-property: var(--darklite-transition-properties);
+    font-family: Arial, Helvetica, sans-serif;
 }

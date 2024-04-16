@@ -1,18 +1,25 @@
 import './wordlistView.css';
-import { useEffect, useState, ChangeEvent, ReactNode } from "react";
+import { useEffect, useState, ChangeEvent, MouseEvent, ReactNode } from "react";
 import { useWordList } from "../../context/wordListContext";
 import SearchInput from "../ui/searchInput";
 import { useCrossword } from "../../context/crosswordContext";
 
 type ChangeSearchEvent = ChangeEvent<HTMLInputElement>;
+type EntryListClickEvent = MouseEvent<HTMLButtonElement>;
 
 const WordListView = () => {
   const {wordList} = useWordList();
   const [currentFilter, setCurrentFilter] = useState<string>("");
   const [currentWords, setCurrentWords] = useState<Array<ReactNode>>([]);
   const [remainingFiltered, setRemainingFiltered] = useState<number>(0);
+  const {updateCurrentWord} = useCrossword();
 
   const {crossword} = useCrossword();
+
+  const onWordListItemClicked = (e: EntryListClickEvent) => {
+    const value: string = e.currentTarget.getAttribute('data-word') || "";
+    updateCurrentWord(value);
+  };
 
   useEffect(() => {
     const currentWord = crossword.currentWord();
@@ -20,19 +27,22 @@ const WordListView = () => {
           .filter(({word}: {word: string}) =>
             word.includes(currentFilter.toUpperCase()) &&
               word.length === currentWord.squares.length &&
-              currentWord.squares.reduce((acc: boolean, val: string, i: number): boolean =>
+              currentWord.squares.reduce(
+                (acc: boolean, val: string, i: number): boolean =>
                 acc && (val === '' || val === word[i]), true))
           .sort((a: {word: string, value: number},
                  b: {word: string, value: number}) => b.value - a.value);
 
     const wordEls = filteredWords.slice(0,25).map(
       (entry: {word: string, value: number}) => {
-        return <div key={`${entry.word}-word-entry`} className="wordlist-word">
+        return <button key={`${entry.word}-word-entry`} className="wordlist-word"
+                       data-word={entry.word}
+                       onClick={onWordListItemClicked}>
                  <label>{`${entry.word} (${entry.word.length})`}</label>
                  <label className="wordlist-wordvalue">
                    {entry.value}
                  </label>
-               </div>;
+               </button>;
       }, [currentWord]);
 
     setCurrentWords(wordEls);

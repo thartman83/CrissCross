@@ -6,6 +6,7 @@ export const CrosswordActions = {
   crosswordCommand: 'crosswordCommand',
   undoCrosswordCommand: 'undoCrosswordCommand',
   updateMetadata: 'updateMetadata',
+  updateCurrentWord: 'updateCurrentWord'
 };
 
 export type CrosswordActionPayload = {
@@ -40,6 +41,11 @@ const crosswordReducer =
     }
 
     case CrosswordActions.updateMetadata: {
+      newCrosswordState = cmds[0].do(crossword);
+      break;
+    }
+
+    case CrosswordActions.updateCurrentWord: {
       newCrosswordState = cmds[0].do(crossword);
       break;
     }
