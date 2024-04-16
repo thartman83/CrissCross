@@ -219,7 +219,12 @@ const CrosswordContextProvider = ({children}: {children: ReactNode}) => {
   };
 
   const updateCurrentWord = (value: string) => {
-    const cmd = UpdateCurrentWordCommand(value);
+    const currentWord = crosswordState.currentWord();
+    const prevWord = currentWord.squares;
+    const cmd = UpdateCurrentWordCommand(currentWord.indicies,
+                                         currentWord.orientation,
+                                         value.split(''), prevWord);
+    setCommandStack([...commandStack, cmd]);
     dispatch({type: CrosswordActions.updateCurrentWord, payload: [cmd]});
   };
 

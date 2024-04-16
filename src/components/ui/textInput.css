@@ -15,6 +15,7 @@ input.text-input {
     height: 1.5rem;
     background-color: var(--bg-input-color);
     color: var(--fg-input-color);
+    border-width: 1px;
 
     transition: all var(--darklite-transition-delay) ease;
     transition-property: var(--darklite-transition-properties);
