@@ -1,0 +1,39 @@
+.main-menu-toggle {
+    display: flex;
+}
+
+.main-menu-toggle label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: .5rem;
+}
+
+.main-menu-toggle input {
+    position: absolute;
+    height: 0;
+    width: 0;
+}
+
+.main-menu-toggle input:checked ~ label svg {
+    color: var(--bg-input-color-focus);
+}
+
+.main-menu-toggle input ~ label:hover svg {
+    color: var(--bg-input-color-focus);
+}
+
+.main-menu-toggle svg {
+    height: 2rem;
+    width: auto;
+}
+
+.main-menu-toggle input ~ nav {
+    width: 0;
+    transition: width .5sec ease-in-out;
+}
+
+.main-menu-toggle input:checked ~ nav {
+    width: 300px;
+    transition: width .5sec ease-in-out;
+}

@@ -22,7 +22,7 @@
   --fg-input-color-dark: black;
 
   --body-gutter: 100px;
-  --darklite-transition-delay: .60s;
+  --darklite-transition-delay: .40s;
   --darklite-transition-properties: color, background;
 
   color-scheme: light dark;
@@ -35,8 +35,6 @@
 }
 
 body {
-    margin-left: var(--body-gutter);
-    margin-right: var(--body-gutter);
     background-color: var(--bg-color);
     color: var(--fg-color);
 
@@ -63,37 +61,6 @@ body.dark {
 
     transition: all var(--darklite-transition-delay) ease;
     transition-property: color, background;
-}
-
-.header {
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
-    position: relative;
-}
-
-.main {
-    display: flex;
-}
-
-@media all and (max-width: 1200px) {
-    .main {
-        flex-direction: column;
-    }
-
-    .grid {
-        align-self: center;
-    }
-}
-
-.grid {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    margin-right: 2rem;
-}
-
-.grid-row {
-    margin: 0;
-    padding: 0;
 }
 
 .grid-summary {
@@ -220,20 +187,6 @@ body.dark {
     justify-content: center;
     height: 2rem;
     margin-left: .5rem;
-}
-
-.main-menu {
-    position: absolute;
-    display: flex;
-    top: 1rem;
-    right: calc(var(--body-gutter) / 2 * -1);
-    width: var(--body-gutter);
-}
-
-.main-menu button {
-    font-size: 1.5rem;
-    height: 2.25rem;
-    width: 2.25rem;
 }
 
 .stats-header {

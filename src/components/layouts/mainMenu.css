@@ -1,0 +1,41 @@
+.main-menu {
+    position: fixed;
+    width: 150px;
+    height: 100%;
+    background-color: var(--bg-color-alt);
+}
+
+.main-menu.menu-open {
+    left: 0;
+    width: 150px;
+    transition: width .5s ease-in-out;
+}
+
+.main-menu.menu-closed {
+    left: 0;
+    width: 0;
+    transition: width .5s ease-in-out;
+}
+
+.main-menu nav {
+    overflow: hidden;
+}
+
+.main-menu nav ul {
+    list-style: none;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.main-menu nav ul li {
+    font-size: 1.25rem;
+    padding-left: .5rem;
+    padding-bottom: .25rem;
+    margin-bottom: .5rem;
+    cursor: pointer;
+}
+
+.main-menu nav ul li:hover {
+    background-color: var(--bg-input-color-focus);
+    border-radius: 4px;
+}

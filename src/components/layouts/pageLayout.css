@@ -1,0 +1,19 @@
+@media all and (max-width: 1200px) {
+    .page {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.page {
+    position: relative;
+    margin-left: 2.5rem;
+    margin-right: 2.5rem;
+    left: 0;
+    transition: margin-left .5s ease-in-out;
+}
+
+.page.menu-open {
+    margin-left: 150px;
+    transition: margin-left .5s ease-in-out;
+}

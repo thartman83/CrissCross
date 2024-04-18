@@ -11,6 +11,11 @@ export type AppContextType = {
   setOpenHelpModal: (openHelpModal: boolean) => void,
   openNewModal: boolean,
   setOpenNewModal: (openNewModal: boolean) => void,
+  openConfirmModal: boolean,
+  setOpenConfirmModal: (openConfirmModal: boolean) => void,
+
+  openMainMenu: boolean,
+  setOpenMainMenu: (openMainMenu: boolean) => void,
 };
 
 const AppContext = createContext<AppContextType|undefined>(undefined);
@@ -37,6 +42,9 @@ const AppContextProvider = ({children}: {children: ReactNode}) => {
   const [appState, dispatch] = useReducer(appReducer, initState);
   const [openHelpModal, setOpenHelpModal] = useState(false);
   const [openNewModal, setOpenNewModal] = useState(false);
+  const [openConfirmModal, setOpenConfirmModal] = useState(false);
+
+  const [openMainMenu, setOpenMainMenu] = useState(false);
 
   const updateDimensions = (height: number, width: number) => {
     dispatch({type: AppActions.updateDimensions, payload: {
@@ -52,7 +60,11 @@ const AppContextProvider = ({children}: {children: ReactNode}) => {
       openHelpModal: openHelpModal,
       setOpenHelpModal: setOpenHelpModal,
       openNewModal: openNewModal,
-      setOpenNewModal: setOpenNewModal
+      setOpenNewModal: setOpenNewModal,
+      openConfirmModal: openConfirmModal,
+      setOpenConfirmModal: setOpenConfirmModal,
+      openMainMenu: openMainMenu,
+      setOpenMainMenu: setOpenMainMenu,
     }}>
       {children}
     </AppContext.Provider>

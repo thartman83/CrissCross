@@ -1,7 +1,17 @@
 .menu-btn {
+    min-height: 2.3rem;
+    min-width: 2.3rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: .15rem;
-    margin-left: .5rem;
+    margin-bottom: .2rem;
+    margin-left: .2rem;
+    position: relative;
+    background-color: var(--bg-input-color);
+    border-width: 1px;
+    border-radius: 4px;
+}
+
+.menu-btn:hover {
+    background-color: var(--bg-input-color-focus);
 }
