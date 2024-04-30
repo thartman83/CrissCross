@@ -2,7 +2,7 @@ import './wordlistView.css';
 import { useEffect, useState, ChangeEvent, MouseEvent, ReactNode } from "react";
 import { useWordList } from "../../context/wordListContext";
 import SearchInput from "../ui/searchInput";
-import { useCrossword } from "../../context/crosswordContext";
+import useCrossword from '@/hooks/useCrossword';
 
 type ChangeSearchEvent = ChangeEvent<HTMLInputElement>;
 type EntryListClickEvent = MouseEvent<HTMLButtonElement>;

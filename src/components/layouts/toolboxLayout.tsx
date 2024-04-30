@@ -1,7 +1,7 @@
 import "./toolboxLayout.css";
-import MenuButton from "../ui/menuButton";
-import {IconName} from "../ui/faIcons";
-import { useCrossword } from "../../context/crosswordContext";
+import MenuButton from "@/components/ui/menuButton";
+import {IconName} from "@/components/ui/faIcons";
+import useCrossword from "@/hooks/useCrossword";
 
 const ToolboxLayout = () => {
 

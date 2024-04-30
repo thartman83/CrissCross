@@ -1,6 +1,6 @@
 import "./mainMenu.css";
 import { useApp } from '../../context/applicationContext';
-import { useCrossword } from '../../context/crosswordContext';
+import useCrossword from '@/hooks/useCrossword';
 import useColorSchema from '../../hooks/useColorSchema';
 import { IconName } from '../ui/faIcons';
 import MenuButton from '../ui/menuButton';

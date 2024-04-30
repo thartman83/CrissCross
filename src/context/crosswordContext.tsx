@@ -36,7 +36,7 @@ export type CrosswordContextType = {
   undo: () => void,
 };
 
-const CrosswordContext = createContext<CrosswordContextType|undefined>(undefined);
+export const CrosswordContext = createContext<CrosswordContextType|undefined>(undefined);
 
 export const useCrossword = () => {
   const context = useContext(CrosswordContext);

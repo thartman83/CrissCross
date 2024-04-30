@@ -1,7 +1,7 @@
 import "./gridLayout.css";
-import SquareInput from "../ui/squareInput";
-import { useCrossword } from "../../context/crosswordContext";
-import { answerGrid } from "../../utils/gridUtilities";
+import SquareInput from "@/components/ui/squareInput/squareInput";
+import useCrossword from "@/hooks/useCrossword";
+import { answerGrid } from "@/utils/gridUtilities";
 import ToolboxLayout from "./toolboxLayout";
 
 export const GridLayout = () => {

@@ -1,4 +1,4 @@
-import { useCrossword } from "../../context/crosswordContext";
+import useCrossword from "@/hooks/useCrossword";
 
 const StatisticsView = () => {
   const {crossword} = useCrossword();

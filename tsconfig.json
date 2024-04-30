@@ -23,12 +23,11 @@
     /* Path aliases */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
     }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!__test__!utils.ts~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!hooks!useCrossword.ts~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!__test__!mocks!mockCrosswordContext.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!ui!square!square.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!ui!squareInput!__test__!squareInput.test.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!ui!square!square.stories.tsx~"],
   "exclude": [
-    "src/**/tests/*",
     "src/**/*.tsx~",
     "src/**/*.ts~"
   ],
