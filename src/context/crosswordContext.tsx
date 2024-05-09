@@ -16,7 +16,6 @@ import UpdateMetadataCommand from "./updateMetadataCommand";
 import UpdateCurrentWordCommand from "./updateCurrentWordCommand";
 
 type SquareKeyDownEvent = KeyboardEvent<HTMLInputElement>;
-type SquareMouseEvent = MouseEvent<HTMLInputElement>;
 
 export enum MoveDirection {
   UP = 0,
@@ -29,14 +28,24 @@ export enum MoveDirection {
 export type CrosswordContextType = {
   crossword: Crossword,
   onKeyDown: (e: SquareKeyDownEvent) => void,
-  onClick: (pos: number, e: SquareMouseEvent) => void,
-  onNew: (height: number, widht: number) => void,
+  onClick: (pos: number) => void,
+  onDoubleClick: (pos: number) => void,
+  onNew: (height: number, width: number) => void,
   updateMetadata: (name: string, value: string) => void,
   updateCurrentWord: (value: string) => void,
   undo: () => void,
 };
 
-export const CrosswordContext = createContext<CrosswordContextType|undefined>(undefined);
+export type CrosswordContextProps = {
+  children: ReactNode,
+  initArgs?: {
+    width: number,
+    height: number,
+  },
+};
+
+export const CrosswordContext =
+  createContext<CrosswordContextType|undefined>(undefined);
 
 export const useCrossword = () => {
   const context = useContext(CrosswordContext);
@@ -48,10 +57,13 @@ export const useCrossword = () => {
   return context;
 };
 
-const initCrossword = (): Crossword => {
+const initCrossword = (initArgs: any): Crossword => {
   const crosswordStr = localStorage.getItem('crossword');
   let crosswordData = null;
   const app = useApp();
+  const height = initArgs?.height || app.appSettings.height;
+  const width = initArgs?.width || app.appSettings.width;
+  const grid = initArgs?.grid || Array(height*width).fill('');
 
   if(!crosswordStr) {
     crosswordData = {
@@ -61,9 +73,9 @@ const initCrossword = (): Crossword => {
       notes: '',
       position: 0,
       orientation: Orientation.across,
-      height: app.appSettings.height,
-      width: app.appSettings.width,
-      grid: Array(app.appSettings.height*app.appSettings.height).fill(''),
+      height: height,
+      width: width,
+      grid: grid,
     };
   } else {
     crosswordData = JSON.parse(crosswordStr);
@@ -83,8 +95,8 @@ const initCrossword = (): Crossword => {
   };
 };
 
-const CrosswordContextProvider = ({children}: {children: ReactNode}) => {
-  const initState: Crossword = initCrossword();
+const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) => {
+  const initState: Crossword = initCrossword(initArgs);
   const [crosswordState, dispatch] = useReducer(crosswordReducer, initState);
   const [commandStack, setCommandStack] = useState<CrosswordCommand[]>([]);
 
@@ -205,17 +217,18 @@ const CrosswordContextProvider = ({children}: {children: ReactNode}) => {
     }
   };
 
-  const onClick = (pos: number, e: SquareMouseEvent) => {
+  const onClick = (pos: number) => {
     const prevPos = crosswordState.position;
     const cmd = MovePositionCommand(pos, prevPos);
+    dispatch({type: CrosswordActions.crosswordCommand, payload:
+              [cmd]});
+  };
 
-    if(e.type === 'dblclick') {
-      dispatch({type: CrosswordActions.crosswordCommand, payload:
-                [cmd, ToggleOrientationCommand()]});
-    } else {
-      dispatch({type: CrosswordActions.crosswordCommand, payload:
-                [cmd]});
-    }
+  const onDoubleClick = (pos: number) => {
+    const prevPos = crosswordState.position;
+    const cmd = MovePositionCommand(pos, prevPos);
+    dispatch({type: CrosswordActions.crosswordCommand, payload:
+              [cmd, ToggleOrientationCommand()]});
   };
 
   const updateCurrentWord = (value: string) => {
@@ -256,6 +269,7 @@ const CrosswordContextProvider = ({children}: {children: ReactNode}) => {
       crossword: crosswordState,
       onKeyDown: onKeyDown,
       onClick: onClick,
+      onDoubleClick: onDoubleClick,
       onNew: onNew,
       updateMetadata: updateMetadata,
       updateCurrentWord: updateCurrentWord,

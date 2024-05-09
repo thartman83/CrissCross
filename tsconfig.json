@@ -26,7 +26,7 @@
       "@/*": ["src/*"],
     }
   },
-  "include": ["src/**/*", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!__test__!utils.ts~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!hooks!useCrossword.ts~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!__test__!mocks!mockCrosswordContext.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!ui!square!square.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!ui!squareInput!__test__!squareInput.test.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!ui!square!square.stories.tsx~"],
+  "include": ["src/**/*", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!layouts!squareGrid!squareGrid.stories.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!layouts!squareGrid!squareGrid.tsx~"],
   "exclude": [
     "src/**/*.tsx~",
     "src/**/*.ts~"

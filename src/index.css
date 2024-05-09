@@ -6,7 +6,7 @@
   /* light mode variables */
   --bg-color-lite: lightblue;
   --bg-color-alt-lite: #eeeeee;
-  --bg-color-highlight-light: lightgray;
+  --bg-color-highlight-lite: lightgray;
   --bg-input-color-lite: azure;
   --bg-input-color-focus-lite: #eeeeee;
   --fg-color-lite: black;
@@ -24,6 +24,15 @@
   --body-gutter: 100px;
   --darklite-transition-delay: .40s;
   --darklite-transition-properties: color, background;
+
+  --grid-square-size: 2.2rem;
+  --grid-square-border-color: black;
+  --grid-square-block-color: black;
+  --grid-square-border-width: 1px;
+  --grid-square-font-weight: 500;
+  --grid-square-font-size: 2rem;
+
+  --grid-width: 40em;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -48,6 +57,12 @@ body {
 
     transition: all var(--darklite-transition-delay) ease;
     transition-property: color, background;
+
+    /* Prevent text highlighting */
+    -moz-user-select:none; /* firefox */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE */
+    user-select: none; /* Standard syntax */
 }
 
 body.dark {
@@ -172,9 +187,9 @@ body.dark {
     flex-direction: column;
 }
 
-.grid-square {
-    display: contents;
-}
+/* .grid-square { */
+/*     display: contents; */
+/* } */
 
 .btn-group {
     justify-content: right;

@@ -1,6 +1,6 @@
 import "./gridLayout.css";
 import SquareInput from "@/components/ui/squareInput/squareInput";
-import useCrossword from "@/hooks/useCrossword";
+import { useCrossword } from "@/hooks/useCrossword";
 import { answerGrid } from "@/utils/gridUtilities";
 import ToolboxLayout from "./toolboxLayout";
 
