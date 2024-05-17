@@ -6,7 +6,7 @@
     justify-content: center;
     font-weight: var(--grid-square-font-weight);
     position: relative;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .grid-square-block::before,
@@ -21,7 +21,7 @@
 
 .grid-square-block::after {
     inline-size: 100vw;
-    /* block-size: var(--grid-square-border-width); */
+    block-size: var(--grid-square-border-width);
     inset-inline-start: 0;
     inset-block-start: 0;
 }
@@ -44,7 +44,7 @@
     inline-size: 100vw;
     block-size: var(--grid-square-border-width);
     inset-inline-start: 0;
-    inset-block-start: var(--grid-square-size);
+    inset-block-start: calc(var(--grid-square-size) + var(--grid-square-border-width));
 }
 
 .grid-square-alt::before {

@@ -16,13 +16,13 @@ const Square = (props: SquareProps) => {
                              {'block': props.value === '.'});
 
   return (
-    <div className={classes} data-squareno={props?.squareNo}>
-      <div className='grid-square-alt' data-squareno={props?.squareNo} />
-      <div className='grid-square-block'/>
-      <label className='grid-square-wordno' data-squareno={props?.squareNo}>
+    <div className={classes} data-squareno={props?.squareNo} role="textbox">
+      <div className='grid-square-alt' />
+      <div className='grid-square-block' />
+      <label className='grid-square-wordno' >
         {props.wordNo}
       </label>
-      <label className='grid-square-value' data-squareno={props?.squareNo}>
+      <label className='grid-square-value' >
         {props.value}
       </label>
     </div>

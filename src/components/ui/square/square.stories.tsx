@@ -4,10 +4,9 @@ const gridSquareSize = {"--grid-square-size": "5rem" } as React.CSSProperties;
 const SquareTemplate = (args: SquareProps) =>
       <div style={{
         overflow: "hidden",
-        width: "var(--grid-square-size)",
-        height: "var(--grid-square-size)",
+        width: "calc(var(--grid-square-size) + 1px)",
+        height: "calc(var(--grid-square-size) + 1px)",
         paddingBottom: "var(--grid-square-border-width)",
-        paddingRight: "var(--grid-square-border-width)",
         ...gridSquareSize
       }}>
         <Square {...args} />

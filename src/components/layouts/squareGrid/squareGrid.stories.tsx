@@ -1,6 +1,9 @@
 import CrosswordContextProvider from "@/context/crosswordContext";
 import SquareGrid from "./squareGrid";
 import AppContextProvider from "@/context/applicationContext";
+import { Meta, StoryObj } from '@storybook/react';
+import { within, userEvent } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 
 const Template = (args) => (
 
@@ -15,7 +18,7 @@ const Template = (args) => (
   </AppContextProvider>
 );
 
-export default {
+const meta: Meta<typeof SquareGrid> = {
   title: "SquareGrid",
   component: SquareGrid,
   args: {
@@ -24,7 +27,22 @@ export default {
   },
 };
 
+export default meta;
+type Story = StoryObj<typeof Meta>;
+
 export const Blank15x15 = Template.bind({});
+Blank15x15.args = {
+  grid: Array(15*15).fill('')
+};
+
+Blank15x15.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const tenthSquare =canvas.getAllByRole('textbox')[10];
+  await userEvent.click(tenthSquare);
+  expect(tenthSquare).toHaveClass('focused');
+  expect(tenthSquare).toHaveClass('current-word');
+
+};
 
 export const Blank10x10 = Template.bind({});
 Blank10x10.args = {
