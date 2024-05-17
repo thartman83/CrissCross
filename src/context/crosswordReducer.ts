@@ -54,7 +54,7 @@ const crosswordReducer =
       newCrosswordState = crossword;
   }
 
-  localStorage.setItem('crossword', JSON.stringify(newCrosswordState));
+  //localStorage.setItem('crossword', JSON.stringify(newCrosswordState));
 
   return newCrosswordState;
 };

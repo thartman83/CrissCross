@@ -1,12 +1,13 @@
 import "./squareGrid.css";
-import { MouseEvent, useRef } from "react";
+import { MouseEvent, KeyboardEvent } from "react";
 import { useCrossword } from "@/hooks/useCrossword";
 import Square from "@/components/ui/square/square";
 
 type ClickEvent = MouseEvent<HTMLElement>;
+type KeyEvent = KeyboardEvent<HTMLElement>
 
 const SquareGrid = () => {
-  const { crossword, onClick, onDoubleClick } = useCrossword();
+  const { crossword, onClick, onDoubleClick, onKeyDown } = useCrossword();
   const currentWord = crossword.currentWord();
 
   const gridWidthCssProp =
@@ -25,9 +26,13 @@ const SquareGrid = () => {
     }
   };
 
+  const onKeyDownHandler = (e: KeyEvent) => {
+    onKeyDown(e);
+  };
+
   return (
     <div className="square-grid" style={{...gridWidthCssProp}}
-         onClick={onClickHandler}>
+         onClick={onClickHandler} onKeyDown={onKeyDownHandler} tabIndex={-1}>
       {
         crossword.grid.map((s,i) =>
           <Square key={"grid-square-" + i.toString()} value={s as string}

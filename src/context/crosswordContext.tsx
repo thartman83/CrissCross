@@ -15,7 +15,7 @@ import { toGridView, toWordsView, toCurrentWord } from "../utils/gridUtilities";
 import UpdateMetadataCommand from "./updateMetadataCommand";
 import UpdateCurrentWordCommand from "./updateCurrentWordCommand";
 
-type SquareKeyDownEvent = KeyboardEvent<HTMLInputElement>;
+type SquareKeyDownEvent = KeyboardEvent<HTMLElement>;
 
 export enum MoveDirection {
   UP = 0,

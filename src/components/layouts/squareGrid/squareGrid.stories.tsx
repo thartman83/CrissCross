@@ -35,15 +35,6 @@ Blank15x15.args = {
   grid: Array(15*15).fill('')
 };
 
-Blank15x15.play = async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-  const tenthSquare =canvas.getAllByRole('textbox')[10];
-  await userEvent.click(tenthSquare);
-  expect(tenthSquare).toHaveClass('focused');
-  expect(tenthSquare).toHaveClass('current-word');
-
-};
-
 export const Blank10x10 = Template.bind({});
 Blank10x10.args = {
   width: 10,
@@ -89,4 +80,30 @@ Filled15x15.args = {
     "C","A","R","G","O","H","O","L","D","S",".","R","E","E","D",
     "C","H","R","O","N","I","C","L","E",".",".","E","T","S","Y"
   ]
+};
+
+export const GridMovement = Template.bind({});
+GridMovement.args = {
+  width: 15,
+  height: 15,
+};
+
+GridMovement.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const tenthSquare = canvas.getAllByRole('textbox')[10];
+
+  // test clicking on a square that it moves the focused square and word accordingly
+  await userEvent.click(tenthSquare);
+  expect(tenthSquare).toHaveClass('focused');
+  expect(tenthSquare).toHaveClass('current-word');
+  canvas.getAllByRole('textbox').slice(0, 14).forEach( (square) =>
+    expect(square).toHaveClass('current-word')
+  );
+
+  // Click again to toggle the orientation
+  await userEvent.click(tenthSquare);
+  expect(tenthSquare).toHaveClass('focused');
+  expect(tenthSquare).toHaveClass('current-word');
+  [...Array(15).keys()].forEach(x =>
+    expect(canvas.getAllByRole('textbox')[10+(x*15)]).toHaveClass('current-word'));
 };
