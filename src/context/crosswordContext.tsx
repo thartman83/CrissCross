@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useContext, useReducer, useState } from "react";
-import { KeyboardEvent, MouseEvent } from 'react';
+import { KeyboardEvent } from 'react';
 import Crossword, { GridView, WordView, Word } from "../types/crossword";
 import Orientation from "../types/orientation";
 import crosswordReducer, { CrosswordActions} from "./crosswordReducer";
@@ -15,7 +15,7 @@ import { toGridView, toWordsView, toCurrentWord } from "../utils/gridUtilities";
 import UpdateMetadataCommand from "./updateMetadataCommand";
 import UpdateCurrentWordCommand from "./updateCurrentWordCommand";
 
-type SquareKeyDownEvent = KeyboardEvent<HTMLElement>;
+type SquareKeyDownEvent = KeyboardEvent<HTMLElement>
 
 export enum MoveDirection {
   UP = 0,
@@ -27,13 +27,13 @@ export enum MoveDirection {
 
 export type CrosswordContextType = {
   crossword: Crossword,
-  onKeyDown: (e: SquareKeyDownEvent) => void,
-  onClick: (pos: number) => void,
-  onDoubleClick: (pos: number) => void,
-  onNew: (height: number, width: number) => void,
-  updateMetadata: (name: string, value: string) => void,
-  updateCurrentWord: (value: string) => void,
-  undo: () => void,
+  onKeyDown: (e: SquareKeyDownEvent) => void
+  onClick: (pos: number) => void
+  onDoubleClick: (pos: number) => void
+  onNew: (height: number, width: number) => void
+  updateMetadata: (name: string, value: string) => void
+  updateCurrentWord: (value: string) => void
+  undo: () => void
 };
 
 export type CrosswordContextProps = {

@@ -1,51 +1,58 @@
+import { Meta, StoryObj } from '@storybook/react';
 import Square, { SquareProps } from './square';
 
 const gridSquareSize = {"--grid-square-size": "5rem" } as React.CSSProperties;
-const SquareTemplate = (args: SquareProps) =>
-      <div style={{
-        overflow: "hidden",
-        width: "calc(var(--grid-square-size) + 1px)",
-        height: "calc(var(--grid-square-size) + 1px)",
-        paddingBottom: "var(--grid-square-border-width)",
-        ...gridSquareSize
-      }}>
-        <Square {...args} />
-      </div>;
-
-export default {
+const meta: Meta<SquareProps> = {
   title: "Square",
   component: Square,
-  argTypes: {
-    darkMode: { type: "boolean", defaultValue: false}
+  render: (args) => (
+    <div style={{
+      overflow: "hidden",
+      width: "calc(var(--grid-square-size) + 1px)",
+      height: "calc(var(--grid-square-size) + 1px)",
+      paddingBottom: "var(--grid-square-border-width)",
+      ...gridSquareSize
+    }}>
+      <Square {...args} />
+    </div>
+  ),
+};
+
+export default meta;
+
+type SquareStory = StoryObj<SquareProps>
+
+// Blank square
+export const BlankSquare: SquareStory = {};
+
+// Filled in Square
+export const FilledSquare: SquareStory = {
+  args: {
+    value: 'A'
   },
 };
 
-// Blank square
-export const BlankSquare = SquareTemplate.bind({});
-
-// Filled in Square
-export const FilledSquare = SquareTemplate.bind({});
-FilledSquare.args = {
-  value: 'A'
-};
-
 // Focused Square
-export const FocusedSquare = SquareTemplate.bind({});
-FocusedSquare.args = {
-  focused: true
+export const FocusedSquare: SquareStory = {
+  args: {
+    focused: true,
+  }
 };
 
-export const CurrentWordSquare = SquareTemplate.bind({});
-CurrentWordSquare.args = {
-  currentWord: true
+export const CurrentWordSquare: SquareStory = {
+  args: {
+    currentWord: true
+  }
 };
 
-export const LeadWordSquareBlank = SquareTemplate.bind({});
-LeadWordSquareBlank.args = {
-  wordNo: 1
+export const LeadWordSquareBlank: SquareStory = {
+  args: {
+    wordNo: 1,
+  },
 };
 
-export const BlockSquare = SquareTemplate.bind({});
-BlockSquare.args = {
-  value: "."
+export const BlockSquare: SquareStory = {
+  args: {
+    value: "."
+  }
 };

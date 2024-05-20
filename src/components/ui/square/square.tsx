@@ -20,7 +20,7 @@ const Square = (props: SquareProps) => {
       <div className='grid-square-alt' />
       <div className='grid-square-block' />
       <label className='grid-square-wordno' >
-        {props.wordNo}
+        {props.wordNo !== 0 && props.wordNo }
       </label>
       <label className='grid-square-value' >
         {props.value}

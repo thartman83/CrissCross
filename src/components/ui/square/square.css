@@ -56,9 +56,9 @@
 
 .grid-square .grid-square-wordno {
     position: absolute;
-    font-size: calc(var(--grid-square-size) / 6);
-    top: calc(var(--grid-square-size) / 15);
-    left: calc(var(--grid-square-size) / 15);
+    font-size: calc(var(--grid-square-size) / 5);
+    top: calc(var(--grid-square-size) / 20);
+    left: calc(var(--grid-square-size) / 10);
 }
 
 .grid-square.current-word {
@@ -71,6 +71,14 @@
 
 .grid-square.block {
     background-color: var(--grid-square-block-color);
+}
+
+.grid-square.block label.grid-square-value {
+    font-size: 0;
+}
+
+.grid-square.focused.block {
+    background-color: var(--grid-square-block-focus-color);
 }
 
 label.grid-square-value {

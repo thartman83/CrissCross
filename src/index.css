@@ -28,6 +28,7 @@
   --grid-square-size: 2.2rem;
   --grid-square-border-color: black;
   --grid-square-block-color: black;
+  --grid-square-block-focus-color: #00000077;
   --grid-square-border-width: 1px;
   --grid-square-font-weight: 500;
   --grid-square-font-size: 2rem;
