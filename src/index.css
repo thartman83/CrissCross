@@ -21,6 +21,16 @@
   --fg-color-dark: rgba(255,255,255,0.87);
   --fg-input-color-dark: black;
 
+
+  /* light mode */
+  --bg-color: var(--bg-color-lite);
+  --bg-color-alt: var(--bg-color-alt-lite);
+  --bg-color-highlight: var(--bg-color-highlight-lite);
+  --bg-input-color: var(--bg-input-color-lite);
+  --bg-input-color-focus: var(--bg-input-color-focus-lite);
+  --fg-color: var(--fg-color-lite);
+  --fg-input-color: var(--fg-input-color-lite);
+
   --body-gutter: 100px;
   --darklite-transition-delay: .40s;
   --darklite-transition-properties: color, background;
@@ -44,17 +54,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: var(--bg-color-dark);
+        --bg-color-alt: var(--bg-color-alt-dark);
+        --bg-color-highlight: var(--bg-color-highlight-dark);
+        --bg-input-color: var(--bg-input-color-dark);
+        --bg-input-color-focus: var(--bg-input-color-focus-dark);
+        --fg-color: var(--fg-color-dark);
+        --fg-input-color: var(--fg-input-color-dark);
+    }
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--fg-color);
-
-    --bg-color: var(--bg-color-lite);
-    --bg-color-alt: var(--bg-color-alt-lite);
-    --bg-color-highlight: var(--bg-color-highlight-lite);
-    --bg-input-color: var(--bg-input-color-lite);
-    --bg-input-color-focus: var(--bg-input-color-focus-lite);
-    --fg-color: var(--fg-color-lite);
-    --fg-input-color: var(--fg-input-color-lite);
 
     transition: all var(--darklite-transition-delay) ease;
     transition-property: color, background;
