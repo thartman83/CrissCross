@@ -1,8 +1,8 @@
 import "./mainMenu.css";
 import { useApp } from '../../context/applicationContext';
-import useCrossword from '@/hooks/useCrossword';
+import { useCrossword } from '@/hooks/useCrossword';
 import useColorSchema from '../../hooks/useColorSchema';
-import { IconName } from '../ui/faIcons';
+import { IconName } from '@/components/ui/faIcons';
 import MenuButton from '../ui/menuButton';
 import SubMenuButton, { ExpandDirection } from '../ui/subMenuButton';
 import MenuItem from "../ui/menuItem";

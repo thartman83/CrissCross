@@ -28,8 +28,6 @@ const SquareGrid = () => {
     }
   };
 
-
-
   const onKeyDownHandler = (e: KeyEvent) => {
     onKeyDown(e);
   };

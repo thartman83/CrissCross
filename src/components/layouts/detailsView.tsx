@@ -1,6 +1,6 @@
 import TextInput, {TextInputChangeEvent} from "../ui/textInput";
 import TextArea, {TextAreaChangeEvent} from "../ui/textArea";
-import useCrossword from "@/hooks/useCrossword";
+import { useCrossword } from "@/hooks/useCrossword";
 
 const DetailsView = () => {
   const {updateMetadata, crossword} = useCrossword();

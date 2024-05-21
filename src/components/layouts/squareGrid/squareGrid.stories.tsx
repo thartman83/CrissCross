@@ -181,7 +181,6 @@ export const BlockSquareTests: GridStory = {
     const squares = canvas.getAllByRole('textbox');
 
     const hasWordNo = (square: HTMLElement, wordNo: number) => {
-      debugger;
       const wordNoLabel = square.querySelector('.grid-square-wordno');
       return wordNoLabel?.textContent === wordNo.toString();
     };

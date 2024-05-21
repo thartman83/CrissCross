@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Modal from './modal';
 import SettingNumberInput from '../ui/settingNumberInput';
-import useCrossword from '@/hooks/useCrossword';
+import { useCrossword } from '@/hooks/useCrossword';
 
 const NewModal = ({isOpen, setIsOpen}: {isOpen: boolean, setIsOpen: (isOpen: boolean) => void}) => {
 

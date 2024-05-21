@@ -1,4 +1,4 @@
-import useCrossword from "@/hooks/useCrossword";
+import { useCrossword } from "@/hooks/useCrossword";
 import Orientation from "../../types/orientation";
 import "./cluesView.css";
 

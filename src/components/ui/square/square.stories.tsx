@@ -11,6 +11,7 @@ const meta: Meta<SquareProps> = {
       width: "calc(var(--grid-square-size) + 1px)",
       height: "calc(var(--grid-square-size) + 1px)",
       paddingBottom: "var(--grid-square-border-width)",
+      backgroundColor: "var(--bg-color-grid)",
       ...gridSquareSize
     }}>
       <Square {...args} />
