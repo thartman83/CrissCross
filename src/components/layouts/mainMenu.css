@@ -1,20 +1,20 @@
 .main-menu {
+    left: -1rem;
     position: fixed;
-    width: 150px;
+    width: var(--main-menu-width);
     height: 100%;
     background-color: var(--bg-color-alt);
+    transform: translateX(calc(var(--main-menu-width)*-2));
+    transition: .5s transform ease-in-out;
 }
 
 .main-menu.menu-open {
-    left: 0;
-    width: 150px;
-    transition: width .5s ease-in-out;
+    transform: translateX(0);
 }
 
 .main-menu.menu-closed {
-    left: 0;
-    width: 0;
-    transition: width .5s ease-in-out;
+    transform: translateX(calc(var(--main-menu-width)*-2));
+    transition: transform .5s ease-in-out;
 }
 
 .main-menu nav {

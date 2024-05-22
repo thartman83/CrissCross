@@ -26,7 +26,7 @@
       "@/*": ["src/*"],
     }
   },
-  "include": ["src/**/*", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!layouts!squareGrid!squareGrid.stories.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!layouts!squareGrid!squareGrid.tsx~"],
+  "include": ["src/**/*", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!layouts!squareGrid!squareGrid.stories.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!layouts!squareGrid!squareGrid.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!layouts!header!header.stories.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!ui!toggleButton!toggleButton.stories.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!ui!toggleButton!toggleButton.stories.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!ui!toggleButton!toggleButton.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!layouts!header!header.tsx~", "../../.emacs.d/tmp/backups/!home!thartman!projects!crisscross!src!components!layouts!squareGrid!squareGrid.interactions.stories.tsx~"],
   "exclude": [
     "src/**/*.tsx~",
     "src/**/*.ts~"

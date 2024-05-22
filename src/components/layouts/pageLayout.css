@@ -6,14 +6,18 @@
 }
 
 .page {
+    margin-left: var(--body-gutter);
     position: relative;
-    margin-left: 2.5rem;
-    margin-right: 2.5rem;
-    left: 0;
-    transition: margin-left .5s ease-in-out;
+    transform: translateX(0);
+    transition: .5s transform ease-in-out;
 }
 
-.page.menu-open {
-    margin-left: 150px;
-    transition: margin-left .5s ease-in-out;
+.page.menu-open{
+    transform: translateX(var(--main-menu-width));
+    transition: .5s transform ease-in-out;
+}
+
+.page.menu-closed {
+    transform: translateX(0);
+    transition: .5s transform ease-in-out;
 }

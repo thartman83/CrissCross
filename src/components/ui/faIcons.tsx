@@ -142,11 +142,7 @@ export const FaDiamond = () => {
 
 export const FaSquare = () => {
   return (
-    <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 448 512">
-    <path d="M0 96C0 60.7 28.7 32 64 32H384c35.3 0 64 28.7 64 64V416c0 35.3-28.7
-64-64 64H64c-35.3 0-64-28.7-64-64V96z" />
-    </svg>
+    <svg fill="currentColor" xmlns="http:www.w3.org/2000/svg" viewBox="0 0 448 512"></svg>
   );
 };
 
@@ -173,7 +169,6 @@ export enum IconName {
 };
 
 const IconByName = (iconName: IconName): ReactElement => {
-
   switch(iconName) {
   case IconName.Bars:
     return FaBars();
@@ -216,4 +211,11 @@ const IconByName = (iconName: IconName): ReactElement => {
   }
 };
 
-export default IconByName;
+export const GetIconByName = (iconName: string): ReactElement => {
+  if(!Object.values<string>(IconName).includes(iconName)) {
+    throw `Unknown icon type ${iconName}`;
+  }
+
+  const icon = IconName[iconName as keyof typeof IconName];
+  return IconByName(icon);
+};

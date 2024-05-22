@@ -6,9 +6,7 @@ import TabLayout from '@/components/layouts/tablayout';
 import WordListContextProvider from '@/context/wordListContext';
 import Modals from '@/components/layouts/modals';
 import PageLayout from '@/components/layouts/pageLayout';
-import MainMenuButton from '@/components/ui/mainMenuButton';
-import HeaderLayout from '@/components/layouts/headerLayout';
-import MainLayout from '@/components/layouts/mainLayout';
+import Header from '@/components/layouts/header/header';
 import MainMenu from '@/components/layouts/mainMenu';
 
 function App() {
@@ -16,16 +14,11 @@ function App() {
       <AppContextProvider>
         <CrosswordContextProvider>
           <WordListContextProvider>
-            <PageLayout>
-              <MainMenu />
-              <HeaderLayout>
-                <MainMenuButton />
-                <h3>Criss/Cross</h3>
-              </HeaderLayout>
-              <MainLayout>
-                <SquareGrid />
-                <TabLayout />
-              </MainLayout>
+            <Header />
+            <MainMenu />
+            <PageLayout >
+              <SquareGrid />
+              <TabLayout />
             </PageLayout>
             <Modals />
           </WordListContextProvider>

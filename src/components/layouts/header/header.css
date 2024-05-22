@@ -1,9 +1,14 @@
 .header {
+    margin-left: var(--body-gutter);
     display: flex;
     font-size: 1.75rem;
     margin-bottom: 1rem;
     align-items: center;
     position: relative;
+}
+
+.header h3 {
+    font-weight: 500;
 }
 
 .header h3 {

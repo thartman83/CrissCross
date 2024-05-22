@@ -2,7 +2,7 @@ import "./menuItem.css";
 
 interface MenuItemProps {
   text: string,
-  onClickHandler: () => {},
+  onClickHandler: () => void
 };
 
 const MenuItem = ({text, onClickHandler}: MenuItemProps) => {

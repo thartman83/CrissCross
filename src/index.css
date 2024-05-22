@@ -11,6 +11,7 @@
   --bg-input-color-lite: azure;
   --bg-input-color-focus-lite: #eeeeee;
   --fg-color-lite: black;
+  --fg-color-alt-lite: #00796b;
   --fg-input-color-lite: black;
 
   /* Dark Mode variables */
@@ -22,6 +23,7 @@
   --bg-input-color-focus-dark: #26a69a; /* teal 500 */
   --bg-input-color-dark: #d6d6d6;
   --fg-color-dark: #d6d6d6;
+  --fg-color-alt-dark: #00796b;
   --fg-input-color-dark: black;
 
 
@@ -33,21 +35,23 @@
   --bg-input-color: var(--bg-input-color-lite);
   --bg-input-color-focus: var(--bg-input-color-focus-lite);
   --fg-color: var(--fg-color-lite);
+  --fg-color-alt: var(--fg-color-alt-lite);
   --fg-input-color: var(--fg-input-color-lite);
 
-  --body-gutter: 100px;
+  --body-gutter: 1rem;
+  --main-menu-width: 245px;
   --darklite-transition-delay: .40s;
   --darklite-transition-properties: color, background;
 
-  --grid-square-size: 2.2rem;
   --grid-square-border-color: black;
   --grid-square-block-color: black;
   --grid-square-block-focus-color: #00000077;
   --grid-square-border-width: 1px;
   --grid-square-font-weight: 500;
-  --grid-square-font-size: 2rem;
-
+  --grid-square-font-size: 2em;
   --grid-width: 50em;
+
+  --header-font-size: 2rem;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -67,6 +71,7 @@
         --bg-input-color: var(--bg-input-color-dark);
         --bg-input-color-focus: var(--bg-input-color-focus-dark);
         --fg-color: var(--fg-color-dark);
+        --fg-color-alt: var(--fg-color-alt-dark);
         --fg-input-color: var(--fg-input-color-dark);
     }
 }
@@ -93,6 +98,7 @@ body.dark {
     --bg-input-color: var(--bg-input-color-dark);
     --bg-input-color-focus: var(--bg-input-color-focus-dark);
     --fg-color: var(--fg-color-dark);
+    --fg-color-alt: var(--fg-color-alt-dark);
     --fg-input-color: var(--fg-input-color-dark);
 
     transition: all var(--darklite-transition-delay) ease;
@@ -100,7 +106,7 @@ body.dark {
 }
 
 .grid-summary {
-    margin-left: 1rem;
+    margin-left: rem;
     padding-left: .5rem;
     padding-right: .5rem;
     padding-bottom: .5rem;

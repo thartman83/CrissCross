@@ -19,7 +19,8 @@ const SquareGrid = () => {
 
   const onClickHandler = (e: ClickEvent) => {
     const target = e.target as HTMLElement;
-    const newPos = Number(target.getAttribute('data-squareno'));
+    const newPos = Number(target?.closest('.grid-square')
+                          ?.getAttribute('data-squareno') || 0);
 
     if(crossword.position === newPos) {
       onDoubleClick(newPos);
