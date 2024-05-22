@@ -1,6 +1,7 @@
 .textarea-group {
     display: flex;
     margin-bottom: .5rem;
+    align-items: center;
 }
 
 label.textarea-label {

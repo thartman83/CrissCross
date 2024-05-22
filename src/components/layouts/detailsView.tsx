@@ -1,5 +1,5 @@
-import TextInput, {TextInputChangeEvent} from "../ui/textInput";
-import TextArea, {TextAreaChangeEvent} from "../ui/textArea";
+import TextInput, {TextInputChangeEvent} from "@/components/ui/textInput/textInput";
+import TextArea, {TextAreaChangeEvent} from "@/components/ui/textArea/textArea";
 import { useCrossword } from "@/hooks/useCrossword";
 
 const DetailsView = () => {

@@ -1,11 +1,15 @@
 import { ChangeEvent } from "react";
 import "./textArea.css";
 
-export type TextAreaChangeEvent = ChangeEvent<HTMLTextAreaElement>;
+export type TextAreaChangeEvent = ChangeEvent<HTMLTextAreaElement>
 
-const TextArea = ({label, defaultValue, onChangeHandler}:
-                  {label: string, defaultValue: string,
-                   onChangeHandler: (e: TextAreaChangeEvent) => void}) => {
+export type TextAreaProps = {
+  label: string,
+  defaultValue: string,
+  onChangeHandler: (e: TextAreaChangeEvent) => void
+};
+
+const TextArea = ({label, defaultValue, onChangeHandler}: TextAreaProps) => {
   return (
     <div className="textarea-group">
       <label className="textarea-label">{label}</label>

@@ -1,6 +1,7 @@
 .text-input-group {
     display: flex;
     margin-bottom: .5rem;
+    align-items: center;
 }
 
 label.text-input-label {
