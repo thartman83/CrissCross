@@ -6,7 +6,7 @@
     justify-content: center;
     font-weight: var(--grid-square-font-weight);
     position: relative;
-    /*overflow: hidden;*/
+    background-color: var(--color-primary);
 }
 
 .grid-square-block::before,
@@ -62,11 +62,11 @@
 }
 
 .grid-square.current-word {
-    background-color: var(--bg-color-highlight);
+    background-color: var(--color-tertiary);
 }
 
 .grid-square.focused {
-    background-color: var(--bg-input-color-focus);
+    background-color: var(--color-quaternary);
 }
 
 .grid-square.block {
@@ -84,5 +84,5 @@
 label.grid-square-value {
     text-transform: uppercase;
     position: absolute;
-    font-size: var(--grid-square-font-size);
+    font-size: calc(var(--grid-square-size) * .666);
 }

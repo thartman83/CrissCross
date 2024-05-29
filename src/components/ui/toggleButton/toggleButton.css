@@ -21,10 +21,10 @@
 
 .toggle-button svg {
     height: var(--header-font-size);
-    color: var(--fg-color);
+    color: var(--color-foreground);
     width: auto;
 }
 
 .toggle-button label.checked svg {
-    color: var(--fg-color-alt);
+    color: var(--color-foreground-alt);
 }

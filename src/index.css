@@ -3,47 +3,83 @@
   line-height: 1.5;
   font-weight: 400;
 
-  /* light mode variables */
-  --bg-color-lite: #cfcfcf;
-  --bg-color-alt-lite: #eeeeee;
-  --bg-color-grid-lite: lightblue;
-  --bg-color-highlight-lite: lightgray;
-  --bg-input-color-lite: azure;
-  --bg-input-color-focus-lite: #eeeeee;
-  --fg-color-lite: black;
-  --fg-color-alt-lite: #00796b;
-  --fg-input-color-lite: black;
+  /* Light Palette */
 
-  /* Dark Mode variables */
-  --bg-color-dark: #121212;
-  --bg-color-alt-dark: #2d040e;
-  --bg-color-grid-dark: #303030;
-  /* --bg-color-highlight-dark: #908f96; */
-  --bg-color-highlight-dark: #00796b; /* teal 700*/
-  --bg-input-color-focus-dark: #26a69a; /* teal 500 */
-  --bg-input-color-dark: #d6d6d6;
-  --fg-color-dark: #d6d6d6;
-  --fg-color-alt-dark: #00796b;
-  --fg-input-color-dark: black;
 
+  /* --color-primary-lite: #F8F9FB; */
+  /* --color-secondary-lite: #FDD9DB; */
+  /* --color-tertiary-lite: #FEB1B3; */
+  /* --color-quaternary-lite: #D9E7F4; */
+  /* --color-accent-lite: #99D9F9; */
+  /* --color-foreground-lite: black; */
+
+  --color-primary-lite: #effdee;
+  --color-tertiary-lite:  #e4fde1;
+  --color-secondary-lite: #90cf8e;
+  --color-quaternary-lite: #c6edC3;
+  --color-accent-lite: #A7DCA5;
+  --color-foreground-lite: black;
+  --color-foreground-alt-lite: #00796b;
+
+  /* Dark Palette */
+  --color-primary-dark: #212529;
+  --color-secondary-dark: #15191d;
+  --color-tertiary-dark: #161616;
+  --color-quaternary-dark: #6f6f6f;
+  --color-accent-dark: #313b4b;
+  --color-foreground-dark: #d6d6d6;
+  --color-foreground-alt-dark: #00796b;
+
+  /* Default Palette is the lite theme */
+  --color-primary: var(--color-primary-lite);
+  --color-secondary: var(--color-secondary-lite);
+  --color-tertiary: var(--color-tertiary-lite);
+  --color-quaternary: var(--color-quaternary-lite);
+  --color-accent: var(--color-accent-lite);
+  --color-foreground: var(--color-foreground-lite);
+  --color-foreground-alt: var(--color-foreground-alt-lite);
+
+  /* /\* light mode variables *\/ */
+  /* --bg-color-lite: #cfcfcf; */
+  /* --bg-color-alt-lite: #eeeeee; */
+  /* --bg-color-grid-lite: lightblue; */
+  /* --bg-color-highlight-lite: lightgray; */
+  /* --bg-input-color-lite: azure; */
+  /* --bg-input-color-focus-lite: #eeeeee; */
+  /* --fg-color-lite: black; */
+  /* --fg-color-alt-lite: #00796b; */
+  /* --fg-input-color-lite: black; */
+
+  /* /\* Dark Mode variables *\/ */
+  /* --bg-color-dark: #121212; */
+  /* --bg-color-alt-dark: #2d040e; */
+  /* --bg-color-grid-dark: #303030; */
+  /* /\* --bg-color-highlight-dark: #908f96; *\/ */
+  /* --bg-color-highlight-dark: #00796b; /\* teal 700*\/ */
+  /* --bg-input-color-focus-dark: #26a69a; /\* teal 500 *\/ */
+  /* --bg-input-color-dark: #d6d6d6; */
+  /* --fg-color-dark: #d6d6d6; */
+  /* --fg-color-alt-dark: #00796b; */
+  /* --fg-input-color-dark: black; */
 
   /* light mode */
-  --bg-color: var(--bg-color-lite);
-  --bg-color-alt: var(--bg-color-alt-lite);
-  --bg-color-grid: var(--bg-color-grid-lite);
-  --bg-color-highlight: var(--bg-color-highlight-lite);
-  --bg-input-color: var(--bg-input-color-lite);
-  --bg-input-color-focus: var(--bg-input-color-focus-lite);
-  --fg-color: var(--fg-color-lite);
-  --fg-color-alt: var(--fg-color-alt-lite);
-  --fg-input-color: var(--fg-input-color-lite);
+  /* --bg-color: var(--bg-color-lite); */
+  /* --bg-color-alt: var(--bg-color-alt-lite); */
+  /* --bg-color-grid: var(--bg-color-grid-lite); */
+  /* --bg-color-highlight: var(--bg-color-highlight-lite); */
+  /* --bg-input-color: var(--bg-input-color-lite); */
+  /* --bg-input-color-focus: var(--bg-input-color-focus-lite); */
+  /* --fg-color: var(--fg-color-lite); */
+  /* --fg-color-alt: var(--fg-color-alt-lite); */
+  /* --fg-input-color: var(--fg-input-color-lite); */
+
+
 
   --body-gutter: 1rem;
   --main-menu-width: 245px;
   --darklite-transition-delay: .40s;
   --darklite-transition-properties: color, background;
 
-  --grid-square-border-color: black;
   --grid-square-block-color: black;
   --grid-square-block-focus-color: #00000077;
   --grid-square-border-width: 1px;
@@ -64,21 +100,20 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-color: var(--bg-color-dark);
-        --bg-color-alt: var(--bg-color-alt-dark);
-        --bg-color-grid: var(--bg-color-grid-dark);
-        --bg-color-highlight: var(--bg-color-highlight-dark);
-        --bg-input-color: var(--bg-input-color-dark);
-        --bg-input-color-focus: var(--bg-input-color-focus-dark);
-        --fg-color: var(--fg-color-dark);
-        --fg-color-alt: var(--fg-color-alt-dark);
-        --fg-input-color: var(--fg-input-color-dark);
+        --color-primary: var(--color-primary-dark);
+        --color-secondary: var(--color-secondary-dark);
+        --color-tertiary: var(--color-tertiary-dark);
+        --color-quaternary: var(--color-quaternary-dark);
+        --color-accent: var(--color-accent-dark);
+        --color-foreground: var(--color-foreground-dark);
+        --color-foreground-alt: var(--color-foreground-alt-dark);
     }
 }
 
 body {
-    background-color: var(--bg-color);
-    color: var(--fg-color);
+    background-color: var(--color-secondary);
+    color: var(--color-foreground);
+    --grid-square-border-color: var(--color-accent);
 
     transition: all var(--darklite-transition-delay) ease;
     transition-property: color, background;
@@ -91,15 +126,22 @@ body {
 }
 
 body.dark {
-    --bg-color: var(--bg-color-dark);
-    --bg-color-alt: var(--bg-color-alt-dark);
-    --bg-color-grid: var(--bg-color-grid-dark);
-    --bg-color-highlight: var(--bg-color-highlight-dark);
-    --bg-input-color: var(--bg-input-color-dark);
-    --bg-input-color-focus: var(--bg-input-color-focus-dark);
-    --fg-color: var(--fg-color-dark);
-    --fg-color-alt: var(--fg-color-alt-dark);
-    --fg-input-color: var(--fg-input-color-dark);
+    --color-primary: var(--color-primary-dark);
+    --color-secondary: var(--color-secondary-dark);
+    --color-tertiary: var(--color-tertiary-dark);
+    --color-quaternary: var(--color-quaternary-dark);
+    --color-accent: var(--color-accent-dark);
+    --color-foreground: var(--color-foreground-dark);
+    --color-foreground-alt: var(--color-foreground-alt-dark);
+    /* --bg-color: var(--bg-color-dark); */
+    /* --bg-color-alt: var(--bg-color-alt-dark); */
+    /* --bg-color-grid: var(--bg-color-grid-dark); */
+    /* --bg-color-highlight: var(--bg-color-highlight-dark); */
+    /* --bg-input-color: var(--bg-input-color-dark); */
+    /* --bg-input-color-focus: var(--bg-input-color-focus-dark); */
+    /* --fg-color: var(--fg-color-dark); */
+    /* --fg-color-alt: var(--fg-color-alt-dark); */
+    /* --fg-input-color: var(--fg-input-color-dark); */
 
     transition: all var(--darklite-transition-delay) ease;
     transition-property: color, background;

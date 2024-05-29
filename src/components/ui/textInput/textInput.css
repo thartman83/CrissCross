@@ -9,12 +9,12 @@ label.text-input-label {
 }
 
 input.text-input {
-    font-size: 1.25em;
+    font-size: 1em;
     padding: .5rem;
     border-radius: 4px;
     width: 100%;
     height: 1.5rem;
-    background-color: var(--bg-input-color);
+    background-color: var(--color-primary);
     color: var(--fg-input-color);
     border-width: 1px;
 
