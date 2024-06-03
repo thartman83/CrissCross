@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
-import TabBar, {TabBarProps} from '@/components/layouts/tabBar/tabBar';
+import TabBar, {TabBarProps} from '@/components/composites/tabBar/tabBar';
 
 const meta: Meta<TabBarProps> = {
-  title: "Layouts/TabBar",
+  title: "Composite Elements/TabBar",
   component: TabBar,
   render: (args) => (
     <TabBar {...args} />
@@ -19,6 +19,8 @@ export const ExampleTabBar: TabBarStory = {
       "First Tab",
       "Second Tab",
       "Third Tab",
-    ]
+    ],
+    activeTab: "First Tab",
+    onTabClick: () => {}
   },
 };

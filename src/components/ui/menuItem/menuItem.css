@@ -1,0 +1,27 @@
+li.menu-item {
+    margin-left: .5rem;
+    padding-left: .5rem;
+    cursor: pointer;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+}
+
+li.menu-item svg {
+    height: calc(var(--header-font-size) * .5);
+    color: var(--color-foreground);
+    width: auto;
+}
+
+li.menu-item a {
+    font-size: 1.25rem;
+    text-decoration: none;
+    color: var(--fg-color);
+}
+
+li.menu-item:hover {
+    background-color: var(--color-accent);
+    border-radius: 4px;
+}

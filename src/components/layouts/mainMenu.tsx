@@ -2,7 +2,7 @@ import "./mainMenu.css";
 import { useApp } from '../../context/applicationContext';
 // import { useCrossword } from '@/hooks/useCrossword';
 // import useColorSchema from '../../hooks/useColorSchema';
-import MenuItem from "../ui/menuItem";
+import MenuItem from "@/components/ui/menuItem/menuItem";
 
 
 const MainMenu = () => {
@@ -41,9 +41,12 @@ const MainMenu = () => {
                          (openMainMenu ? "menu-open" : "menu-closed")}>
            <nav>
              <ul>
-               <MenuItem text="New Puzzle" onClickHandler={() => {}} />
-               <MenuItem text="Settings" onClickHandler={() => {}}/>
-               <MenuItem text="Help" onClickHandler={onHelpButtonClick}/>
+               <MenuItem text="New Puzzle" onClickHandler={() => {}}
+                         faIcon="Plus" />
+               <MenuItem text="Settings" onClickHandler={() => {}}
+                         faIcon="Gear"/>
+               <MenuItem text="Help" onClickHandler={onHelpButtonClick}
+                         faIcon="Question"/>
              </ul>
            </nav>
 

@@ -1,17 +1,15 @@
 import "./pageLayout.css";
 
 import { ReactElement } from "react";
-import { useApp } from "../../context/applicationContext";
 
 interface PageLayoutProps {
   children: ReactElement[],
+  openSidebar: boolean,
 };
 
-const PageLayout = ({ children }: PageLayoutProps) => {
-  const {openMainMenu} = useApp();
-
+const PageLayout = ({ children, openSidebar }: PageLayoutProps) => {
   return (
-    <div className={'page ' + (openMainMenu ? "menu-open" : "menu-closed")}>
+    <div className={'page ' + (openSidebar ? "menu-open" : "menu-closed")}>
       {children}
     </div>
   );

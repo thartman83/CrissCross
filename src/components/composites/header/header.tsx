@@ -1,14 +1,13 @@
 import "./header.css";
-import { useApp } from "@/context/applicationContext";
 import ToggleButton from "@/components/ui/toggleButton/toggleButton";
 
-export type HeaderProps = {};
+export type HeaderProps = {
+  onClickHandler?: () => void
+};
 
-const Header = (_: HeaderProps) => {
-  const { setOpenMainMenu } = useApp();
-
-  const onToggleHandler = (open: boolean) => {
-    setOpenMainMenu(open);
+const Header = ({onClickHandler}: HeaderProps) => {
+  const onToggleHandler = () => {
+    onClickHandler && onClickHandler();
   };
 
   return (

@@ -8,11 +8,11 @@ const meta: Meta<ToggleButtonProps> = {
   argTypes: {
     faIcon: {
       options: [...Object.values(IconName)],
-      control: {type: "select",}
+      control: {type: "select",},
     },
     faIconAlt: {
       options: ["",...Object.values(IconName)],
-      control: {type: "select",}
+      control: {type: "select",},
     },
   },
   render: (args) => (

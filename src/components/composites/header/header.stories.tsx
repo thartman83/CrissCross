@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react';
-import Header, {HeaderProps} from './header';
+import Header, {HeaderProps} from '@/components/composites/header/header';
 import AppContextProvider from '@/context/applicationContext';
 
 const meta: Meta<HeaderProps> = {
-  title: "Layouts/Header",
+  title: "Composite Elements/Header",
   component: Header,
   render: (args) => (
     <AppContextProvider>

@@ -5,7 +5,7 @@ li.tab {
 }
 
 li.tab:hover {
-    background-color: var(--color-tertiary);
+    background-color: var(--color-accent);
     border-radius: 3px;
 }
 
@@ -25,6 +25,6 @@ li.tab:hover {
 li.tab.active {
     border: 1px solid;
     border-radius: 3px 3px 0 0;
-    border-color: var(--color-tertiary) var(--color-tertiary) var(--color-tertiary);
-    background-color: var(--color-tertiary);
+    border-color: var(--color-tertiary) var(--color-tertiary) var(--color-quaternary);
+    background-color: var(--color-quaternary);
 }

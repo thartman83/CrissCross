@@ -1,12 +1,13 @@
 @media all and (max-width: 1200px) {
     .page {
-        display: flex;
         flex-direction: column;
     }
 }
 
 .page {
+    display: flex;
     margin-left: var(--body-gutter);
+    gap: 1rem;
     position: relative;
     transform: translateX(0);
     transition: .5s transform ease-in-out;
