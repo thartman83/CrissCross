@@ -1,10 +1,11 @@
-li.tab {
+.tab.tab-btn {
     padding: .25rem 1rem .25rem 1rem;
     margin-bottom: -1px;
     cursor: pointer;
 }
 
-li.tab:hover {
+.tab.tab-btn:hover,
+.tab.tab-btn:focus {
     background-color: var(--color-accent);
     border-radius: 3px;
 }
@@ -22,7 +23,7 @@ li.tab:hover {
     color: var(--color-foreground);
 }
 
-li.tab.active {
+.tab.tab-btn.active {
     border: 1px solid;
     border-radius: 3px 3px 0 0;
     border-color: var(--color-tertiary) var(--color-tertiary) var(--color-quaternary);

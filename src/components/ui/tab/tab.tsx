@@ -13,14 +13,14 @@ const TabLink = ({title, active, onClick, controlId}: TabProps) => {
   };
 
   return (
-    <li className={"tab" + (active ? " active" : "")}>
-      <button className="tab-btn" type="button" role="tab"
-              aria-selected={active}
-              aria-controls={controlId || ""}
-              onClick={onClickHandler}>
-        <span className="tab-label">{title}</span>
-      </button>
-    </li>
+    <button className={"tab tab-btn" + (active ? " active" : "")}
+            role="tab"
+            aria-selected={active}
+            aria-controls={controlId || ""}
+            tabIndex={active ? 0 : -1}
+            onClick={onClickHandler}>
+      <span className="tab-label">{title}</span>
+    </button>
   );
 };
 
