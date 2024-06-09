@@ -24,12 +24,14 @@ export const BasicTab: TabStory = {
   args: {
     title: "An Inactive Tab",
     active: false,
+    focused: false,
   },
 };
 
 export const ActiveTab: TabStory = {
   args: {
     title: "An Active Tab",
+    focused: true,
     active: true,
   },
 };
@@ -37,6 +39,7 @@ export const ActiveTab: TabStory = {
 export const FocusedTab: TabStory = {
   args: {
     title: "A Focused Tab",
+    focused: true,
     active: false,
   },
   play: async ({ canvasElement }) => {

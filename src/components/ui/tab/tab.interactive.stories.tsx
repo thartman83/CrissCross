@@ -19,9 +19,10 @@ export default meta;
 
 type TabStory = StoryObj<TabProps>
 
-export const TabClickTest: TabStory = {
+export const TabMouseTest: TabStory = {
   args: {
     active: false,
+    focused: false,
     onClick: onClickHandlerMock,
     controlId: "A Tab Panel",
     title: "A Tab",
@@ -37,9 +38,10 @@ export const TabClickTest: TabStory = {
   },
 };
 
-export const InactiveTabAccessibilityTests: TabStory = {
+export const TabKeyboardTest: TabStory = {
   args: {
     active: false,
+    focused: true,
     onClick: onClickHandlerMock,
     controlId: "A Tab Panel",
     title: "A Tab",
@@ -47,12 +49,6 @@ export const InactiveTabAccessibilityTests: TabStory = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const tabBtn = canvas.getByRole('tab');
-    // inactive accessibility controls
-    // an inactive tab should have the following accessibility properties
-    // - tabindex === -1
-    // - aria-selected === false
-    expect(tabBtn).toHaveAttribute('tabindex', '-1');
-    expect(tabBtn).toHaveAttribute('aria-selected', 'false');
 
     // Verify that space and enter engages the onclick event
     tabBtn.focus();
@@ -66,9 +62,30 @@ export const InactiveTabAccessibilityTests: TabStory = {
   },
 };
 
-export const ActiveTabAccessibilityTests: TabStory = {
+export const UnfocusedTabAccessibilityTests: TabStory = {
+  args: {
+    active: false,
+    focused: false,
+    onClick: onClickHandlerMock,
+    controlId: "A Tab Panel",
+    title: "A Tab",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const tabBtn = canvas.getByRole('tab');
+    // inactive accessibility controls
+    // an unfocused tab should have the following accessibility properties
+    // - tabindex === -1
+    // - aria-selected === false
+    expect(tabBtn).toHaveAttribute('tabindex', '-1');
+    expect(tabBtn).toHaveAttribute('aria-selected', 'false');
+  },
+};
+
+export const FocusedTabAccessibilityTests: TabStory = {
   args: {
     active: true,
+    focused: true,
     onClick: onClickHandlerMock,
     controlId: "A Tab Panel",
     title: "A Tab",
@@ -78,19 +95,10 @@ export const ActiveTabAccessibilityTests: TabStory = {
     const tabBtn = canvas.getByRole('tab');
 
     // active accessibility controls
-    // an active tab should have the following accessibility properties
+    // a focused tab should have the following accessibility properties
     // - tabindex == 0
     // - aria-selected == true
-    tabBtn.focus();
-    expect(tabBtn).toHaveFocus();
-
     expect(tabBtn).toHaveAttribute('aria-selected', 'true');
     expect(tabBtn).toHaveAttribute('tabindex', '0');
-
-    await userEvent.keyboard('[Space]');
-    expect(onClickHandlerMock).toHaveBeenCalledTimes(1);
-
-    await userEvent.keyboard('[Enter]');
-    expect(onClickHandlerMock).toHaveBeenCalledTimes(2);
   },
 };
