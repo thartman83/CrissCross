@@ -4,7 +4,6 @@ import CrosswordContextProvider from '@/context/crosswordContext';
 import AppContextProvider from '@/context/applicationContext';
 import TabLayout from '@/components/layouts/tabLayout/tablayout';
 import WordListContextProvider from '@/context/wordListContext';
-import Modals from '@/components/layouts/modals';
 import PageLayout from '@/components/layouts/pageLayout';
 import Header from '@/components/composites/header/header';
 import DetailsView from '@/components/layouts/detailsView';
@@ -47,7 +46,7 @@ function App() {
       text: "Help",
       onClickHandler: () => {},
       faIcon: "Question",
-    }
+    },
   ];
 
   const onHeaderClick = () => {
@@ -58,13 +57,12 @@ function App() {
       <AppContextProvider>
         <CrosswordContextProvider>
           <WordListContextProvider>
-            <Header onClickHandler={onHeaderClick} />
+            <Header onClickHandler={onHeaderClick} openMainMenu={openSidebar} />
             <SidebarMenu menuItems={menuItems} openSidebar={openSidebar} />
             <PageLayout openSidebar={openSidebar} >
               <SquareGrid />
               <TabLayout tabViews={tabViews} tabLabels={tabLabels} />
             </PageLayout>
-            <Modals />
           </WordListContextProvider>
         </CrosswordContextProvider>
       </AppContextProvider>

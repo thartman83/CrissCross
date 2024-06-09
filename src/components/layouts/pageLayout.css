@@ -10,15 +10,17 @@
     gap: 1rem;
     position: relative;
     transform: translateX(0);
-    transition: .5s transform ease-in-out;
+    transition: .5s all ease-in-out;
+    width: calc(100vw - 2rem);
 }
 
-.page.menu-open{
+.page.menu-open {
     transform: translateX(var(--main-menu-width));
-    transition: .5s transform ease-in-out;
+    transition: .5s all ease-in-out;
+    width: calc(100vw - var(--main-menu-width)*1.25)
 }
 
 .page.menu-closed {
     transform: translateX(0);
-    transition: .5s transform ease-in-out;
+    transition: .5s all ease-in-out;
 }

@@ -30,6 +30,14 @@
   --color-foreground-dark: #d6d6d6;
   --color-foreground-alt-dark: #00796b;
 
+  --color-accent-dark: #212529;
+  --color-tertiary-dark: #15191d;
+  --color-secondary-dark: #161616;
+  --color-quaternary-dark: #6f6f6f;
+  --color-primary-dark: #313b4b;
+  --color-foreground-dark: #d6d6d6;
+  --color-foreground-alt-dark: #00796b;
+
   /* Default Palette is the lite theme */
   --color-primary: var(--color-primary-lite);
   --color-secondary: var(--color-secondary-lite);
@@ -181,22 +189,6 @@ body.dark {
 .general-grid-info {
     list-style: none;
     padding-left: .4rem;;
-}
-
-.modal {
-    position: relative;
-    padding: 2rem;
-    border: 0;
-    border-radius: .5rem;
-    box-shadow: 0 0 0.5rem .25rem hsl(0 0% 0% / 10%);
-}
-
-.modal::backdrop {
-    background: hsl(0 0% 0% / 50%);
-}
-
-.modal h3 {
-    margin-top: 0;
 }
 
 .currentWord-layout {

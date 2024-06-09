@@ -1,20 +1,27 @@
 import "./header.css";
+import { MouseEvent } from "react";
 import ToggleButton from "@/components/ui/toggleButton/toggleButton";
 
+export type OnClickHandlerEvent = MouseEvent<HTMLDivElement>
+
 export type HeaderProps = {
-  onClickHandler?: () => void
+  openMainMenu: boolean,
+  onClickHandler: () => void
 };
 
-const Header = ({onClickHandler}: HeaderProps) => {
-  const onToggleHandler = () => {
-    onClickHandler && onClickHandler();
+const Header = ({openMainMenu, onClickHandler}: HeaderProps) => {
+  const onToggleHandler = (e: OnClickHandlerEvent) => {
+    onClickHandler();
+    e.preventDefault();
   };
 
   return (
     <div className="header">
-      <ToggleButton faIcon="Bars" name="main-menu"
-                    onToggleHandler={onToggleHandler}/>
-      <h3>Criss/Cross</h3>
+      <div className="header-brand" onClick={onToggleHandler}>
+        <ToggleButton faIcon="Bars" name="main-menu"
+                      state={openMainMenu} />
+        <img src="src/assets/crisscross.png" role="button" />
+      </div>
     </div>
   );
 };
