@@ -1,20 +1,17 @@
-.tab-layout {
+.tab-panel {
     margin-right: 2rem;
-}
-
-@media all and (max-width: 1200px) {
-    .tab-layout {
-        width: var(--grid-width);
-    }
-}
-
-.tab-content {
     padding: 1rem;
     color: var(--color-foreground);
     background-color: var(--color-quaternary);
     overflow-y: auto;
     max-height: 42rem;
     border: 1px solid;
-    border-radius: 3px 3px 0 0;
+    border-radius: 3px;
     border-color: var(--color-tertiary);
+}
+
+@media all and (max-width: 1200px) {
+    .tab-panel {
+        width: var(--grid-width);
+    }
 }

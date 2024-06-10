@@ -1,5 +1,5 @@
 import "./helpModal.css";
-import Modal from "@/components/layouts/modal/modal";
+import Modal from "@/components/containers/modal/modal";
 import HelpKey from "@/components/ui/helpKey/helpKey";
 
 export type HelpModalProps = {

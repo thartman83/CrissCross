@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import Modal, {ModalProps, ModalSize} from './modal';
 
 const meta: Meta<ModalProps> = {
-  title: "Layouts/Modal",
+  title: "Containers/Modal",
   component: Modal,
   argTypes: {
     size: {

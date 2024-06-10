@@ -3,7 +3,7 @@ import SidebarMenu, { SidebarMenuProps } from './sidebarMenu';
 import AppContextProvider from '@/context/applicationContext';
 
 const meta: Meta<SidebarMenuProps> = {
-  title: "Layouts/Sidebar Menu",
+  title: "Containers/Sidebar Menu",
   component: SidebarMenu,
   render: (args) => (
     <AppContextProvider>

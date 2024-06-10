@@ -11,7 +11,7 @@ import StatisticsView from '@/components/layouts/statisticsView';
 import CluesView from '@/components/layouts/cluesView';
 import WordListView from './components/layouts/wordListView';
 import { MenuItemProps } from './components/ui/menuItem/menuItem';
-import SidebarMenu from './components/layouts/sidebarMenu/sidebarMenu';
+import SidebarMenu from './components/containers/sidebarMenu/sidebarMenu';
 import { useState } from 'react';
 
 function App() {

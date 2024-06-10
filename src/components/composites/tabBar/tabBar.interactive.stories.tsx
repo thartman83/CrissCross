@@ -8,7 +8,7 @@ import { userEvent } from '@testing-library/user-event';
 const onTabClickHandlerMock = fn();
 
 const meta: Meta<TabBarProps> = {
-  title: "composite elements/Tabbar/Interactions",
+  title: "composite elements/Tab Bar/Interactions",
   component: TabBar,
   render: (args) => (
     <TabBar {...args} />
