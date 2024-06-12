@@ -12,3 +12,12 @@ Currently this software is in active development to view progress run the follow
 npm install
 npm run dev
 #+end_src
+
+* Storybook
+
+Components are available for viewing and testing through storybook. Run the following to start storybook
+
+#+begin_src shell
+npm install
+npm run storyboook
+#+end_src
