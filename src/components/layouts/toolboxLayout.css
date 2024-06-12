@@ -1,0 +1,9 @@
+.toolbox {
+    display: flex;
+}
+
+@media all and (max-width: 1200px) {
+    .toolbox {
+        display: block;
+    }
+}

@@ -1,135 +1,159 @@
-import Grid, { Orientation, Word, Words, Fill,
-               Square, SquareState } from "../types/grid";
+import Crossword from "../types/crossword";
+import { CrosswordGrid, GridView, WordView, Word } from "../types/crossword";
+import Orientation from "../types/orientation";
 
-export const findSymmetrySquare =
-  (x: number, y: number, state: Grid): { x: number, y: number } => {
-    return { x: (state.width - x) - 1, y: (state.height - y) - 1 };
-  };
-
-
-export const initGrid = (width: number, height: number): Grid => {
-
-  // Construct a new empty grid fill
-  const newFill = Array.from({ length: height }).map((_, i) =>
-    Array.from({ length: width }).map((_, j) => {
-      const square: Square = {
-        state: SquareState.Letter,
-        value: '',
-        x: i,
-        y: j,
-        answerNo: 0,
-        focus: false,
-        current: false
-      };
-      return square;
-    })
-  );
-
-  const newGrid: Grid = {
-    fill: newFill,
-    height: height,
-    width: width,
-    answerCount: 0,
-    xPos: 0,
-    yPos: 0,
-    orientation: Orientation.across,
-    commandStack: [],
-    words: [],
-    currentWordIdx: 0
-  };
-
-  return fillAnswerNos(newGrid);
-};
-
-export const fillAnswerNos = (grid: Grid): Grid => {
+export const answerGrid = (crossword: Crossword) : Array<Array<number>> => {
   let answerCount = 1;
 
-  const newFill = grid.fill.map((row: Array<Square>, i) => {
-    return row.map((square: Square, j: number) => {
-      const num = ((grid.fill[i][j].state !== SquareState.Block) &&
-        (i == 0 || grid.fill[i - 1][j].state === SquareState.Block ||
-          j == 0 || grid.fill[i][j - 1].state === SquareState.Block))
-        ? answerCount++ : 0;
-      return {
-        ...square,
-        answerNo: num
-      };
-    });
-  });
+  const grid = crossword.gridView();
 
-  const words = getWords(newFill);
-  const currentWordIdx = getWordByPosition(words, grid.xPos, grid.yPos,
-                                          grid.orientation);
-
-  return {
-    ...grid,
-    fill: newFill,
-    words: words,
-    currentWordIdx: currentWordIdx
-  };
+  return grid.map((row: string[], i: number) =>
+    row.map((_: string, j: number) =>
+      ((grid[i][j] != '.') &&
+        (i == 0 || grid[i - 1][j] === '.' ||
+          j == 0 || grid[i][j - 1] === '.')) ? answerCount++: 0));
 };
 
-export const getNextWord = (row: Array<Square>, orientation: Orientation): [Word | null, Array<Square>] => {
-  const word: Word = {
+export const currentWordGrid = (crossword: Crossword): number[] => {
+  let retval = Array(crossword.height*crossword.width).fill(0);
+
+  const pos = crossword.position;
+
+  // mark the current position as active
+  retval[pos] = 1;
+
+  const delta = crossword.orientation === Orientation.across ? 1 : crossword.width;
+  const maxLen = crossword.orientation === Orientation.across ? crossword.width :
+    crossword.width * crossword.height;
+  const minLen = crossword.orientation === Orientation.across ? pos / crossword.width * crossword.width : 0;
+  let cur = pos - delta;
+
+  // move backwards until we hit the wall or a block
+  while(cur >= minLen && crossword.grid[cur] !== '.') {
+    retval[cur] = 1;
+    cur -= delta;
+  }
+
+  cur = pos + delta;
+
+  // move forwards until we hit the wall or a block
+  while(cur < maxLen && crossword.grid[cur] !== '.') {
+    retval[cur] = 1;
+    cur += delta;
+  }
+
+  return retval;
+};
+
+export const getPositionByWordNo =
+  (crossword: Crossword, wordNo: string): {x: number, y: number} => {
+
+    const pos = answerGrid(crossword).reduce((acc, row: number[], x: number) =>
+      row.reduce((acc, num: number, y: number) =>
+        Number(wordNo) !== num ? acc : {x: x, y: y}, acc), {x: -1, y: -1});
+
+    return pos;
+};
+
+export const toGridView = (grid: CrosswordGrid, width: number): GridView => {
+  return grid.reduce(
+        (rows, square, idx) => {
+          return (idx % width === 0 ? rows.push([square]) :
+            rows[rows.length-1].push(square)) && rows;
+        }, Array());
+}
+
+//// this will need to be refactored because holy crow is it ugly
+export const toWordsView = (crossword: Crossword): WordView => {
+
+  let currentWord: Word = {
+    wordNo: 0,
+    indicies: [],
     squares: [],
-    orientation: orientation,
-    wordNo: 0
+    orientation: Orientation.across
   };
+  const words: Word[] = [];
+  const answers = answerGrid(crossword);
+//  const gridView = toGridView(crossword.grid, crossword.width);
 
-  const retRow = [...row];
-  let cur = retRow.shift() || null;
-  while (cur !== null && cur.state != SquareState.Block) {
-    if (word.wordNo == 0) {
-      word.wordNo = cur.answerNo;
+  // acrosses first
+  crossword.grid.forEach((s: string, i: number) => {
+    const x = Math.floor(i / crossword.width);
+    const y = i % crossword.width;
+
+    if(s === '.') {
+      // if there is an existing word push it to the word list
+      if(currentWord.wordNo !== 0)
+        words.push(currentWord);
+
+      currentWord = { wordNo: 0, indicies: [], squares: [],
+                      orientation: Orientation.across
+                    };
+    } else if (y === (crossword.width-1)) {
+      // if we are at the end of the row and not a block, push it to the
+      // current word
+      currentWord.squares.push(s);
+      currentWord.indicies.push(i);
+
+      if(currentWord.wordNo !== 0)
+        words.push(currentWord);
+
+      currentWord = { wordNo: 0, indicies: [], squares: [],
+                      orientation: Orientation.across
+                    };
+    } else if(currentWord.wordNo === 0) {
+      // otherwise we are at the start of the word
+      currentWord.wordNo = answers[x][y];
+      currentWord.indicies = [i],
+      currentWord.squares = [s]
+    } else {
+      // every other square is just another letter in the word
+      currentWord.indicies.push(i);
+      currentWord.squares.push(s);
     }
-    word.squares.push(cur);
-    cur = retRow.shift() || null;
-  }
-
-  return [word.squares.length === 0 ? null : word, retRow];
-};
-
-export const getWordsRow =(row: Array<Square>, orientation: Orientation): Words => {
-  let words: Words = [];
-  let word;
-  let retRow = [...row];
-
-  while (retRow.length > 0) {
-    [word, retRow] = getNextWord(retRow, orientation);
-    if (word !== null)
-      words = [...words, word];
-  }
-
-  return words;
-};
-
-export const getWordByPosition = (words: Words, x: number, y: number, orientation: Orientation): number => {
-  const wordHasIndex = (word: Word, x: number, y: number,
-                         orientation: Orientation) => {
-    return word.squares.findIndex((square: Square, _: number) => {
-      return square.x === x && square.y === y && word.orientation === orientation;
-    }) !== -1;
-  };
-
-  const ret = words.findIndex((word: Word, _: number) => {
-    return wordHasIndex(word, x, y, orientation);
   });
 
-  return ret;
+  // downs next
+  currentWord = { wordNo: 0, indicies: [], squares: [],
+                  orientation: Orientation.down
+                };
+  for(let i = 0; i < crossword.width; ++i) {
+    for(let j = 0; j < crossword.height; ++j) {
+      //debugger;
+      const pos = j * crossword.width + i;
+      const s = crossword.grid[pos];
+      if(s === '.') {
+        if(currentWord.wordNo !== 0)
+          words.push(currentWord);
+
+        currentWord = { wordNo: 0, indicies: [], squares: [],
+                        orientation: Orientation.down};
+      } else if(j === (crossword.height-1)) {
+        currentWord.squares.push(s);
+        currentWord.indicies.push(pos);
+
+        if(currentWord.wordNo !== 0)
+          words.push(currentWord);
+
+        currentWord = { wordNo: 0, indicies: [], squares: [],
+                        orientation: Orientation.down};
+      } else if(currentWord.wordNo === 0) {
+        currentWord.wordNo = answers[j][i];
+        currentWord.indicies = [pos];
+        currentWord.squares = [s];
+      } else {
+        currentWord.indicies.push(pos);
+        currentWord.squares.push(s);
+      }
+    }
+  }
+
+  return words.sort((a, b) => a.wordNo < b.wordNo ? -1 : 1);
 };
 
-export const getWords = (fill: Fill): Array<Word> => {
-  const acrossWords = fill.flatMap((row: Array<Square>, _) =>
-    getWordsRow(row, Orientation.across)
-  )
-
-  // transpose the matrix for columns
-  const columns = fill[0].map((_, colIndex) => fill.map(row => row[colIndex]));
-
-  const downWords = columns.flatMap((col: Array<Square>, _) =>
-    getWordsRow(col, Orientation.down)).sort((a: Word, b: Word) => {
-      return a.wordNo < b.wordNo ? -1 : 1;
-    });
-
-  return Array<Word>().concat(...acrossWords).concat(...downWords);
+export const toCurrentWord = (crossword: Crossword): Word => {
+  return crossword.wordView()
+    .find(word => word.orientation === crossword.orientation &&
+      word.indicies.includes(crossword.position)) ||
+    {wordNo: 0, indicies: [], squares: [], orientation: Orientation.across};
 };

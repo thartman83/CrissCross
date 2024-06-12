@@ -1,0 +1,38 @@
+import Crossword, { GridView, WordView, Word } from "../types/crossword";
+import Orientation from "../types/orientation";
+import { toCurrentWord, toGridView, toWordsView } from "../utils/gridUtilities";
+
+const NewCrosswordCommand = (height: number, width: number) => {
+  return {
+    do: (_: Crossword): Crossword => {
+      const newCrossword: Crossword = {
+        title: '',
+        author: '',
+        position: 0,
+        orientation: Orientation.across,
+        height: height,
+        width: width,
+        grid: Array(height*width).fill(''),
+        gridView: function (): GridView {
+          return toGridView(this.grid, this.width);
+        },
+        wordView: function (): WordView {
+          return toWordsView(this);
+        },
+        currentWord: function (): Word {
+          return toCurrentWord(this);
+        },
+      }
+
+      return newCrossword;
+    },
+
+    undo: (crossword: Crossword): Crossword => {
+      return {
+        ...crossword
+      }
+    }
+  };
+}
+
+export default NewCrosswordCommand;

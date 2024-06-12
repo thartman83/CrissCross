@@ -1,0 +1,11 @@
+.popup-layout::after {
+    content: '';
+    position: absolute;
+    width: 200px;
+    height: 300px;
+    background-color: darkslategray;
+    z-index: 10;
+    margin-top: 2rem;
+    margin-left: .5rem;
+    border-radius: 3px;
+}

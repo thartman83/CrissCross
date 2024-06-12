@@ -1,41 +1,71 @@
-import { useReducer, useState } from 'react';
 import './App.css';
-import GridLayout from "./components/layouts/gridLayout";
-import GridSummary from './components/ui/gridSummary';
-import gridReducer from './state/gridContext';
-import { initGrid } from './utils/gridUtilities.ts';
-import ClueLayout from './components/layouts/clueLayout.tsx';
-import HelpModal from './components/layouts/helpModal.tsx';
-
-const defaultGridSize = 15;
+import SquareGrid from '@/components/layouts/squareGrid/squareGrid';
+import CrosswordContextProvider from '@/context/crosswordContext';
+import AppContextProvider from '@/context/applicationContext';
+import TabLayout from '@/components/layouts/tabLayout/tablayout';
+import WordListContextProvider from '@/context/wordListContext';
+import PageLayout from '@/components/layouts/pageLayout';
+import Header from '@/components/composites/header/header';
+import DetailsView from '@/components/layouts/detailsView';
+import StatisticsView from '@/components/layouts/statisticsView';
+import CluesView from '@/components/layouts/cluesView';
+import WordListView from './components/layouts/wordListView';
+import { MenuItemProps } from './components/ui/menuItem/menuItem';
+import SidebarMenu from './components/containers/sidebarMenu/sidebarMenu';
+import { useState } from 'react';
 
 function App() {
-  const [grid, dispatch] = useReducer(gridReducer, initGrid(defaultGridSize,
-                                                            defaultGridSize));
+  const [ openSidebar, setOpenSidebar ] = useState(false);
 
-  const [openHelpModal, setOpenHelpModal] = useState(false);
+  const tabViews = [
+    <DetailsView/>,
+    <StatisticsView/>,
+    <CluesView/>,
+    <WordListView/>
+  ];
 
-  const onHelpButtonClickHandler = () => {
-    setOpenHelpModal(!openHelpModal);
+  const tabLabels = [
+    "Details",
+    "Statistics",
+    "Clues",
+    "Word List"
+  ];
+
+  const menuItems: MenuItemProps[] = [
+    {
+      text: "New Puzzle",
+      onClickHandler: () => {},
+      faIcon: "Plus",
+    },
+    {
+      text: "Settings",
+      onClickHandler: () => {},
+      faIcon: "Gear",
+    },
+    {
+      text: "Help",
+      onClickHandler: () => {},
+      faIcon: "Question",
+    },
+  ];
+
+  const onHeaderClick = () => {
+    setOpenSidebar(!openSidebar);
   };
 
   return (
-    <>
-      <div className='header'>CrissCross
-        <div className='header-icons'>
-          <button>&#10227;</button>
-          <button onClick={onHelpButtonClickHandler}>?</button>
-        </div>
-      </div>
-      <div className='main'>
-        <GridLayout grid={grid} dispatch={dispatch} />
-        <GridSummary grid={grid} />
-      </div>
-      <div className='clues'>
-        <ClueLayout grid={grid} />
-      </div>
-      <HelpModal isOpen={openHelpModal} setIsOpen={setOpenHelpModal}/>
-    </>
+      <AppContextProvider>
+        <CrosswordContextProvider>
+          <WordListContextProvider>
+            <Header onClickHandler={onHeaderClick} openMainMenu={openSidebar} />
+            <SidebarMenu menuItems={menuItems} openSidebar={openSidebar} />
+            <PageLayout openSidebar={openSidebar} >
+              <SquareGrid />
+              <TabLayout tabViews={tabViews} tabLabels={tabLabels} />
+            </PageLayout>
+          </WordListContextProvider>
+        </CrosswordContextProvider>
+      </AppContextProvider>
   );
 }
 

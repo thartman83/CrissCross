@@ -1,0 +1,35 @@
+import { Title, Subtitle, Description, Meta, ColorPalette, ColorItem, Canvas }
+from '@storybook/blocks';
+
+<Meta title="Colors" />
+  <Title>Criss Cross Colors</Title>
+
+<Subtitle>Light Theme</Subtitle>
+<ColorPalette>
+<ColorItem
+  title="CrissCross Light Theme"
+  subtitle=""
+  colors={{
+    Primary: 'var(--color-primary-lite)',
+    Secondary: 'var(--color-secondary-lite)',
+    Tertiary: 'var(--color-tertiary-lite)',
+    Quaternary: 'var(--color-quaternary-lite)',
+    Accent: 'var(--color-accent-lite)',
+  }}
+  />
+</ColorPalette>
+
+<Subtitle>Dark Theme</Subtitle>
+<ColorPalette>
+<ColorItem
+  title="CrissCross Dark Theme"
+  subtitle=""
+  colors={{
+    Primary: 'var(--color-primary-dark)',
+    Secondary: 'var(--color-secondary-dark)',
+    Tertiary: 'var(--color-tertiary-dark)',
+    Quaternary: 'var(--color-quaternary-dark)',
+    Accent: 'var(--color-accent-dark)',
+  }}
+  />
+</ColorPalette>

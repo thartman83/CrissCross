@@ -1,0 +1,17 @@
+.tab-layout {
+    width: 50%;
+}
+
+@media all and (max-width: 1200px) {
+    .tab-layout {
+        width: var(--grid-width);
+    }
+}
+
+.tab-list {
+    display: flex;
+    list-style: none;
+    margin-top: 0;
+    padding-inline-start: 0;
+    margin-bottom: 0;
+}

@@ -1,0 +1,25 @@
+.header {
+    margin-left: var(--body-gutter);
+    display: flex;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    position: relative;
+}
+
+.header .header-brand {
+    display: flex;
+    cursor: pointer;
+}
+
+.header img {
+    height: 4rem;
+}
+
+.header h3 {
+    font-weight: 500;
+}
+
+.header h3 {
+    margin: 0;
+}

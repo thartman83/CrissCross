@@ -1,0 +1,88 @@
+.grid-square {
+    width: calc(var(--grid-square-size) + 1px);
+    height: calc(var(--grid-square-size) + 1px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--grid-square-font-weight);
+    position: relative;
+    background-color: var(--color-primary);
+}
+
+.grid-square-block::before,
+.grid-square-block::after {
+    top: 0;
+    left: 0;
+    content: '';
+    position: absolute;
+    background-color: var(--grid-square-border-color);
+    z-index: 1;
+}
+
+.grid-square-block::after {
+    inline-size: 100vw;
+    block-size: var(--grid-square-border-width);
+    inset-inline-start: 0;
+    inset-block-start: 0;
+}
+
+.grid-square-block::before {
+    inline-size: var(--grid-square-border-width);
+    block-size: 100vh;
+    inset-inline-start: 0;
+}
+
+.grid-square-alt::before,
+.grid-square-alt::after {
+    content: '';
+    position: absolute;
+    background-color: var(--grid-square-border-color);
+    z-index: 1;
+}
+
+.grid-square-alt::after {
+    inline-size: 100vw;
+    block-size: var(--grid-square-border-width);
+    inset-inline-start: 0;
+    inset-block-start: calc(var(--grid-square-size) + var(--grid-square-border-width));
+}
+
+.grid-square-alt::before {
+    inline-size: var(--grid-square-border-width);
+    block-size: 100vh;
+    inset-inline-start: var(--grid-square-size);
+    inset-block-start: 0;
+}
+
+.grid-square .grid-square-wordno {
+    position: absolute;
+    font-size: calc(var(--grid-square-size) / 5);
+    top: calc(var(--grid-square-size) / 20);
+    left: calc(var(--grid-square-size) / 10);
+}
+
+.grid-square.current-word {
+    background-color: var(--color-tertiary);
+}
+
+.grid-square.focused {
+    background-color: var(--color-quaternary);
+}
+
+.grid-square.block {
+    background-color: var(--grid-square-block-color);
+}
+
+.grid-square.block label.grid-square-value {
+    font-size: 0;
+}
+
+.grid-square.focused.block {
+    background-color: var(--grid-square-block-focus-color);
+}
+
+label.grid-square-value {
+    text-transform: uppercase;
+    position: absolute;
+    font-size: calc(var(--grid-square-size) * .666);
+}

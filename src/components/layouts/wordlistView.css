@@ -1,0 +1,25 @@
+.word-list {
+    display: flex;
+    flex-direction: column;
+}
+
+label.remaining-words {
+    text-align: center;
+}
+
+.wordlist-word {
+    display: flex;
+    border: none;
+    background-color: unset;
+    color: var(--fg-color);
+    cursor: pointer;
+    font-size: 1em;
+}
+
+.wordlist-word label {
+    cursor: pointer;
+}
+
+label.wordlist-wordvalue {
+    margin-left: auto;
+}

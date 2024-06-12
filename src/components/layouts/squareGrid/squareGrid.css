@@ -1,0 +1,16 @@
+.square-grid {
+    background-color: var(--bg-color-grid);
+    color: var(--fg-color);
+    display: grid;
+    grid-template-columns: repeat(var(--crossword-col-width),
+                                  var(--grid-square-size));
+    overflow: hidden;
+    width: var(--grid-width);
+    min-width: var(--grid-width);
+    padding-bottom: var(--grid-square-border-width);
+    padding-right: var(--grid-square-border-width);
+}
+
+.square-grid:focus {
+    outline: none;
+}

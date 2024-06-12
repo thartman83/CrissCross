@@ -12,7 +12,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsxdev",
+    "jsx": "react-jsx",
 
     /* Linting */
     "strict": true,
@@ -20,12 +20,16 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
 
-    /* Jest complains about this, may consider removing */
-    "esModuleInterop": true
-
+    /* Path aliases */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+    }
   },
-  "include": ["src"],
-  "exclude": ["*~",
-             "src/**/tests/*"],
+  "include": ["src/**/*", ],
+  "exclude": [
+    "src/**/*.tsx~",
+    "src/**/*.ts~"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
