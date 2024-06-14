@@ -53,12 +53,18 @@ function App() {
     setOpenSidebar(!openSidebar);
   };
 
+  const onLeaveHandler = () => {
+    console.log('here');
+    setOpenSidebar(false);
+  };
+
   return (
       <AppContextProvider>
         <CrosswordContextProvider>
           <WordListContextProvider>
             <Header onClickHandler={onHeaderClick} openMainMenu={openSidebar} />
-            <SidebarMenu menuItems={menuItems} openSidebar={openSidebar} />
+            <SidebarMenu menuItems={menuItems} openSidebar={openSidebar}
+                         onLeaveHandler={onLeaveHandler}/>
             <PageLayout openSidebar={openSidebar} >
               <SquareGrid />
               <TabLayout tabViews={tabViews} tabLabels={tabLabels} />

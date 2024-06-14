@@ -1,14 +1,35 @@
+import { FocusEvent, useEffect, useRef } from "react";
 import "./sidebarMenu.css";
 import MenuItem, {MenuItemProps} from "@/components/ui/menuItem/menuItem";
+
+type OnBlurEvent = FocusEvent<HTMLElement>
 
 export type SidebarMenuProps = {
   menuItems: MenuItemProps[],
   openSidebar: boolean,
+  onLeaveHandler: () => void
 };
 
-const SidebarMenu = ({menuItems, openSidebar}: SidebarMenuProps) => {
+const SidebarMenu = ({menuItems, openSidebar, onLeaveHandler}: SidebarMenuProps) => {
+  const asideRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if(asideRef.current && openSidebar)
+      asideRef.current.focus();
+  }, [openSidebar]);
+
+  const onBlurHandlerLocal = (e: OnBlurEvent) => {
+    if(!e.currentTarget.contains(e.relatedTarget)) {
+      onLeaveHandler();
+    }
+  };
+  
   return (
-    <div className={"main-menu " + (openSidebar ? "menu-open" : "menu-closed")} >
+    <aside className={"main-menu " + (openSidebar ? "menu-open" : "menu-closed")}
+           aria-label="Main Menu" aria-hidden={!openSidebar}
+           onBlur={onBlurHandlerLocal} tabIndex={openSidebar ? 0 : -1}
+           ref={asideRef}
+    >
       <nav>
         <ul>
           {
@@ -17,7 +38,7 @@ const SidebarMenu = ({menuItems, openSidebar}: SidebarMenuProps) => {
           }
         </ul>
       </nav>
-    </div>
+    </aside>
   );
 };
 
