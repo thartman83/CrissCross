@@ -1,3 +1,4 @@
+import { ForwardedRef } from "react";
 import "./toggleButton.css";
 import { GetIconByName } from "@/components/ui/faIcons";
 
@@ -11,7 +12,7 @@ export type ToggleButtonProps = {
 };
 
 const ToggleButton = (toggleBtnProps: ToggleButtonProps) => {
-  const {name, faIcon, faIconAlt, label, state, onToggleHandler} = toggleBtnProps;
+  const {name, faIcon, faIconAlt, label, state, onToggleHandler } = toggleBtnProps;
   const Icon = GetIconByName(faIcon);
   const AltIcon = faIconAlt ? GetIconByName(faIconAlt) : Icon;
 

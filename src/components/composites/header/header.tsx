@@ -10,14 +10,29 @@ export type HeaderProps = {
 };
 
 const Header = ({openMainMenu, onClickHandler}: HeaderProps) => {
-  const onToggleHandler = (e: OnClickHandlerEvent) => {
-    onClickHandler();
+
+  const mouseDownHandler = (e: OnClickHandlerEvent) => {
+
+    // if the main menu is open we will let the blur event handle
+    // closing the menu
+    if(!openMainMenu) {
+      e.preventDefault();
+      onClickHandler();
+    }
+  };
+
+  const clickHandler = (e: OnClickHandlerEvent) => {
+    // because the order of mouse events is MouseDown, blur, MouseUp,
+    // Click we never want a click event to go out and possibly quash
+    // the blur event.
     e.preventDefault();
   };
 
   return (
     <div className="header">
-      <div className="header-brand" onClick={onToggleHandler}>
+      <div className="header-brand"
+           onMouseDown={mouseDownHandler}
+           onClick={clickHandler}>
         <ToggleButton faIcon="Bars" name="main-menu"
                       state={openMainMenu} />
         <img src="src/assets/crisscross.png" role="button" />

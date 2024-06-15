@@ -10,12 +10,13 @@ import DetailsView from '@/components/layouts/detailsView';
 import StatisticsView from '@/components/layouts/statisticsView';
 import CluesView from '@/components/layouts/cluesView';
 import WordListView from './components/layouts/wordListView';
-import { MenuItemProps } from './components/ui/menuItem/menuItem';
 import SidebarMenu from './components/containers/sidebarMenu/sidebarMenu';
-import { useState } from 'react';
+import { useMenuItems } from './hooks/useMenuItems';
+import { useOpenMenu } from './hooks/useOpenMenu';
 
 function App() {
-  const [ openSidebar, setOpenSidebar ] = useState(false);
+  const { isOpenMenu, toggleOpenMenu, closeOpenMenu } = useOpenMenu();
+  const { menuItems } = useMenuItems();
 
   const tabViews = [
     <DetailsView/>,
@@ -31,41 +32,14 @@ function App() {
     "Word List"
   ];
 
-  const menuItems: MenuItemProps[] = [
-    {
-      text: "New Puzzle",
-      onClickHandler: () => {},
-      faIcon: "Plus",
-    },
-    {
-      text: "Settings",
-      onClickHandler: () => {},
-      faIcon: "Gear",
-    },
-    {
-      text: "Help",
-      onClickHandler: () => {},
-      faIcon: "Question",
-    },
-  ];
-
-  const onHeaderClick = () => {
-    setOpenSidebar(!openSidebar);
-  };
-
-  const onLeaveHandler = () => {
-    console.log('here');
-    setOpenSidebar(false);
-  };
-
   return (
       <AppContextProvider>
         <CrosswordContextProvider>
           <WordListContextProvider>
-            <Header onClickHandler={onHeaderClick} openMainMenu={openSidebar} />
-            <SidebarMenu menuItems={menuItems} openSidebar={openSidebar}
-                         onLeaveHandler={onLeaveHandler}/>
-            <PageLayout openSidebar={openSidebar} >
+            <Header onClickHandler={toggleOpenMenu} openMainMenu={isOpenMenu} />
+            <SidebarMenu menuItems={menuItems} openSidebar={isOpenMenu}
+                         onLeaveHandler={closeOpenMenu}/>
+            <PageLayout openSidebar={isOpenMenu} >
               <SquareGrid />
               <TabLayout tabViews={tabViews} tabLabels={tabLabels} />
             </PageLayout>

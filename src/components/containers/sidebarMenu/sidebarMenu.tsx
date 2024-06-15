@@ -1,4 +1,4 @@
-import { FocusEvent, useEffect, useRef } from "react";
+import { FocusEvent, useCallback, useEffect, useRef } from "react";
 import "./sidebarMenu.css";
 import MenuItem, {MenuItemProps} from "@/components/ui/menuItem/menuItem";
 
@@ -11,11 +11,10 @@ export type SidebarMenuProps = {
 };
 
 const SidebarMenu = ({menuItems, openSidebar, onLeaveHandler}: SidebarMenuProps) => {
-  const asideRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if(asideRef.current && openSidebar)
-      asideRef.current.focus();
+  const asideDiv = useCallback((divElement: HTMLDivElement) => {
+    if(divElement && openSidebar) {
+      divElement.focus();
+    }
   }, [openSidebar]);
 
   const onBlurHandlerLocal = (e: OnBlurEvent) => {
@@ -28,7 +27,7 @@ const SidebarMenu = ({menuItems, openSidebar, onLeaveHandler}: SidebarMenuProps)
     <aside className={"main-menu " + (openSidebar ? "menu-open" : "menu-closed")}
            aria-label="Main Menu" aria-hidden={!openSidebar}
            onBlur={onBlurHandlerLocal} tabIndex={openSidebar ? 0 : -1}
-           ref={asideRef}
+           ref={asideDiv}
     >
       <nav>
         <ul>

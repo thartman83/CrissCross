@@ -8,7 +8,7 @@ import { fn } from '@storybook/test';
 const onClickHandlerMock = fn();
 
 const meta: Meta<HeaderProps> = {
-  title: "Composite Elements/Header/Interactions",
+  title: "Composite Elements/Header/Functional Tests",
   component: Header,
   args: {
     onClickHandler: onClickHandlerMock,
