@@ -15,7 +15,7 @@ import { useMenuItems } from './hooks/useMenuItems';
 import { useOpenMenu } from './hooks/useOpenMenu';
 
 function App() {
-  const { isOpenMenu, toggleOpenMenu, closeOpenMenu } = useOpenMenu();
+  const { isOpenMenu, toggleOpenMenu, closeOpenMenu } = useOpenMenu(false);
   const { menuItems } = useMenuItems();
 
   const tabViews = [

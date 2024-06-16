@@ -10,9 +10,11 @@
     "preview": "vite preview",
     "test": "vitest --coverage",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test-storybook": "test-storybook"
   },
   "dependencies": {
+    "@types/uuid": "^9.0.8",
     "classnames": "^2.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -31,6 +33,7 @@
     "@storybook/react": "^8.1.1",
     "@storybook/react-vite": "^8.1.1",
     "@storybook/test": "^8.1.1",
+    "@storybook/test-runner": "^0.18.2",
     "@storybook/testing-library": "^0.2.2",
     "@swc/core": "^1.4.8",
     "@swc/jest": "^0.2.36",
