@@ -1,4 +1,3 @@
-import { ForwardedRef } from "react";
 import "./toggleButton.css";
 import { GetIconByName } from "@/components/ui/faIcons";
 

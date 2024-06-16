@@ -1,4 +1,4 @@
-import { FocusEvent, useCallback, useEffect, useRef } from "react";
+import { FocusEvent, useCallback } from "react";
 import "./sidebarMenu.css";
 import MenuItem, {MenuItemProps} from "@/components/ui/menuItem/menuItem";
 
