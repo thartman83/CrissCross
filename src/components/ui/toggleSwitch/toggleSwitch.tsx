@@ -1,16 +1,23 @@
-import { v4 } from "uuid";
+import { ChangeEvent } from "react";
 import "./toggleSwitch.css";
+
+type ChangeCheckboxEvent = ChangeEvent<HTMLInputElement>
 
 export type ToggleSwitchProps = {
   defaultState: boolean,
+  toggleHandler: (state: boolean) => void
 };
 
-const ToggleSwitch = ({defaultState}: ToggleSwitchProps) => {
-  const id = v4();
+const ToggleSwitch = ({defaultState, toggleHandler}: ToggleSwitchProps) => {
+  const changeHandler = (e: ChangeCheckboxEvent) => {
+    toggleHandler(e.target.checked);
+  };
+
   return (
     <div className="toggle-switch-group" >
-      <input type="checkbox" defaultChecked={defaultState} id={id}/>
-      <label htmlFor={id}/>
+      <input type="checkbox" defaultChecked={defaultState}
+             onChange={changeHandler}/>
+      <span aria-hidden="true" />
     </div>
   );
 };

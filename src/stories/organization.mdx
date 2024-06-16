@@ -15,6 +15,8 @@ pattern
   Complex set of elements that require elements to work in concert
 with one another.
 
+# Levels
+
 ## UI Elements
 Basic components of the application.
 
@@ -25,3 +27,21 @@ Any component that is made up of one or more elements. Composite Elements simila
 
 ## Layouts
 Layouts consist of one or more UI elements and/or composite elements that interact with one an other in a defined and consistant way.
+
+## Integration Tests
+These set of stories involve testing the interactions of seperate components together to make sure evrerything plays nice with one another.
+
+## End to End Tests
+Set of stories to test the application as a whole. These stories will be the most complex and will likely end up being written last.
+
+# Per Component Tests
+Within each component there will be an assortment of tests. These will largely fall under three seperate types
+
+## Examples/Sandboxes
+Stories that demonstrate the component and its features. These will not contain any interactive tests but will be available for playing around with in a contained manner
+
+## Accessibility Tests
+Interations that test the component for various accessibility features. I can't guarantee that these will all be correct but there will be an effort towards making the full application as accessible as possible per generally accepted accessibility standards for keyboard only users as well as for screen readers.
+
+## Functional Tests
+Set of interactions that test the components various interatcive functionality. This can range from testing that various events are fired by the component or various states are captured and updated correctly.

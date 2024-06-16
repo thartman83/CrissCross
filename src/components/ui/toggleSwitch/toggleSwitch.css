@@ -3,10 +3,15 @@
 }
 
 .toggle-switch-group input {
-    visibility: hidden;
+    position: absolute;
+    width: 5rem;
+    height: 2rem;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 1;
 }
 
-.toggle-switch-group label {
+.toggle-switch-group span {
     width: 5rem;
     height: 2rem;
 
@@ -16,11 +21,11 @@
     cursor: pointer;
 }
 
-.toggle-switch-group input:checked + label {
+.toggle-switch-group input:checked + span {
     background-color: var(--color-secondary);
 }
 
-.toggle-switch-group label::before {
+.toggle-switch-group span::before {
     content: "";
     position: absolute;
     height: 1.75rem;
@@ -34,16 +39,16 @@
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.toggle-switch-group input:checked + label::before {
+.toggle-switch-group input:checked + span::before {
     left: calc(100% - 3px);
     transform: translate(-100%);
 }
 
-.toggle-switch-group label:active::before {
+.toggle-switch-group span:active::before {
     width: 2.5rem;
 }
 
 
-.toggle-switch-group input:focus + label {
-    outline: dashed 2px lightgrey;
+.toggle-switch-group input:focus + span {
+    outline: 1px solid gray;
 }
