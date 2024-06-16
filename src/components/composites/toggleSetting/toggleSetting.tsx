@@ -4,14 +4,15 @@ import "./toggleSetting.css";
 export type ToggleSettingProps = {
   label: string,
   defaultState: boolean,
+  toggleHandler: (state: boolean) => void
 };
 
-const ToggleSetting = ({label, defaultState}: ToggleSettingProps) => {
+const ToggleSetting = ({label, defaultState, toggleHandler}: ToggleSettingProps) => {
   return (
     <div className="setting">
       <label>
         {label}
-        <ToggleSwitch defaultState={defaultState}/>
+        <ToggleSwitch defaultState={defaultState} toggleHandler={toggleHandler}/>
       </label>
     </div>
   );

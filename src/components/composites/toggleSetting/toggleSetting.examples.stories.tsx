@@ -1,6 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
 import ToggleSetting, {ToggleSettingProps} from './toggleSetting';
-import { useArgs } from '@storybook/preview-api';
+import { fn } from '@storybook/test';
+
+const mockToggleHandler = fn();
 
 const meta: Meta<ToggleSettingProps> = {
   title: "Composite Elements/Toggle Setting/Examples",
@@ -27,5 +29,6 @@ export const DarkModeSettingExample: ToggleSettingStory = {
   args: {
     label: "Dark mode",
     defaultState: false,
+    toggleHandler: mockToggleHandler,
   }
 };
