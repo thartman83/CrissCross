@@ -11,6 +11,6 @@
     padding-right: var(--grid-square-border-width);
 }
 
-.square-grid:focus {
-    outline: none;
-}
+/* .square-grid:focus { */
+
+/* } */
