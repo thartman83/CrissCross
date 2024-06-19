@@ -28,13 +28,18 @@ const Header = ({openMainMenu, onClickHandler}: HeaderProps) => {
     e.preventDefault();
   };
 
+  const toggleHandler = () => {
+    onClickHandler();
+  };
+
   return (
     <div className="header">
       <div className="header-brand"
            onMouseDown={mouseDownHandler}
            onClick={clickHandler}>
         <ToggleButton faIcon="Bars" name="main-menu"
-                      state={openMainMenu} />
+                      state={openMainMenu}
+                      onToggleHandler={toggleHandler}/>
         <img src="src/assets/crisscross.png" role="button" alt='Criss Cross Logo'/>
       </div>
     </div>

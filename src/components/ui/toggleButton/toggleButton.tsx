@@ -22,7 +22,7 @@ const ToggleButton = (toggleBtnProps: ToggleButtonProps) => {
 
   return (
     <div className="toggle-button">
-      <input id={name} type="checkbox" checked={state && state}
+      <input id={name} type="checkbox" checked={state}
              onChange={onChangeHandler}
              aria-label={label} />
       <label htmlFor={name} aria-hidden="true"

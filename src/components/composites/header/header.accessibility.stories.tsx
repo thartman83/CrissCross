@@ -25,11 +25,27 @@ export const ImageAltText: HeaderStory = {
   args: {
     onClickHandler: onClickHandlerMock,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
     //const toggleElements = canvas.getAllByRole("button", {hidden:true});
-    const img = canvas.getByAltText('Criss Cross Logo');
+    await step('The Criss cross log should have an alt text', async () => {
+      const img = canvas.getByAltText('Criss Cross Logo');
 
-    expect(img).toBeDefined();
+      expect(img).toBeDefined();
+    });
   }
+};
+
+export const KeyboardAccessible: HeaderStory = {
+  args: {
+    onClickHandler: onClickHandlerMock,
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+
+
+    await step('The user should be able to tab into the header', async () => {
+
+    });
+  },
 };

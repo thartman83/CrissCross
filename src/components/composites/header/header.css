@@ -10,6 +10,7 @@
 .header .header-brand {
     display: flex;
     cursor: pointer;
+    padding: 2px;
 }
 
 .header img {
@@ -22,4 +23,8 @@
 
 .header h3 {
     margin: 0;
+}
+
+.header-brand:focus-within {
+    outline: 1px solid black;
 }

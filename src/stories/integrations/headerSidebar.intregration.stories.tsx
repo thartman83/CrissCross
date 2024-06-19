@@ -33,9 +33,9 @@ const meta: Meta<SidebarMenuProps> = {
 
 export default meta;
 
-type SidebarMenuStory = StoryObj<SidebarMenuProps>
+type HeaderSidebarSotry = StoryObj<SidebarMenuProps>
 
-export const HeaderClickShowHide: SidebarMenuStory = {
+export const HeaderClickShowHide: HeaderSidebarSotry = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
     const btn = canvas.getByRole('button');
@@ -62,7 +62,7 @@ export const HeaderClickShowHide: SidebarMenuStory = {
   },
 };
 
-export const HeaderClickElseWhereShowHide: SidebarMenuStory = {
+export const HeaderClickElseWhereShowHide: HeaderSidebarSotry = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
     const btn = canvas.getByRole('button');
@@ -79,6 +79,28 @@ export const HeaderClickElseWhereShowHide: SidebarMenuStory = {
       await userEvent.click(main);
       const sidebar = await canvas.findByRole('complementary', {hidden: true});
 
+      expect(sidebar).toHaveAttribute('aria-hidden', 'true');
+      expect(sidebar).toHaveClass('menu-closed');
+    });
+  },
+};
+
+export const HeaderKeyboardShowHide: HeaderSidebarSotry = {
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const toggleButton = canvas.getByRole('checkbox');
+    const sidebar = canvas.getByRole('complementary', { hidden: true});
+
+    await step('When the header is toggled by the keyboard the menu should toggle as well', async () => {
+      toggleButton.focus();
+      await userEvent.keyboard('[Space]');
+      expect(sidebar).toHaveAttribute('aria-hidden', 'false');
+      expect(sidebar).toHaveClass('menu-open');
+    });
+
+    await step('When the sidebar loses keyboard focus via shift tab, it should close and focus should be on the header', async () => {
+      await userEvent.tab({shift: true});
+      expect(toggleButton).toHaveFocus();
       expect(sidebar).toHaveAttribute('aria-hidden', 'true');
       expect(sidebar).toHaveClass('menu-closed');
     });
