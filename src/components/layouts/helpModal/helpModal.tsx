@@ -4,11 +4,13 @@ import HelpKey from "@/components/ui/helpKey/helpKey";
 
 export type HelpModalProps = {
   isOpen: boolean,
+  closeModalHandler: () => void,
 };
 
-const HelpModal = ({isOpen}: HelpModalProps) => {
+const HelpModal = ({isOpen, closeModalHandler}: HelpModalProps) => {
   return (
-    <Modal title="Grid Commands" isOpen={isOpen}>
+    <Modal title="Grid Commands" isOpen={isOpen}
+           closeModalHandler={closeModalHandler}>
       <ul className="help-commands-list">
         <li>
           <div className="help-action">

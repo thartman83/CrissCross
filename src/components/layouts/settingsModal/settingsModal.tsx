@@ -5,16 +5,16 @@ import useColorSchema from "@/hooks/useColorSchema";
 import useAutoSave from "@/hooks/useAutoSave";
 
 export type SettingsModalProps = {
-  isModalOpen: boolean,
+  isOpen: boolean,
   closeModalHandler: () => void,
 };
 
-const SettingsModal = ({isModalOpen, closeModalHandler}: SettingsModalProps) => {
+const SettingsModal = ({isOpen, closeModalHandler}: SettingsModalProps) => {
   const { darkMode, setDarkMode } = useColorSchema();
   const { autoSave, setAutoSave } = useAutoSave();
 
   return (
-    <Modal title="Settings" size={ModalSize.Medium} isOpen={isModalOpen}
+    <Modal title="Settings" size={ModalSize.Medium} isOpen={isOpen}
            closeModalHandler={closeModalHandler}>
       <ToggleSetting label="Dark Mode" defaultState={darkMode}
                      toggleHandler={setDarkMode}/>

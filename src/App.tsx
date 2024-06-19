@@ -11,12 +11,16 @@ import StatisticsView from '@/components/layouts/statisticsView';
 import CluesView from '@/components/layouts/cluesView';
 import WordListView from './components/layouts/wordListView';
 import SidebarMenu from './components/containers/sidebarMenu/sidebarMenu';
-import { useMenuItems } from './hooks/useMenuItems';
 import { useOpenMenu } from './hooks/useOpenMenu';
+import { useMenuItems } from './hooks/useMenuItems';
+import MenuItem from './components/ui/menuItem/menuItem';
+import HelpModal from './components/layouts/helpModal/helpModal';
+import SettingsModal from './components/layouts/settingsModal/settingsModal';
 
 function App() {
   const { isOpenMenu, toggleOpenMenu, closeOpenMenu } = useOpenMenu(false);
-  const { menuItems } = useMenuItems();
+  const { menuItems, openSettings, setOpenSettings,
+          openHelp, setOpenHelp, } = useMenuItems();
 
   const tabViews = [
     <DetailsView/>,
@@ -37,13 +41,20 @@ function App() {
         <CrosswordContextProvider>
           <WordListContextProvider>
             <Header onClickHandler={toggleOpenMenu} openMainMenu={isOpenMenu} />
-            <SidebarMenu menuItems={menuItems} openSidebar={isOpenMenu}
-                         onLeaveHandler={closeOpenMenu}/>
+            <SidebarMenu openSidebar={isOpenMenu} onLeaveHandler={closeOpenMenu}>
+              {menuItems.map((e, i) =>
+                <MenuItem key={`mainMenuItem-${i}`} {...e} />)}
+              </SidebarMenu>
             <PageLayout openSidebar={isOpenMenu} >
               <SquareGrid />
               <TabLayout tabViews={tabViews} tabLabels={tabLabels} />
             </PageLayout>
           </WordListContextProvider>
+
+          <HelpModal isOpen={openHelp}
+                     closeModalHandler={ () => setOpenHelp(false) } />
+          <SettingsModal isOpen={openSettings}
+                         closeModalHandler={ () => setOpenSettings(false) }/>
         </CrosswordContextProvider>
       </AppContextProvider>
   );

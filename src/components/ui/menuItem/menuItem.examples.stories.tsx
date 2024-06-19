@@ -3,7 +3,7 @@ import MenuItem, { MenuItemProps } from './menuItem';
 import { IconName } from '../faIcons';
 
 const meta: Meta<MenuItemProps> = {
-  title: "UI Elements/Menu Item",
+  title: "UI Elements/Menu Item/Examples",
   component: MenuItem,
   render: (args) => (
     <ul style={{listStyle: "none", backgroundColor: "var(--color-tertiary)",

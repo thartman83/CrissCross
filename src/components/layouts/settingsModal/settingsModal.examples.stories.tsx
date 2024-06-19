@@ -23,6 +23,6 @@ type SettingsModalStory = StoryObj<SettingsModalProps>
 
 export const SettingsModalExample: SettingsModalStory = {
   args: {
-    isModalOpen: true,
+    isOpen: true,
   },
 };

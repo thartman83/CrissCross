@@ -35,7 +35,7 @@ const Header = ({openMainMenu, onClickHandler}: HeaderProps) => {
            onClick={clickHandler}>
         <ToggleButton faIcon="Bars" name="main-menu"
                       state={openMainMenu} />
-        <img src="src/assets/crisscross.png" role="button" />
+        <img src="src/assets/crisscross.png" role="button" alt='Criss Cross Logo'/>
       </div>
     </div>
   );

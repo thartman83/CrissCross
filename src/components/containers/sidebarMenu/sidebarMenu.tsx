@@ -1,16 +1,19 @@
-import { FocusEvent, useCallback } from "react";
+// menuItems.map((props: MenuItemProps, i: number) =>
+//              <MenuItem key={`menuItem-${i}`} {...props} />)
+import { FocusEvent, ReactElement, useCallback } from "react";
 import "./sidebarMenu.css";
-import MenuItem, {MenuItemProps} from "@/components/ui/menuItem/menuItem";
+import Menu from "../menu/menu";
 
 type OnBlurEvent = FocusEvent<HTMLElement>
 
 export type SidebarMenuProps = {
-  menuItems: MenuItemProps[],
   openSidebar: boolean,
+  children: ReactElement[],
   onLeaveHandler: () => void
 };
 
-const SidebarMenu = ({menuItems, openSidebar, onLeaveHandler}: SidebarMenuProps) => {
+const SidebarMenu = ({openSidebar, children, onLeaveHandler}: SidebarMenuProps) => {
+
   const asideDiv = useCallback((divElement: HTMLDivElement) => {
     if(divElement && openSidebar) {
       divElement.focus();
@@ -22,20 +25,16 @@ const SidebarMenu = ({menuItems, openSidebar, onLeaveHandler}: SidebarMenuProps)
       onLeaveHandler();
     }
   };
-  
+
   return (
     <aside className={"main-menu " + (openSidebar ? "menu-open" : "menu-closed")}
            aria-label="Main Menu" aria-hidden={!openSidebar}
-           onBlur={onBlurHandlerLocal} tabIndex={openSidebar ? 0 : -1}
-           ref={asideDiv}
+           onBlur={onBlurHandlerLocal} ref={asideDiv}
     >
       <nav>
-        <ul>
-          {
-            menuItems.map((menuItemProps, i) =>
-              <MenuItem key={`menuItem-${i}`} {...menuItemProps} />)
-          }
-        </ul>
+        <Menu active={openSidebar}>
+          {children}
+        </Menu>
       </nav>
     </aside>
   );
