@@ -59,3 +59,16 @@ export const BlurKeyboardTest: SidebarMenuStory = {
     });
   },
 };
+
+export const EscapeTest: SidebarMenuStory = {
+  args: {
+    openSidebar: true,
+    onLeaveHandler: onLeaveHandlerMock,
+  },
+  play: async ({ step }) => {
+    await step('When the sidebar is open and the user presses escape, the leave hanlder should fire', async () => {
+      await userEvent.keyboard('[Escape]');
+      expect(onLeaveHandlerMock).toHaveBeenCalledTimes(1);
+    });
+  },
+};

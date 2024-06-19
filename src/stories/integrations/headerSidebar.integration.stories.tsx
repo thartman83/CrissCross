@@ -33,9 +33,9 @@ const meta: Meta<SidebarMenuProps> = {
 
 export default meta;
 
-type HeaderSidebarSotry = StoryObj<SidebarMenuProps>
+type HeaderSidebarStory = StoryObj<SidebarMenuProps>
 
-export const HeaderClickShowHide: HeaderSidebarSotry = {
+export const HeaderClickShowHide: HeaderSidebarStory = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
     const btn = canvas.getByRole('button');
@@ -62,7 +62,7 @@ export const HeaderClickShowHide: HeaderSidebarSotry = {
   },
 };
 
-export const HeaderClickElseWhereShowHide: HeaderSidebarSotry = {
+export const HeaderClickElseWhereShowHide: HeaderSidebarStory = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
     const btn = canvas.getByRole('button');
@@ -85,7 +85,7 @@ export const HeaderClickElseWhereShowHide: HeaderSidebarSotry = {
   },
 };
 
-export const HeaderKeyboardShowHide: HeaderSidebarSotry = {
+export const HeaderKeyboardShowHide: HeaderSidebarStory = {
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
     const toggleButton = canvas.getByRole('checkbox');
@@ -101,6 +101,25 @@ export const HeaderKeyboardShowHide: HeaderSidebarSotry = {
     await step('When the sidebar loses keyboard focus via shift tab, it should close and focus should be on the header', async () => {
       await userEvent.tab({shift: true});
       expect(toggleButton).toHaveFocus();
+      expect(sidebar).toHaveAttribute('aria-hidden', 'true');
+      expect(sidebar).toHaveClass('menu-closed');
+    });
+  },
+};
+
+export const SidebarEscape: HeaderSidebarStory = {
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const toggleButton = canvas.getByRole('checkbox');
+    const sidebar = canvas.getByRole('complementary', {hidden: true});
+
+    await step('When the side bar is open and the user pressed escape, the sidebar should close and focus should revert back to the toggle button', async () => {
+      toggleButton.focus();
+      await userEvent.keyboard('[Space]');
+      expect(sidebar).toHaveAttribute('aria-hidden', 'false');
+      expect(sidebar).toHaveClass('menu-open');
+
+      await userEvent.keyboard('[Escape]');
       expect(sidebar).toHaveAttribute('aria-hidden', 'true');
       expect(sidebar).toHaveClass('menu-closed');
     });
