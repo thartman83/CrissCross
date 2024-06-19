@@ -30,12 +30,12 @@
   /* --color-foreground-dark: #d6d6d6; */
   /* --color-foreground-alt-dark: #00796b; */
 
-  --color-accent-dark: #212529;
-  --color-tertiary-dark: #15191d;
-  --color-secondary-dark: #161616;
-  --color-quaternary-dark: #6f6f6f;
   --color-primary-dark: #313b4b;
-  --color-foreground-dark: #d6d6d6;
+  --color-secondary-dark: #161616;
+  --color-tertiary-dark: #15191d;
+  --color-quaternary-dark: #454e5d;
+  --color-accent-dark: #4a4e6b;
+  --color-foreground-dark: #fff;
   --color-foreground-alt-dark: #00796b;
 
   /* Default Palette is the lite theme */

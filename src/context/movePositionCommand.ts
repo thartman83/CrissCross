@@ -4,6 +4,7 @@ import Orientation from "../types/orientation";
 const MovePositionCommand = (pos: number, prev: number) => {
   return {
     do: (crossword: Crossword): Crossword => {
+
       // boundary checks
       if(pos < 0 || pos >= (crossword.height * crossword.width))
         return crossword;
