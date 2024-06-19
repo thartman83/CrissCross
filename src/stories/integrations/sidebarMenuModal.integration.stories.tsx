@@ -6,6 +6,8 @@ import PageLayout from '@/components/layouts/pageLayout';
 import { userEvent, within } from '@storybook/testing-library';
 import SettingsModal from '@/components/layouts/settingsModal/settingsModal';
 import { useState } from 'react';
+import { useMenuItems } from '@/hooks/useMenuItems';
+import MenuItem from '@/components/ui/menuItem/menuItem';
 
 const meta: Meta<SidebarMenuProps> = {
   title: "Integration Tests/Sidebar Menu Open Modal",
@@ -13,6 +15,7 @@ const meta: Meta<SidebarMenuProps> = {
   render: () =>  {
     const {isOpenMenu, toggleOpenMenu, closeOpenMenu} = useOpenMenu(true);
     const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+    const { menuItems } = useMenuItems();
 
     const closeSettingsHandler = () => {
       setIsSettingsOpen(false);
@@ -23,11 +26,14 @@ const meta: Meta<SidebarMenuProps> = {
       <div>
         <Header onClickHandler={toggleOpenMenu} openMainMenu={isOpenMenu} />
         <SidebarMenu openSidebar={isOpenMenu}
-                     onLeaveHandler={closeOpenMenu} />
+                     onLeaveHandler={closeOpenMenu}>
+          {menuItems.map( (e, i) =>
+            <MenuItem key={`mainMenuItem-${i}`} {...e}/>)}
+        </SidebarMenu>
         <PageLayout openSidebar={isOpenMenu}>
           <div>I'm the main content!</div>
         </PageLayout>
-        <SettingsModal isModalOpen={isSettingsOpen}
+        <SettingsModal isOpen={isSettingsOpen}
                        closeModalHandler={closeSettingsHandler}/>
       </div>
     );

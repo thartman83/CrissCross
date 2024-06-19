@@ -7,6 +7,7 @@ import { expect } from '@storybook/jest';
 import { userEvent } from '@storybook/testing-library';
 import { useMenuItems } from '@/hooks/useMenuItems';
 import { useOpenMenu } from '@/hooks/useOpenMenu';
+import MenuItem from '@/components/ui/menuItem/menuItem';
 
 const meta: Meta<SidebarMenuProps> = {
   title: "Integration Tests/Sidebar and Header",
@@ -18,8 +19,10 @@ const meta: Meta<SidebarMenuProps> = {
     return (
       <div>
         <Header onClickHandler={toggleOpenMenu} openMainMenu={isOpenMenu} />
-        <SidebarMenu menuItems={menuItems} openSidebar={isOpenMenu}
-                     onLeaveHandler={closeOpenMenu} />
+        <SidebarMenu openSidebar={isOpenMenu} onLeaveHandler={closeOpenMenu}>
+          {menuItems.map((e, i) =>
+            <MenuItem key={`mainMenuItem-${i}`} {...e} />)}
+        </SidebarMenu>
         <PageLayout openSidebar={isOpenMenu}>
           <div>I'm the main content!</div>
         </PageLayout>
