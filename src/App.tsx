@@ -17,10 +17,11 @@ import MenuItem from './components/ui/menuItem/menuItem';
 import HelpModal from './components/layouts/helpModal/helpModal';
 import SettingsModal from './components/layouts/settingsModal/settingsModal';
 import { TabDefinition } from './components/composites/tabBar/tabBar';
+import NewPuzzleModal from './components/layouts/newPuzzleModal/newPuzzleModal';
 
 function App() {
   const { isOpenMenu, toggleOpenMenu, closeOpenMenu } = useOpenMenu(false);
-  const { menuItems, openSettings, setOpenSettings,
+  const { menuItems, openSettings, setOpenSettings, openNewPuzzle, setOpenNewPuzzle,
           openHelp, setOpenHelp, } = useMenuItems();
 
   const tabDefinitions: TabDefinition[] = [
@@ -66,6 +67,8 @@ function App() {
                      closeModalHandler={ () => setOpenHelp(false) } />
           <SettingsModal isOpen={openSettings}
                          closeModalHandler={ () => setOpenSettings(false) }/>
+          <NewPuzzleModal isOpen={openNewPuzzle}
+                          closeModalHandler={ () => setOpenNewPuzzle(false) }/>
         </CrosswordContextProvider>
       </AppContextProvider>
   );

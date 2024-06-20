@@ -1,0 +1,19 @@
+ul.newpuzzle-list {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+li.newpuzzle-item {
+    display: flex;
+    column-gap: 1rem;
+    align-items: center;
+    cursor: pointer;
+    padding-left: 1rem;
+    width: auto;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
+
+li.newpuzzle-item:hover {
+    background-color: var(--color-secondary);
+}

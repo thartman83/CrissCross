@@ -15,6 +15,18 @@ export const useMenuItems = ( ) => {
       focused: false,
     },
     {
+      text: "Upload Puzzle",
+      onClickHandler: () => { },
+      faIcon: "Upload",
+      focused: false,
+    },
+    {
+      text: "Download Puzzle",
+      onClickHandler: () => { },
+      faIcon: "Download",
+      focused: false,
+    },
+    {
       text: "Settings",
       onClickHandler: () => { setOpenSettings(prev => !prev); },
       faIcon: "Gear",
