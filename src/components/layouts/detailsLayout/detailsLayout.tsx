@@ -1,8 +1,9 @@
 import TextInput, {TextInputChangeEvent} from "@/components/ui/textInput/textInput";
 import TextArea, {TextAreaChangeEvent} from "@/components/ui/textArea/textArea";
 import { useCrossword } from "@/hooks/useCrossword";
+import TabPanel, { TabPanelProps } from "@/components/containers/tabPanel/tabPanel";
 
-const DetailsView = () => {
+const DetailsLayout = ({labeledBy, id, hidden}: TabPanelProps) => {
   const {updateMetadata, crossword} = useCrossword();
 
   const onTitleChangeHandler = (e: TextInputChangeEvent) => {
@@ -22,7 +23,7 @@ const DetailsView = () => {
   };
 
   return (
-    <>
+    <TabPanel labeledBy={labeledBy} id={id} hidden={hidden} >
       <TextInput label="Title:" defaultValue={crossword.title}
                  onChangeHandler={onTitleChangeHandler}/>
       <TextInput label="Author:" defaultValue={crossword.author}
@@ -31,8 +32,8 @@ const DetailsView = () => {
                  onChangeHandler={onCopyrightChangeHandler}/>
       <TextArea label="Notes:" defaultValue={crossword.notes}
                  onChangeHandler={onNotesChangeHandler}/>
-    </>
+    </TabPanel>
   );
 };
 
-export default DetailsView;
+export default DetailsLayout;

@@ -1,13 +1,14 @@
-import './wordlistView.css';
+import './wordListLayout.css';
 import { useEffect, useState, ChangeEvent, MouseEvent, ReactNode } from "react";
-import { useWordList } from "../../context/wordListContext";
-import SearchInput from "../ui/searchInput";
 import { useCrossword } from '@/hooks/useCrossword';
+import { useWordList } from '@/context/wordListContext';
+import SearchInput from '@/components/ui/searchInput';
+import TabPanel, { TabPanelProps } from '@/components/containers/tabPanel/tabPanel';
 
-type ChangeSearchEvent = ChangeEvent<HTMLInputElement>;
-type EntryListClickEvent = MouseEvent<HTMLButtonElement>;
+type ChangeSearchEvent = ChangeEvent<HTMLInputElement>
+type EntryListClickEvent = MouseEvent<HTMLButtonElement>
 
-const WordListView = () => {
+const WordListLayout = ({labeledBy, id, hidden}: TabPanelProps) => {
   const {wordList} = useWordList();
   const [currentFilter, setCurrentFilter] = useState<string>("");
   const [currentWords, setCurrentWords] = useState<Array<ReactNode>>([]);
@@ -55,7 +56,7 @@ const WordListView = () => {
   };
 
   return (
-    <>
+    <TabPanel labeledBy={labeledBy} id={id} hidden={hidden}>
       <div className="word-list">
         <SearchInput onChangeHandler={onSearchInputChanged}/>
         {currentWords}
@@ -65,8 +66,8 @@ const WordListView = () => {
              -- {remainingFiltered} Remaining Words --
            </label>)}
       </div>
-    </>
+    </TabPanel>
   );
 };
 
-export default WordListView;
+export default WordListLayout;

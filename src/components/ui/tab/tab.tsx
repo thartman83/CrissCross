@@ -5,7 +5,7 @@ export type TabProps = {
   title: string,
   active: boolean,
   focused: boolean,
-  controlId?: string,
+  controlId: string,
   onClick: (title: string) => void
 };
 
@@ -19,7 +19,7 @@ const Tab = ({title, active, focused, onClick, controlId}: TabProps) => {
   }, [focused]);
 
   const onClickHandler = () => {
-    onClick(title);
+    onClick(controlId);
   };
 
   return (
@@ -27,7 +27,7 @@ const Tab = ({title, active, focused, onClick, controlId}: TabProps) => {
             ref={tabRef}
             role="tab"
             aria-selected={active}
-            aria-controls={controlId || ""}
+            aria-controls={controlId}
             tabIndex={focused ? 0 : -1}
             onClick={onClickHandler}
     >

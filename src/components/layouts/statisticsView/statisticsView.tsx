@@ -1,6 +1,8 @@
+import "./statisticsView.css";
+import TabPanel, { TabPanelProps } from "@/components/containers/tabPanel/tabPanel";
 import { useCrossword } from "@/hooks/useCrossword";
 
-const StatisticsView = () => {
+const StatisticsView = ({labeledBy, id, hidden}: TabPanelProps) => {
   const {crossword} = useCrossword();
   const words = crossword.wordView();
 
@@ -29,22 +31,22 @@ const StatisticsView = () => {
   );
 
   return (
-    <div className="statistics-layout">
+    <TabPanel labeledBy={labeledBy} id={id} hidden={hidden}>
       <h4 className="stats-header">General</h4>
-      <label>Word Count: {wordCount}</label>
-      <label>Average Word Length: {averageWordLen}</label>
-      <label>Block Count: {blockCount} ({blockPercent}%)</label>
-      <label>Letter Count: {nonBlockCount} </label>
-      <label>Word Count: {wordCount}</label>
-      <label>Current Position: {crossword.position}</label>
-
+      <div className="statistics-layout">
+        <label>Word Count: {wordCount}</label>
+        <label>Average Word Length: {averageWordLen}</label>
+        <label>Block Count: {blockCount} ({blockPercent}%)</label>
+        <label>Letter Count: {nonBlockCount} </label>
+        <label>Word Count: {wordCount}</label>
+        <label>Current Position: {crossword.position}</label>
+      </div>
       <h4 className="stats-header">Letter Counts</h4>
       <div className="stats-grid">{letterCount}</div>
 
       <h4 className="stats-header">Word Counts</h4>
       <div className="stats-grid">{wordsCounts}</div>
-
-    </div>
+    </TabPanel>
   );
 };
 

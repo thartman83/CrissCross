@@ -13,6 +13,13 @@ const meta: Meta<TabBarProps> = {
   render: (args) => (
     <TabBar {...args} />
   ),
+  args: {
+    tabDefinitions: [
+      {label:"First Tab", panelId: "firstTabPanel", tabId: "firstTab"},
+      {label:"Second Tab", panelId: "secondTabPanel", tabId: "secondTab"},
+      {label:"Third Tab", panelId: "thirdTabPanel", tabId: "thirdTab"},
+    ],
+  }
 };
 
 export default meta;
@@ -21,12 +28,7 @@ type TabBarStory = StoryObj<TabBarProps>
 
 export const TabBarMouseTests: TabBarStory = {
   args: {
-    tabTitles: [
-      "First Tab",
-      "Second Tab",
-      "Third Tab"
-    ],
-    activeTab: "First Tab",
+    activeTab: "firstTabPanel",
     onTabClick: onTabClickHandlerMock,
   },
   play: async ({canvasElement}) => {
@@ -49,12 +51,7 @@ export const TabBarMouseTests: TabBarStory = {
 
 export const TabBarKeyboardTests: TabBarStory = {
   args: {
-    tabTitles: [
-      "First Tab",
-      "Second Tab",
-      "Third Tab"
-    ],
-    activeTab: "First Tab",
+    activeTab: "firstTabPanel",
     onTabClick: onTabClickHandlerMock,
   },
   play: async ({canvasElement}) => {
@@ -100,5 +97,20 @@ export const TabBarKeyboardTests: TabBarStory = {
     await userEvent.click(tabs[0]);
     await userEvent.keyboard('[ArrowRight]');
     expect(tabs[2]).toHaveFocus();
+  },
+};
+
+export const ActiveTabTests: TabBarStory = {
+  args: {
+    activeTab: "firstTabPanel",
+    onTabClick: onTabClickHandlerMock,
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const tabs = canvas.getAllByRole('tab');
+
+    await step('The first tab should be active in the tab bar.', async () => {
+      expect(tabs[0]).toHaveClass('active');
+    });
   },
 };

@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import SidebarMenu, {SidebarMenuProps} from '@/components/containers/sidebarMenu/sidebarMenu';
 import { useOpenMenu } from '@/hooks/useOpenMenu';
 import Header from '@/components/composites/header/header';
-import PageLayout from '@/components/layouts/pageLayout';
+import PageLayout from '@/components/containers/pageLayout/pageLayout';
 import { userEvent, within } from '@storybook/testing-library';
 import SettingsModal from '@/components/layouts/settingsModal/settingsModal';
 import { useState } from 'react';

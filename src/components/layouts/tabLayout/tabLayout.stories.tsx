@@ -1,12 +1,20 @@
 import { Meta, StoryObj } from '@storybook/react';
-import TabLayout, { TabLayoutProps } from './tablayout';
+import TabLayout, { TabLayoutProps } from './tabLayout';
+import TabPanel from '@/components/containers/tabPanel/tabPanel';
 
 const meta: Meta<TabLayoutProps> = {
   title: "Layouts/TabLayout",
   component: TabLayout,
   render: (args) => (
-    <div className=''>
-      <TabLayout {...args} />
+    <div>
+      <TabLayout {...args}>
+        <TabPanel hidden={false} labeledBy='firstTab'
+                  id='firstTabPanel'><div>First Tab Content!</div></TabPanel>
+        <TabPanel hidden={false} labeledBy='secondTab'
+                  id='secondTabPanel'><div>Second Tab Content!</div></TabPanel>
+        <TabPanel hidden={false} labeledBy='thirdTab'
+                  id='thirdTabPanel'><div>Third Tab Content!</div></TabPanel>
+      </TabLayout>
     </div>
   ),
 };
@@ -17,15 +25,10 @@ type TabLayoutStory = StoryObj<TabLayoutProps>
 
 export const ExampleTabLayout: TabLayoutStory = {
   args: {
-    tabLabels: [
-      "First Tab",
-      "Second Tab",
-      "Third Tab",
-    ],
-    tabViews: [
-      <>First Tab Content!</>,
-      <>Second Tab Content!</>,
-      <>Third Tab Content!</>,
+    tabDefinitions: [
+      {label:"First Tab", panelId: "firstTabPanel", tabId: "firstTab"},
+      {label:"Second Tab", panelId: "secondTabPanel", tabId: "secondTab"},
+      {label:"Third Tab", panelId: "thirdTabPanel", tabId: "thirdTab"},
     ]
   }
 };

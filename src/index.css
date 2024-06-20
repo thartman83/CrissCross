@@ -242,12 +242,6 @@ body.dark {
     width: 10rem;
     background-color: white;
 }
-
-.statistics-layout {
-    display: flex;
-    flex-direction: column;
-}
-
 /* .grid-square { */
 /*     display: contents; */
 /* } */
@@ -263,16 +257,6 @@ body.dark {
     justify-content: center;
     height: 2rem;
     margin-left: .5rem;
-}
-
-.stats-header {
-    margin-top: .5rem;
-    margin-bottom: .5rem;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: 100px 100px 100px 100px 100px 100px;
 }
 
 .sr-only {

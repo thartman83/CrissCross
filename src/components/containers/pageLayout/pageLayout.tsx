@@ -2,7 +2,7 @@ import "./pageLayout.css";
 
 import { ReactElement } from "react";
 
-interface PageLayoutProps {
+export interface PageLayoutProps {
   children: ReactElement[] | ReactElement,
   openSidebar: boolean,
 };

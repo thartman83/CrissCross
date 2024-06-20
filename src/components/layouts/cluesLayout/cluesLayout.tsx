@@ -1,8 +1,10 @@
+import Orientation from "@/types/orientation";
+import "./cluesLayout.css";
 import { useCrossword } from "@/hooks/useCrossword";
-import Orientation from "../../types/orientation";
-import "./cluesView.css";
+import TabPanel, { TabPanelProps } from "@/components/containers/tabPanel/tabPanel";
 
-const CluesView = () => {
+
+const CluesLayout = ({labeledBy, id, hidden}: TabPanelProps) => {
   const {crossword} = useCrossword();
   const words = crossword.wordView();
 
@@ -10,7 +12,7 @@ const CluesView = () => {
   const downs = words.filter(word => word.orientation === Orientation.down);
 
   return (
-    <>
+    <TabPanel labeledBy={labeledBy} id={id} hidden={hidden}>
       <div className="clues-view">
         <div className="clues-set">
           Acrosses
@@ -35,8 +37,8 @@ const CluesView = () => {
           </ul>
         </div>
       </div>
-    </>
+    </TabPanel>
   );
 };
 
-export default CluesView;
+export default CluesLayout;

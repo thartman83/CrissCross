@@ -1,0 +1,16 @@
+.statistics-layout {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: .5rem;
+}
+
+h4.stats-header {
+    margin-top: 0;
+    margin-bottom: .5rem;
+}
+
+.stats-grid {
+    display: grid;
+    margin-bottom: .5rem;
+    grid-template-columns: 100px 100px 100px 100px 100px 100px;
+}
