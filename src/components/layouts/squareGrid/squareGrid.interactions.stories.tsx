@@ -120,7 +120,7 @@ export const MouseGridTests: GridStory = {
     height: 15,
     width: 15,
   },
-  play: async ({ canvasElement, step }) => {
+  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const squares = canvas.getAllByRole('textbox');
 

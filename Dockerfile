@@ -7,6 +7,8 @@ RUN mkdir /opt/node_modules
 COPY ./package.json /app
 COPY ./package-lock.json /app
 
+EXPOSE 8080
+
 RUN npm ci
 
 COPY ./ /app

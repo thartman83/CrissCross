@@ -6,7 +6,7 @@ import { vi } from 'vitest';
 const MockCrosswordContext =
       createContext<CrosswordContextType|undefined>(undefined);
 
-type SquareKeyDownEvent = KeyboardEvent<HTMLInputElement>;
+type SquareKeyDownEvent = KeyboardEvent<HTMLElement>
 
 const mockOnKeyDown = (_: SquareKeyDownEvent) => {};
 export const OnKeyDownSpy = vi.fn(mockOnKeyDown);
@@ -39,6 +39,7 @@ const MockCrosswordContextProvider = ({children}: {children: ReactNode}) => {
       onNew: () => {},
       updateMetadata: () => {},
       updateCurrentWord: () => {},
+      onDoubleClick: () => {},
       undo: () => {}
     }}>
       {children}

@@ -8,6 +8,8 @@ const NewCrosswordCommand = (height: number, width: number) => {
       const newCrossword: Crossword = {
         title: '',
         author: '',
+        copyright: '',
+        notes: '',
         position: 0,
         orientation: Orientation.across,
         height: height,

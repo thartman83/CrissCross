@@ -42,10 +42,10 @@ export const KeyboardAccessible: HeaderStory = {
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
-
-
     await step('The user should be able to tab into the header', async () => {
+      const img = canvas.getByAltText('Criss Cross Logo');
 
+      expect(img).toBeDefined();
     });
   },
 };
