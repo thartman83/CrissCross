@@ -12,6 +12,6 @@
 
 @media all and (max-width: 1200px) {
     .tab-panel {
-        width: var(--grid-width);
+        width: calc(var(--grid-width) - 2rem);
     }
 }

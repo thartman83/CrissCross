@@ -13,6 +13,8 @@ npm install
 npm run dev
 #+end_src
 
+To access the dev instance, navigate to localhost:5173
+
 * Storybook
 
 Components are available for viewing and testing through storybook. Run the following to start storybook
@@ -21,3 +23,5 @@ Components are available for viewing and testing through storybook. Run the foll
 npm install
 npm run storyboook
 #+end_src
+
+This should launch a new browser window pointing at localhost:6006

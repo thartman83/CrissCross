@@ -5,7 +5,7 @@ export type TabPanelProps = {
   labeledBy: string,
   id: string,
   hidden: boolean,
-  children: ReactElement | ReactElement[]
+  children?: ReactElement | ReactElement[],
 };
 
 const TabPanel = ({id, hidden, labeledBy, children}: TabPanelProps) => {

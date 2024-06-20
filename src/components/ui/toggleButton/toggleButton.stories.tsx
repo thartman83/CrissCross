@@ -3,7 +3,7 @@ import ToggleButton, {ToggleButtonProps} from './toggleButton';
 import { IconName } from '../faIcons';
 
 const meta: Meta<ToggleButtonProps> = {
-  title: "UI Elements/Toggle Button",
+  title: "UI Elements/Toggle Button/Examples",
   component: ToggleButton,
   argTypes: {
     faIcon: {

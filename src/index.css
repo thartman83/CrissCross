@@ -22,20 +22,20 @@
   --color-foreground-alt-lite: #00796b;
 
   /* Dark Palette */
-  --color-primary-dark: #212529;
-  --color-secondary-dark: #15191d;
-  --color-tertiary-dark: #161616;
-  --color-quaternary-dark: #6f6f6f;
-  --color-accent-dark: #313b4b;
-  --color-foreground-dark: #d6d6d6;
-  --color-foreground-alt-dark: #00796b;
+  /* --color-primary-dark: #212529; */
+  /* --color-secondary-dark: #15191d; */
+  /* --color-tertiary-dark: #161616; */
+  /* --color-quaternary-dark: #6f6f6f; */
+  /* --color-accent-dark: #313b4b; */
+  /* --color-foreground-dark: #d6d6d6; */
+  /* --color-foreground-alt-dark: #00796b; */
 
-  --color-accent-dark: #212529;
-  --color-tertiary-dark: #15191d;
-  --color-secondary-dark: #161616;
-  --color-quaternary-dark: #6f6f6f;
   --color-primary-dark: #313b4b;
-  --color-foreground-dark: #d6d6d6;
+  --color-secondary-dark: #161616;
+  --color-tertiary-dark: #15191d;
+  --color-quaternary-dark: #454e5d;
+  --color-accent-dark: #4a4e6b;
+  --color-foreground-dark: #fff;
   --color-foreground-alt-dark: #00796b;
 
   /* Default Palette is the lite theme */
@@ -242,12 +242,6 @@ body.dark {
     width: 10rem;
     background-color: white;
 }
-
-.statistics-layout {
-    display: flex;
-    flex-direction: column;
-}
-
 /* .grid-square { */
 /*     display: contents; */
 /* } */
@@ -265,12 +259,12 @@ body.dark {
     margin-left: .5rem;
 }
 
-.stats-header {
-    margin-top: .5rem;
-    margin-bottom: .5rem;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: 100px 100px 100px 100px 100px 100px;
+.sr-only {
+    clip: rect(0 0 0 0);
+    clip-path: inset(100%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
 }

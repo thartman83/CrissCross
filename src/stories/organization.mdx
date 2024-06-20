@@ -1,0 +1,48 @@
+import { Meta } from '@storybook/blocks';
+
+  <Meta title="Organization" />
+
+# Story Organization
+The various elements of the application are broken down as follows
+  - UI Elements <br/>
+  This is the most basic element, basically an atom in the atomic design system.
+  - Composite Elements <br/>
+  Any unit that consists of one or more UI elements in a coordinated
+pattern
+  - Containers <br />
+  Common elements that serve as containers for other elements
+  - Layouts <br />
+  Complex set of elements that require elements to work in concert
+with one another.
+
+## UI Elements
+Basic components of the application.
+
+While not quite atomic, a UI Element is the smallest unit of component within the application. These elements tend to have very little in terms of logic if any at all and are primarily basic form elements used throughout the application.
+
+## Composite Elements
+Any component that is made up of one or more elements. Composite Elements similar to ui elements do not contain any logic and are primarily used for consistant styling and appearance.
+
+## Containers
+Containers are elements that have other elements as direct children. Depending on the container type these may have some logic to indicate which element is active or otherwise provide movement and accessibility functionality.
+
+## Layouts
+Layouts consist of one or more UI elements and/or composite elements that interact with one an other in a defined and consistant way.
+
+## Integration Tests
+These set of stories involve testing the interactions of seperate components together to make sure evrerything plays nice with one another.
+
+## End to End Tests
+Set of stories to test the application as a whole. These stories will be the most complex and will likely end up being written last.
+
+# Per Component Tests
+Within each component there will be an assortment of tests. These will largely fall under three seperate types
+
+## Examples/Sandboxes
+Stories that demonstrate the component and its features. These will not contain any interactive tests but will be available for playing around with in a contained manner
+
+## Accessibility Tests
+Interations that test the component for various accessibility features. I can't guarantee that these will all be correct but there will be an effort towards making the full application as accessible as possible per generally accepted accessibility standards for keyboard only users as well as for screen readers.
+
+## Functional Tests
+Set of interactions that test the components various interatcive functionality. This can range from testing that various events are fired by the component or various states are captured and updated correctly.

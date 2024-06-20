@@ -7,6 +7,7 @@ li.menu-item {
     display: flex;
     gap: .5rem;
     align-items: center;
+    font-size: 1.25rem;
 }
 
 li.menu-item svg {
@@ -15,13 +16,14 @@ li.menu-item svg {
     width: auto;
 }
 
-li.menu-item a {
-    font-size: 1.25rem;
-    text-decoration: none;
-    color: var(--fg-color);
-}
 
 li.menu-item:hover {
     background-color: var(--color-accent);
     border-radius: 4px;
+}
+
+li.menu-item:focus-visible {
+    background-color: var(--color-accent);
+    border-radius: 4px;
+    outline: none;
 }

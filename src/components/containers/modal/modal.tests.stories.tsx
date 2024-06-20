@@ -9,7 +9,7 @@ const meta: Meta<ModalProps> = {
   title: "Containers/Modal/Tests",
   component: Modal,
   render: (args) => {
-    const [{isOpen}, updateArgs ] = useArgs();
+    const [{}, updateArgs ] = useArgs();
     const closeModalHandler = () => {
       updateArgs({ isOpen: false });
     };

@@ -37,72 +37,81 @@ type GridStory = StoryObj<GridProps>
 
 export const GridMovement: GridStory = {
   args: {
-      width: 15,
+    width: 15,
     height: 15,
   },
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
     const squares = canvas.getAllByRole('textbox');
 
-    // test clicking on a square that it moves the focused square, word accordingly
-    await userEvent.click(squares[10]);
-    expect(squares[10]).toHaveClass('focused');
-    expect(squares[10]).toHaveClass('current-word');
-    canvas.getAllByRole('textbox').slice(0, 14).forEach((square) =>
-      expect(square).toHaveClass('current-word')
-    );
+    await step('Test click on a square that it moves the focused square and word accordingly', async () => {
+      await userEvent.click(squares[10]);
+      expect(squares[10]).toHaveClass('focused');
+      expect(squares[10]).toHaveClass('current-word');
+      canvas.getAllByRole('textbox').slice(0, 14).forEach((square) =>
+        expect(square).toHaveClass('current-word')
+      );
+    });
 
-    // Click again to toggle the orientation
-    await userEvent.click(squares[10]);
-    expect(squares[10]).toHaveClass('focused');
-    expect(squares[10]).toHaveClass('current-word');
-    [...Array(15).keys()].forEach(x =>
-      expect(squares[10 + (x * 15)]).toHaveClass('current-word'));
+    await step('Click again to toggle the orientation', async () => {
+      // Click again to toggle the orientation
+      await userEvent.click(squares[10]);
+      expect(squares[10]).toHaveClass('focused');
+      expect(squares[10]).toHaveClass('current-word');
+      [...Array(15).keys()].forEach(x =>
+        expect(squares[10 + (x * 15)]).toHaveClass('current-word'));
 
-    // Test orientation toggling
-    await userEvent.keyboard('[Space]');
-    expect(squares[10]).toHaveClass('focused');
-    expect(squares[10]).toHaveClass('current-word');
-    canvas.getAllByRole('textbox').slice(0, 14).forEach((square) =>
-      expect(square).toHaveClass('current-word')
-    );
+    });
 
-    // Test WASD
-    await userEvent.keyboard('[ArrowRight]');
-    expect(squares[11]).toHaveClass('focused');
-    expect(squares[11]).toHaveClass('current-word');
+    await step('Test toggling orientation using the space bar', async () => {
+      // Test orientation toggling
+      await userEvent.keyboard('[Space]');
+      expect(squares[10]).toHaveClass('focused');
+      expect(squares[10]).toHaveClass('current-word');
+      canvas.getAllByRole('textbox').slice(0, 14).forEach((square) =>
+        expect(square).toHaveClass('current-word')
+      );
+    });
 
-    await userEvent.keyboard('[ArrowLeft]');
-    expect(squares[10]).toHaveClass('focused');
+    await step('Test left right arrow keyboard movement', async () => {
+      await userEvent.keyboard('[ArrowRight]');
+      expect(squares[11]).toHaveClass('focused');
+      expect(squares[11]).toHaveClass('current-word');
 
-    // Current orientation should be across, down should change orientation to down
-    // and the actual position should remain the same
-    await userEvent.keyboard('[ArrowDown]');
-    expect(squares[10]).toHaveClass('focused');
-    expect(squares[25]).toHaveClass('current-word');
+      await userEvent.keyboard('[ArrowLeft]');
+      expect(squares[10]).toHaveClass('focused');
+    });
 
-    // Repeating down should move the focus down
-    await userEvent.keyboard('[ArrowDown]');
-    expect(squares[25]).toHaveClass('focused');
+    await step('Test changing orientation when using up down arrow keys while across', async () => {
+      await userEvent.keyboard('[ArrowDown]');
+      expect(squares[10]).toHaveClass('focused');
+      expect(squares[25]).toHaveClass('current-word');
+    });
 
-    // Return to the tenth square
-    await userEvent.keyboard('[ArrowUp]');
-    expect(squares[10]).toHaveClass('focused');
+    await step('Test up and down arrows while in vertical orientation', async () => {
+      await userEvent.keyboard('[ArrowDown]');
+      expect(squares[25]).toHaveClass('focused');
 
-    // test boundary movement
-    await userEvent.click(squares[0]);
-    await userEvent.keyboard('[ArrowLeft]');
-    expect(squares[0]).toHaveClass('focused');
+      await userEvent.keyboard('[ArrowUp]');
+      expect(squares[10]).toHaveClass('focused');
+    });
 
-    await userEvent.keyboard('[ArrowUp]');
-    expect(squares[0]).toHaveClass('focused');
+    await step('Test movement on boundary squares', async () => {
+      // test boundary movement
+      await userEvent.click(squares[0]);
+      await userEvent.keyboard('[ArrowLeft]');
+      expect(squares[0]).toHaveClass('focused');
 
-    await userEvent.click(squares[15 * 15 - 1]);
-    await userEvent.keyboard('[ArrowRight]');
-    expect(squares[15 * 15 - 1]).toHaveClass('focused');
+      await userEvent.keyboard('[ArrowUp]');
+      expect(squares[0]).toHaveClass('focused');
 
-    await userEvent.keyboard('[ArrownDown]');
-    expect(squares[15 * 15 - 1]).toHaveClass('focused');
+      await userEvent.click(squares[15 * 15 - 1]);
+      await userEvent.keyboard('[ArrowRight]');
+      expect(squares[15 * 15 - 1]).toHaveClass('focused');
+
+      await userEvent.keyboard('[ArrownDown]');
+      expect(squares[15 * 15 - 1]).toHaveClass('focused');
+    });
   },
 };
 
@@ -208,5 +217,24 @@ export const LettersTests: GridStory = {
     await userEvent.keyboard('[Backspace][ArrowRight].');
 
   }
+};
+
+export const LastSquareInRowBug: GridStory = {
+  args: {
+    width: 15,
+    height: 15,
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const squares = canvas.getAllByRole('textbox');
+
+    await step('When the last square in a row is focused we should be able to select items past it in the grid.', async () => {
+      await userEvent.click(squares[179]);
+      expect(squares[179]).toHaveClass('focused');
+
+      await userEvent.click(squares[180]);
+      expect(squares[180]).toHaveClass('focused');
+    });
+  },
 
 };

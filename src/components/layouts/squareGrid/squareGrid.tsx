@@ -17,7 +17,7 @@ const SquareGrid = () => {
           "--grid-square-size": `calc(var(--grid-width) / ${crossword.width})`,
         } as React.CSSProperties;
 
-  const onClickHandler = (e: ClickEvent) => {
+  const clickHandler = (e: ClickEvent) => {
     const target = e.target as HTMLElement;
     const newPos = Number(target?.closest('.grid-square')
                           ?.getAttribute('data-squareno') || 0);
@@ -29,13 +29,14 @@ const SquareGrid = () => {
     }
   };
 
-  const onKeyDownHandler = (e: KeyEvent) => {
+  const keyDownHandler = (e: KeyEvent) => {
     onKeyDown(e);
+    e.preventDefault();
   };
 
   return (
     <div className="square-grid" style={{...gridWidthCssProp}}
-         onClick={onClickHandler} onKeyDown={onKeyDownHandler} tabIndex={-1}
+         onClick={clickHandler} onKeyDown={keyDownHandler} tabIndex={0}
          role="region" aria-label="grid">
       {
         crossword.grid.map((s,i) =>

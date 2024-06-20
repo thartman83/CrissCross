@@ -8,6 +8,7 @@ import UpdateGridCommand from "./updateGridCommand";
 import CrosswordCommand from "../types/crosswordCommand";
 import ToggleBlockCommand from "./toggleBlockCommand";
 import MovePositionCommand from "./movePositionCommand";
+import JumpPositionCommand from "./jumpPositionCommand";
 import ToggleOrientationCommand from "./toggleOrientationCommand";
 import DeleteFillCommand from "./deleteFillCommand";
 import NewCrosswordCommand from "./newCrosswordCommand";
@@ -203,14 +204,14 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
 
       if(idx == (wordsDirList.length-1)) {
         const nextWord = wordsOtherDirList[0];
-        const cmd = MovePositionCommand(nextWord.indicies[0], pos);
+        const cmd = JumpPositionCommand(nextWord.indicies[0], pos);
 
         dispatch({type: CrosswordActions.crosswordCommand, payload:
                   [cmd, ToggleOrientationCommand()]});
       } else {
 
         const nextWord = wordsDirList[idx+1];
-        const cmd = MovePositionCommand(nextWord.indicies[0], pos);
+        const cmd = JumpPositionCommand(nextWord.indicies[0], pos);
         dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd]});
 
       }
@@ -219,14 +220,14 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
 
   const onClick = (pos: number) => {
     const prevPos = crosswordState.position;
-    const cmd = MovePositionCommand(pos, prevPos);
+    const cmd = JumpPositionCommand(pos, prevPos);
     dispatch({type: CrosswordActions.crosswordCommand, payload:
               [cmd]});
   };
 
   const onDoubleClick = (pos: number) => {
     const prevPos = crosswordState.position;
-    const cmd = MovePositionCommand(pos, prevPos);
+    const cmd = JumpPositionCommand(pos, prevPos);
     dispatch({type: CrosswordActions.crosswordCommand, payload:
               [cmd, ToggleOrientationCommand()]});
   };

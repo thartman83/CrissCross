@@ -1,4 +1,4 @@
-import Modal from "./modal";
+import Modal from "../containers/modal/modal";
 
 interface ConfirmModalProps {
   isOpen: boolean,
@@ -9,7 +9,7 @@ interface ConfirmModalProps {
   onCancelAction?: () => void,
 };
 
-const ConfirmModal = ({isOpen, setIsOpen, title, confirmText, onOkayAction, onCancelAction}: ConfirmModalProps) => {
+const ConfirmModal = ({isOpen, setIsOpen, title, confirmText, onCancelAction}: ConfirmModalProps) => {
 
   const closeModalHandler = () => {
     if(typeof onCancelAction !== 'undefined')

@@ -1,5 +1,5 @@
 import "./modal.css";
-import { useState, useEffect, useRef, Ref } from "react";
+import { useState, useEffect, useRef}  from "react";
 
 export enum ModalSize {
   Small = "small",

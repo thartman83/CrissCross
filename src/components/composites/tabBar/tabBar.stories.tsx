@@ -15,12 +15,13 @@ type TabBarStory = StoryObj<TabBarProps>
 
 export const ExampleTabBar: TabBarStory = {
   args: {
-    tabTitles: [
-      "First Tab",
-      "Second Tab",
-      "Third Tab",
+    tabDefinitions: [
+      {label:"First Tab", panelId: "firstTabPanel", tabId: "firstTab"},
+      {label:"Second Tab", panelId: "secondTabPanel", tabId: "secondTab"},
+      {label:"Third Tab", panelId: "thirdTabPanel", tabId: "thirdTab"},
     ],
-    activeTab: "First Tab",
+
+    activeTab: "firstTab",
     onTabClick: () => {}
   },
 };
