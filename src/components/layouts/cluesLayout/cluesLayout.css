@@ -1,17 +1,25 @@
 .clues-view {
     display: flex;
+    gap: 1rem;
+    height: 100%;
 }
 
 .clues-set {
+    padding-top:.25rem;
     width: 50%;
+    height: 100%;
+    overflow: hidden;
 }
 
-ul.clues-list {
-    margin-top: 2rem;
+.clues-set ul.clues-list {
+    position: relative;
     list-style: none;
+    height: 90%;
+    overflow: auto;
 }
 
-ul.clues-list li {
+.clues-set ul.clues-list li {
     margin-left: none;
     padding-left: none;
+    margin-bottom: .4rem;
 }

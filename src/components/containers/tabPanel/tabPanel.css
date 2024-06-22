@@ -3,15 +3,16 @@
     padding: 1rem;
     color: var(--color-foreground);
     background-color: var(--color-quaternary);
-    overflow-y: auto;
-    max-height: 42rem;
     border: 1px solid;
     border-radius: 3px;
     border-color: var(--color-tertiary);
+    width: 100%;
+    height: calc(var(--grid-width) - 3.25rem);
 }
 
 @media all and (max-width: 1200px) {
     .tab-panel {
-        width: calc(var(--grid-width) - 2rem);
+        max-height: 100%;
+        width: 100%;
     }
 }

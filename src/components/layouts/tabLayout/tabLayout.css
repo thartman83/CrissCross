@@ -1,21 +1,14 @@
 .tab-layout {
     margin-right: 2rem;
+    width: calc((100vw - var(--grid-width)) - 3rem);
+    height: var(--grid-width);
 }
 
 @media all and (max-width: 1200px) {
     .tab-layout {
-        width: var(--grid-width);
-        max-height: 10vh;
+        width: calc(100vw - 6rem);
+        height: calc((100vh - var(--grid-width)) - 10rem);
+        margin-bottom: 0;
+        padding-bottom: 0;
     }
 }
-
-/* .tab-content { */
-/*     padding: 1rem; */
-/*     color: var(--color-foreground); */
-/*     background-color: var(--color-quaternary); */
-/*     overflow-y: auto; */
-/*     max-height: 42rem; */
-/*     border: 1px solid; */
-/*     border-radius: 3px 3px 0 0; */
-/*     border-color: var(--color-tertiary); */
-/* } */

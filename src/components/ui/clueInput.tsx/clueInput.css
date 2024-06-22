@@ -1,0 +1,68 @@
+.clue-group {
+    display: flex;
+    align-items: center;
+    padding: .25rem;
+}
+
+.clue-group:hover {
+    background-image:
+        linear-gradient(to bottom right, transparent 50%, var(--color-accent) 50%),
+        linear-gradient(var(--color-accent), var(--color-accent)),
+        linear-gradient(to top left, transparent 50%, var(--color-accent) 50%);
+}
+
+.clue-group.highlight{
+    content: '';
+    background-image:
+        linear-gradient(to bottom right, transparent 50%, var(--color-secondary) 50%),
+        linear-gradient(var(--color-secondary), var(--color-secondary)),
+        linear-gradient(to top left, transparent 50%, var(--color-secondary) 50%);
+}
+
+.clue-group .clue-label {
+    width: 2rem;
+}
+
+.grow-wrap {
+    display: grid;
+    flex: 1;
+}
+
+.grow-wrap > textarea {
+    font-size: 1rem;
+    padding: .25rem;
+    border-radius: 4px;
+    background-color: var(--color-accent);
+    color: var(--fg-textarea-color);
+    border-width: 1px;
+    margin-right: .5rem;
+}
+
+.grow-wrap::after {
+  content: attr(data-replicated-value) " ";
+  white-space: pre-wrap;
+  visibility: hidden;
+}
+
+.grow-wrap > textarea {
+  resize: none;
+  overflow: hidden;
+}
+
+.grow-wrap > textarea,
+.grow-wrap::after {
+  /* Identical styling required!! */
+  border: 1px solid black;
+  padding: 0.5rem;
+  font: inherit;
+
+  /* Place on top of each other */
+  grid-area: 1 / 1 / 2 / 2;
+
+  padding: .25rem;
+  border-radius: 4px;
+  background-color: var(--color-primary);
+  color: var(--fg-textarea-color);
+  border-width: 1px;
+  flex: 1;
+}
