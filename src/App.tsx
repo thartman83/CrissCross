@@ -18,11 +18,13 @@ import HelpModal from './components/layouts/helpModal/helpModal';
 import SettingsModal from './components/layouts/settingsModal/settingsModal';
 import { TabDefinition } from './components/composites/tabBar/tabBar';
 import NewPuzzleModal from './components/layouts/newPuzzleModal/newPuzzleModal';
+import HiddenFileInput from './components/ui/hiddenFileInput/hiddenFileInput';
+import { useEffect } from 'react';
 
 function App() {
   const { isOpenMenu, toggleOpenMenu, closeOpenMenu } = useOpenMenu(false);
   const { menuItems, openSettings, setOpenSettings, openNewPuzzle, setOpenNewPuzzle,
-          openHelp, setOpenHelp, } = useMenuItems();
+          openHelp, setOpenHelp, setOpenLoadPuzzle, openLoadPuzzle } = useMenuItems(  );
 
   const tabDefinitions: TabDefinition[] = [
     {
@@ -38,6 +40,10 @@ function App() {
       label: "Word List", panelId: "tabPanelWordList", tabId: "tabWordList",
     },
   ];
+
+  useEffect(() => {
+    setOpenNewPuzzle(true);
+  }, []);
 
   return (
       <AppContextProvider>
@@ -69,6 +75,8 @@ function App() {
                          closeModalHandler={ () => setOpenSettings(false) }/>
           <NewPuzzleModal isOpen={openNewPuzzle}
                           closeModalHandler={ () => setOpenNewPuzzle(false) }/>
+          <HiddenFileInput openLoadPuzzle={openLoadPuzzle}
+                           setOpenLoadPuzzle={setOpenLoadPuzzle} />
         </CrosswordContextProvider>
       </AppContextProvider>
   );

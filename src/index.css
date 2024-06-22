@@ -169,23 +169,6 @@ body.dark {
     margin-top: 0rem;
 }
 
-.clue-layout {
-    display: flex;
-}
-
-.clues-list-group {
-    margin-top: 2rem;
-    margin-left: .5rem;
-    padding-left: 2rem;
-    width: 50%;
-    border: 1px solid white;
-}
-
-.clues-list {
-    list-style: none;
-    padding-left: 0;
-}
-
 .general-grid-info {
     list-style: none;
     padding-left: .4rem;;

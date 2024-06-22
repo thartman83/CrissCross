@@ -6,6 +6,7 @@ export const useMenuItems = ( ) => {
   const [ openNewPuzzle, setOpenNewPuzzle ] = useState<boolean>(false);
   const [ openSettings, setOpenSettings ] = useState<boolean>(false);
   const [ openHelp, setOpenHelp ] = useState<boolean>(false);
+  const [ openLoadPuzzle, setOpenLoadPuzzle ] = useState<boolean>(false);
 
   const menuItems: MenuItemProps[] = [
     {
@@ -16,7 +17,7 @@ export const useMenuItems = ( ) => {
     },
     {
       text: "Upload Puzzle",
-      onClickHandler: () => { },
+      onClickHandler: () => { setOpenLoadPuzzle(true); },
       faIcon: "Upload",
       focused: false,
     },
@@ -48,5 +49,7 @@ export const useMenuItems = ( ) => {
     setOpenSettings,
     openHelp,
     setOpenHelp,
+    openLoadPuzzle,
+    setOpenLoadPuzzle,
   };
 };
