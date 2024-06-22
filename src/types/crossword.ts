@@ -29,6 +29,7 @@ type Crossword = {
   gridView: () => GridView,
   wordView: () => WordView,
   currentWord: () => Word,
+  clues: string[],
 };
 
 export default Crossword;

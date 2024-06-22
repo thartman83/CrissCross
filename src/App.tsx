@@ -18,11 +18,12 @@ import HelpModal from './components/layouts/helpModal/helpModal';
 import SettingsModal from './components/layouts/settingsModal/settingsModal';
 import { TabDefinition } from './components/composites/tabBar/tabBar';
 import NewPuzzleModal from './components/layouts/newPuzzleModal/newPuzzleModal';
+import HiddenFileInput from './components/ui/hiddenFileInput/hiddenFileInput';
 
 function App() {
   const { isOpenMenu, toggleOpenMenu, closeOpenMenu } = useOpenMenu(false);
   const { menuItems, openSettings, setOpenSettings, openNewPuzzle, setOpenNewPuzzle,
-          openHelp, setOpenHelp, } = useMenuItems();
+          openHelp, setOpenHelp, setOpenLoadPuzzle, openLoadPuzzle } = useMenuItems();
 
   const tabDefinitions: TabDefinition[] = [
     {
@@ -69,6 +70,8 @@ function App() {
                          closeModalHandler={ () => setOpenSettings(false) }/>
           <NewPuzzleModal isOpen={openNewPuzzle}
                           closeModalHandler={ () => setOpenNewPuzzle(false) }/>
+          <HiddenFileInput openLoadPuzzle={openLoadPuzzle}
+                           setOpenLoadPuzzle={setOpenLoadPuzzle} />
         </CrosswordContextProvider>
       </AppContextProvider>
   );

@@ -14,6 +14,7 @@ const NewCrosswordCommand = (height: number, width: number) => {
         orientation: Orientation.across,
         height: height,
         width: width,
+        clues: [],
         grid: Array(height*width).fill(''),
         gridView: function (): GridView {
           return toGridView(this.grid, this.width);

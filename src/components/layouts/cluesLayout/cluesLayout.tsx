@@ -7,9 +7,11 @@ import TabPanel, { TabPanelProps } from "@/components/containers/tabPanel/tabPan
 const CluesLayout = ({labeledBy, id, hidden}: TabPanelProps) => {
   const {crossword} = useCrossword();
   const words = crossword.wordView();
+  const clues = crossword.clues;
 
   const acrosses = words.filter(word => word.orientation === Orientation.across);
   const downs = words.filter(word => word.orientation === Orientation.down);
+
 
   return (
     <TabPanel labeledBy={labeledBy} id={id} hidden={hidden}>
@@ -20,7 +22,7 @@ const CluesLayout = ({labeledBy, id, hidden}: TabPanelProps) => {
             {
               acrosses.map(word =>
                 <li key={`word-across-${word.wordNo}`}>
-                  {word.wordNo + ". " + word.squares.join('')}
+                  {word.wordNo + ". " + clues[words.indexOf(word)]}
                 </li>)
             }
           </ul>
@@ -31,7 +33,7 @@ const CluesLayout = ({labeledBy, id, hidden}: TabPanelProps) => {
             {
               downs.map(word =>
                 <li key={`word-down-${word.wordNo}`}>
-                  {word.wordNo + ". " + word.squares.join('')}
+                  {word.wordNo + ". " + clues[words.indexOf(word)]}
                 </li>)
             }
           </ul>

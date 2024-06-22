@@ -15,6 +15,8 @@ import NewCrosswordCommand from "./newCrosswordCommand";
 import { toGridView, toWordsView, toCurrentWord } from "../utils/gridUtilities";
 import UpdateMetadataCommand from "./updateMetadataCommand";
 import UpdateCurrentWordCommand from "./updateCurrentWordCommand";
+import { parsePuzFile } from "@/utils/puzFileUtils";
+import LoadCrosswordCommand from "./loadCrosswordCommand";
 
 type SquareKeyDownEvent = KeyboardEvent<HTMLElement>
 
@@ -32,6 +34,7 @@ export type CrosswordContextType = {
   onClick: (pos: number) => void
   onDoubleClick: (pos: number) => void
   onNew: (height: number, width: number) => void
+  onLoad: (puzBuf: Buffer) => void
   updateMetadata: (name: string, value: string) => void
   updateCurrentWord: (value: string) => void
   undo: () => void
@@ -265,6 +268,15 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
     dispatch({type: CrosswordActions.updateMetadata, payload: [cmd]});
   };
 
+  const onLoad = (puzBuf: Buffer) => {
+    debugger;
+    const puz = parsePuzFile(puzBuf);
+    const cmd = LoadCrosswordCommand(puz);
+    setCommandStack([]);
+    dispatch({type: CrosswordActions.loadCrossword, payload: [cmd]});
+
+  };
+
   return (
     <CrosswordContext.Provider value={{
       crossword: crosswordState,
@@ -272,6 +284,7 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
       onClick: onClick,
       onDoubleClick: onDoubleClick,
       onNew: onNew,
+      onLoad: onLoad,
       updateMetadata: updateMetadata,
       updateCurrentWord: updateCurrentWord,
       undo: undo,
