@@ -2,7 +2,7 @@ import Modal, { ModalSize } from "@/components/containers/modal/modal";
 import "./settingsModal.css";
 import ToggleSetting from "@/components/composites/toggleSetting/toggleSetting";
 import useColorSchema from "@/hooks/useColorSchema";
-import useAutoSave from "@/hooks/useAutoSave";
+import { useCrossword } from "@/context/crosswordContext";
 
 export type SettingsModalProps = {
   isOpen: boolean,
@@ -11,7 +11,7 @@ export type SettingsModalProps = {
 
 const SettingsModal = ({isOpen, closeModalHandler}: SettingsModalProps) => {
   const { darkMode, setDarkMode } = useColorSchema();
-  const { autoSave, setAutoSave } = useAutoSave();
+  const { autoSave, setAutoSave} = useCrossword();
 
   return (
     <Modal title="Settings" size={ModalSize.Medium} isOpen={isOpen}

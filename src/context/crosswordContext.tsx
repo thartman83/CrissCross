@@ -3,7 +3,6 @@ import { KeyboardEvent } from 'react';
 import Crossword, { GridView, WordView, Word } from "../types/crossword";
 import Orientation from "../types/orientation";
 import crosswordReducer, { CrosswordActions} from "./crosswordReducer";
-import { useApp } from "./applicationContext";
 import UpdateGridCommand from "./updateGridCommand";
 import CrosswordCommand from "../types/crosswordCommand";
 import ToggleBlockCommand from "./toggleBlockCommand";
@@ -17,6 +16,7 @@ import UpdateMetadataCommand from "./updateMetadataCommand";
 import UpdateCurrentWordCommand from "./updateCurrentWordCommand";
 import { parsePuzFile } from "@/utils/puzFileUtils";
 import LoadCrosswordCommand from "./loadCrosswordCommand";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 type SquareKeyDownEvent = KeyboardEvent<HTMLElement>
 
@@ -30,6 +30,8 @@ export enum MoveDirection {
 
 export type CrosswordContextType = {
   crossword: Crossword,
+  autoSave: boolean,
+  setAutoSave: (state: boolean) => void
   onKeyDown: (e: SquareKeyDownEvent) => void
   onClick: (pos: number) => void
   onDoubleClick: (pos: number) => void
@@ -64,9 +66,8 @@ export const useCrossword = () => {
 const initCrossword = (initArgs: any): Crossword => {
   const crosswordStr = localStorage.getItem('crossword');
   let crosswordData = null;
-  const app = useApp();
-  const height = initArgs?.height || app.appSettings.height;
-  const width = initArgs?.width || app.appSettings.width;
+  const height = initArgs?.height || 15;
+  const width = initArgs?.width || 15;
   const grid = initArgs?.grid || Array(height*width).fill('');
 
   if(!crosswordStr) {
@@ -104,6 +105,9 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
   const [crosswordState, dispatch] = useReducer(crosswordReducer, initState);
   const [commandStack, setCommandStack] = useState<CrosswordCommand[]>([]);
 
+  const [ storedAutoSave, setStoredAutoSave ] = useLocalStorage<boolean>('autoSave', true);
+  const [ autoSave, setAutoSave ] = useState<boolean>(storedAutoSave);
+
   const pos = crosswordState.position;
   const orientation = crosswordState.orientation;
 
@@ -122,7 +126,8 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
 
       const delta = orientation === Orientation.across ? 1 : crosswordState.width;
       dispatch({type: CrosswordActions.crosswordCommand, payload:
-                [cmd, MovePositionCommand(pos + delta, pos)]});
+                [cmd, MovePositionCommand(pos + delta, pos)],
+                autoSave: autoSave});
 
     } else if(key === '.') {
 
@@ -131,52 +136,62 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
 
       const delta = orientation === Orientation.across ? 1 : crosswordState.width;
       dispatch({type: CrosswordActions.crosswordCommand, payload:
-                [cmd, MovePositionCommand(pos + delta, pos)]});
+                [cmd, MovePositionCommand(pos + delta, pos)],
+               autoSave: autoSave});
 
     } else if(key === 'ARROWRIGHT') {
 
       if(orientation === Orientation.across) {
         const cmd = MovePositionCommand(pos + 1, pos);
-        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd]});
+        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd],
+                 autoSave: autoSave});
       } else {
         const cmd = ToggleOrientationCommand();
-        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd]});
+        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd],
+                 autoSave: autoSave});
       }
 
     } else if(key === 'ARROWLEFT') {
 
       if(orientation === Orientation.across) {
         const cmd = MovePositionCommand(pos - 1, pos);
-        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd]});
+        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd],
+                 autoSave: autoSave});
       } else {
         const cmd = ToggleOrientationCommand();
-        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd]});
+        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd],
+                 autoSave: autoSave});
       }
 
     } else if(key === 'ARROWUP') {
 
       if(orientation === Orientation.down) {
         const cmd = MovePositionCommand(pos - crosswordState.width, pos);
-        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd]});
+        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd],
+                 autoSave: autoSave});
       } else {
         const cmd = ToggleOrientationCommand();
-        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd]});
+        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd],
+                 autoSave: autoSave});
       }
 
     } else if(key === 'ARROWDOWN') {
 
       if(orientation === Orientation.down) {
         const cmd = MovePositionCommand(pos + crosswordState.width, pos);
-        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd]});
+        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd],
+                 autoSave: autoSave});
       } else {
         const cmd = ToggleOrientationCommand();
-        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd]});
+        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd],
+                 autoSave: autoSave});
       }
 
     } else if(key === ' ') {
 
       const cmd = ToggleOrientationCommand();
-      dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd]});
+      dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd],
+               autoSave: autoSave});
 
     } else if (key === 'DELETE' || key === 'BACKSPACE') {
 
@@ -190,7 +205,8 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
       setCommandStack([...commandStack, cmd]);
 
       dispatch({type: CrosswordActions.crosswordCommand, payload:
-                [cmd, MovePositionCommand(pos - delta, pos)]});
+                [cmd, MovePositionCommand(pos - delta, pos)],
+               autoSave: autoSave});
 
     } else if (key === 'TAB') {
 
@@ -210,12 +226,13 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
         const cmd = JumpPositionCommand(nextWord.indicies[0], pos);
 
         dispatch({type: CrosswordActions.crosswordCommand, payload:
-                  [cmd, ToggleOrientationCommand()]});
+                  [cmd, ToggleOrientationCommand()], autoSave: autoSave});
       } else {
 
         const nextWord = wordsDirList[idx+1];
         const cmd = JumpPositionCommand(nextWord.indicies[0], pos);
-        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd]});
+        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd],
+                 autoSave: autoSave});
 
       }
     }
@@ -225,14 +242,14 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
     const prevPos = crosswordState.position;
     const cmd = JumpPositionCommand(pos, prevPos);
     dispatch({type: CrosswordActions.crosswordCommand, payload:
-              [cmd]});
+              [cmd], autoSave: autoSave});
   };
 
   const onDoubleClick = (pos: number) => {
     const prevPos = crosswordState.position;
     const cmd = JumpPositionCommand(pos, prevPos);
     dispatch({type: CrosswordActions.crosswordCommand, payload:
-              [cmd, ToggleOrientationCommand()]});
+              [cmd, ToggleOrientationCommand()], autoSave: autoSave});
   };
 
   const updateCurrentWord = (value: string) => {
@@ -242,7 +259,8 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
                                          currentWord.orientation,
                                          value.split(''), prevWord);
     setCommandStack([...commandStack, cmd]);
-    dispatch({type: CrosswordActions.updateCurrentWord, payload: [cmd]});
+    dispatch({type: CrosswordActions.updateCurrentWord, payload: [cmd],
+              autoSave: autoSave});
   };
 
   const undo = () => {
@@ -252,7 +270,8 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
 
       if(typeof cmd !== 'undefined') {
         setCommandStack([...newStack]);
-        dispatch({type: CrosswordActions.undoCrosswordCommand, payload: [cmd]});
+        dispatch({type: CrosswordActions.undoCrosswordCommand, payload: [cmd],
+                 autoSave: autoSave});
       }
     }
   };
@@ -260,12 +279,14 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
   const onNew = (height: number, width: number) => {
     const cmd = NewCrosswordCommand(height, width);
     setCommandStack([]);
-    dispatch({type: CrosswordActions.newCrossword, payload: [cmd]});
+    dispatch({type: CrosswordActions.newCrossword, payload: [cmd],
+             autoSave: autoSave});
   };
 
   const updateMetadata = (name: string, value: string) => {
     const cmd = UpdateMetadataCommand(name, value);
-    dispatch({type: CrosswordActions.updateMetadata, payload: [cmd]});
+    dispatch({type: CrosswordActions.updateMetadata, payload: [cmd],
+             autoSave: autoSave});
   };
 
   const onLoad = (puzBuf: Buffer) => {
@@ -273,13 +294,20 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
     const puz = parsePuzFile(puzBuf);
     const cmd = LoadCrosswordCommand(puz);
     setCommandStack([]);
-    dispatch({type: CrosswordActions.loadCrossword, payload: [cmd]});
+    dispatch({type: CrosswordActions.loadCrossword, payload: [cmd],
+             autoSave: autoSave});
+  };
 
+  const setAutoSaveLocal = (state: boolean) => {
+    setStoredAutoSave(state);
+    setAutoSave(state);
   };
 
   return (
     <CrosswordContext.Provider value={{
       crossword: crosswordState,
+      autoSave: autoSave,
+      setAutoSave: setAutoSaveLocal,
       onKeyDown: onKeyDown,
       onClick: onClick,
       onDoubleClick: onDoubleClick,
