@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { useArgs } from '@storybook/preview-api';
 import SettingsModal, { SettingsModalProps } from './settingsModal';
+import CrosswordContextProvider from '@/context/crosswordContext';
 
 const meta: Meta<SettingsModalProps> = {
   title: "Layouts/SettingsModal/Examples",
@@ -10,9 +11,15 @@ const meta: Meta<SettingsModalProps> = {
     const closeModalHandler = () => {
       updateArgs({ isModalOpen: false });
     };
+    const height =15;
+    const width = 15;
 
-   return (
-     <SettingsModal {...args} closeModalHandler={closeModalHandler}/>
+    return (
+      <CrosswordContextProvider initArgs={{ ...{height: height, width: width,
+                                                autoSave: false,
+                                                grid: Array(height*width).fill('')}}}>
+        <SettingsModal {...args} closeModalHandler={closeModalHandler}/>
+      </CrosswordContextProvider>
    );
   },
 };

@@ -1,6 +1,5 @@
 import CrosswordContextProvider from "@/context/crosswordContext";
 import SquareGrid from "./squareGrid";
-import AppContextProvider from "@/context/applicationContext";
 import { Meta, StoryObj } from '@storybook/react';
 
 type GridProps = React.ComponentProps<typeof SquareGrid> & {
@@ -17,15 +16,13 @@ const meta: Meta<GridProps> = {
     width: 15,
   },
   render: ({ height, width, grid }) => (
-    <AppContextProvider>
       <CrosswordContextProvider
         initArgs={{
-          ...{height: height, width: width,
+          ...{height: height, width: width, autoSave: false,
               grid: grid || Array(height*width).fill('')},
         }}>
         <SquareGrid />
       </CrosswordContextProvider>
-    </AppContextProvider>
   ),
 };
 

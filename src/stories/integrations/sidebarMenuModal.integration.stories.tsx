@@ -4,21 +4,21 @@ import { useOpenMenu } from '@/hooks/useOpenMenu';
 import Header from '@/components/composites/header/header';
 import PageLayout from '@/components/containers/pageLayout/pageLayout';
 import { userEvent, within } from '@storybook/testing-library';
-import SettingsModal from '@/components/layouts/settingsModal/settingsModal';
 import { useState } from 'react';
 import { useMenuItems } from '@/hooks/useMenuItems';
 import MenuItem from '@/components/ui/menuItem/menuItem';
+import HelpModal from '@/components/layouts/helpModal/helpModal';
 
 const meta: Meta<SidebarMenuProps> = {
   title: "Integration Tests/Sidebar Menu Open Modal",
   component: SidebarMenu,
   render: () =>  {
     const {isOpenMenu, toggleOpenMenu, closeOpenMenu} = useOpenMenu(true);
-    const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+    const [ isHelpOpen, setIsHelpOpen] = useState<boolean>(false);
     const { menuItems } = useMenuItems();
 
-    const closeSettingsHandler = () => {
-      setIsSettingsOpen(false);
+    const closeHelpHandler = () => {
+      setIsHelpOpen(false);
     };
 
     return (
@@ -33,8 +33,7 @@ const meta: Meta<SidebarMenuProps> = {
         <PageLayout openSidebar={isOpenMenu}>
           <div>I'm the main content!</div>
         </PageLayout>
-        <SettingsModal isOpen={isSettingsOpen}
-                       closeModalHandler={closeSettingsHandler}/>
+        <HelpModal closeModalHandler={closeHelpHandler} isOpen={isHelpOpen}/>
       </div>
     );
   },

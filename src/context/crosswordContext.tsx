@@ -47,6 +47,7 @@ export type CrosswordContextProps = {
   initArgs?: {
     width: number,
     height: number,
+    autoSave: boolean,
   },
 };
 
@@ -105,7 +106,7 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
   const [crosswordState, dispatch] = useReducer(crosswordReducer, initState);
   const [commandStack, setCommandStack] = useState<CrosswordCommand[]>([]);
 
-  const [ storedAutoSave, setStoredAutoSave ] = useLocalStorage<boolean>('autoSave', true);
+  const [ storedAutoSave, setStoredAutoSave ] = useLocalStorage<boolean>('autoSave',         typeof initArgs?.autoSave === 'undefined' ? true : initArgs?.autoSave);
   const [ autoSave, setAutoSave ] = useState<boolean>(storedAutoSave);
 
   const pos = crosswordState.position;
