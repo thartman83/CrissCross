@@ -3,7 +3,7 @@ import Square, { SquareProps } from './square';
 
 const gridSquareSize = {"--grid-square-size": "5rem" } as React.CSSProperties;
 const meta: Meta<SquareProps> = {
-  title: "UI Elements/Square",
+  title: "UI Elements/Square/Examples",
   component: Square,
   render: (args) => (
     <div style={{
@@ -55,5 +55,12 @@ export const LeadWordSquareBlank: SquareStory = {
 export const BlockSquare: SquareStory = {
   args: {
     value: "."
+  }
+};
+
+export const ErrorSquare: SquareStory = {
+  args: {
+    value: "",
+    error: true,
   }
 };

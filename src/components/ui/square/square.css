@@ -81,6 +81,14 @@
     background-color: var(--grid-square-block-focus-color);
 }
 
+.grid-square.error::after {
+    position: absolute;
+    content: '';
+    background-color: var(--color-error-overlay);
+    width: var(--grid-square-size);
+    height: var(--grid-square-size);
+}
+
 label.grid-square-value {
     text-transform: uppercase;
     position: absolute;

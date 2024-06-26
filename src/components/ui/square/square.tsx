@@ -7,13 +7,15 @@ export type SquareProps = {
   squareNo?: number,
   focused?: boolean,
   currentWord?: boolean,
+  error?: boolean,
 };
 
 const Square = (props: SquareProps) => {
   const classes = classNames('grid-square',
                              {'focused': props.focused},
                              {'current-word': props.currentWord},
-                             {'block': props.value === '.'});
+                             {'block': props.value === '.'},
+                             {'error': props.error});
 
   return (
     <div className={classes} data-squareno={props?.squareNo} role="textbox">
