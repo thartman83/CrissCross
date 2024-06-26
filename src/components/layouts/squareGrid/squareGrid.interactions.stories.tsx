@@ -11,7 +11,7 @@ type GridProps = React.ComponentProps<typeof SquareGrid> & {
 };
 
 const meta: Meta<GridProps> = {
-  title: "Layouts/SquareGrid/Interactions",
+  title: "Layouts/SquareGrid/Functional Tests",
   component: SquareGrid,
   args: {
     height: 15,
@@ -235,3 +235,22 @@ export const LastSquareInRowBug: GridStory = {
   },
 
 };
+
+export const ErrorGrid: GridStory = {
+  args: {
+    width: 15,
+    height: 15,
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const squares = canvas.getAllByRole('textbox');
+
+    await step('When a square is made unchecked, should be in error state', async () => {
+      await userEvent.click(squares[15]);
+      await userEvent.keyboard('.');
+
+      expect(squares[15]).toHaveClass('block');
+      expect(squares[0]).toHaveClass('error');
+    });
+  },
+}

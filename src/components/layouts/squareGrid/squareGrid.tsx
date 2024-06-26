@@ -2,7 +2,7 @@ import "./squareGrid.css";
 import { MouseEvent, KeyboardEvent } from "react";
 import { useCrossword } from "@/hooks/useCrossword";
 import Square from "@/components/ui/square/square";
-import { answerGrid } from "@/utils/gridUtilities";
+import { answerGrid, errorGrid } from "@/utils/gridUtilities";
 
 type ClickEvent = MouseEvent<HTMLElement>
 type KeyEvent = KeyboardEvent<HTMLElement>
@@ -11,6 +11,7 @@ const SquareGrid = () => {
   const { crossword, onClick, onDoubleClick, onKeyDown } = useCrossword();
   const currentWord = crossword.currentWord();
   const wordNos = answerGrid(crossword).flat();
+  const errors = errorGrid(crossword);
 
   const gridWidthCssProp =
         { "--crossword-col-width": crossword.width,
@@ -43,7 +44,7 @@ const SquareGrid = () => {
           <Square key={"grid-square-" + i.toString()} value={s as string}
                   squareNo={i} focused={i === crossword.position}
                   currentWord={currentWord.indicies.includes(i)}
-                  wordNo={wordNos[i]}
+                  wordNo={wordNos[i]} error={errors[i]}
           />
         )
       }

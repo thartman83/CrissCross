@@ -157,3 +157,16 @@ export const toCurrentWord = (crossword: Crossword): Word => {
       word.indicies.includes(crossword.position)) ||
     {wordNo: 0, indicies: [], squares: [], orientation: Orientation.across};
 };
+
+export const errorGrid = (crossword: Crossword): boolean[] => {
+  const retval = Array(crossword.height * crossword.width).fill(false);
+  const words = toWordsView(crossword);
+
+  const uncheckedWords = words.filter( (w: Word) => w.squares.length === 1);
+  const twoLetterWords = words.filter( (w: Word) => w.squares.length === 2);
+
+  uncheckedWords.forEach(w => w.indicies.forEach( i => retval[i] = true));
+  twoLetterWords.forEach(w => w.indicies.forEach( i => retval[i] = true));
+
+  return retval;
+};
