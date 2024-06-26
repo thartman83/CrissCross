@@ -252,5 +252,13 @@ export const ErrorGrid: GridStory = {
       expect(squares[15]).toHaveClass('block');
       expect(squares[0]).toHaveClass('error');
     });
+
+    await step('When toggling a square makes a two letter word, the word should be in an error state', async () => {
+      await userEvent.click(squares[35]);
+      await userEvent.keyboard('.');
+
+      expect(squares[20]).toHaveClass('error');
+      expect(squares[5]).toHaveClass('error');
+    });
   },
 }
