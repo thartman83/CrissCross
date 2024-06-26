@@ -1,3 +1,4 @@
+import useLocalStorage from "@/hooks/useLocalStorage";
 import Crossword from "../types/crossword";
 import CrosswordCommand from "../types/crosswordCommand";
 
@@ -16,13 +17,11 @@ export type CrosswordActionPayload = {
   value: string,
 };
 
-const crosswordReducer =
-  (crossword: Crossword,
-   action: {type: string, payload: CrosswordCommand[] }) => {
+const crosswordReducer = (crossword: Crossword, action: {type: string, payload: CrosswordCommand[], autoSave: boolean }) => {
   const actionType = action.type;
-
   let newCrosswordState = crossword;
   const cmds = action.payload;
+  const [ _, storeCrossword ] = useLocalStorage<Crossword>('crossword', crossword);
 
   switch (actionType) {
 
@@ -60,7 +59,9 @@ const crosswordReducer =
       newCrosswordState = crossword;
   }
 
-  //localStorage.setItem('crossword', JSON.stringify(newCrosswordState));
+  if(action.autoSave) {
+    storeCrossword(newCrosswordState);
+  }
 
   return newCrosswordState;
 };

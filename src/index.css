@@ -155,24 +155,24 @@ body.dark {
     transition-property: color, background;
 }
 
-.grid-summary {
-    margin-left: rem;
-    padding-left: .5rem;
-    padding-right: .5rem;
-    padding-bottom: .5rem;
-    border: 1px solid white;
-    flex-grow: 1;
-    min-width: 0;
-}
+/* .grid-summary { */
+/*     margin-left: rem; */
+/*     padding-left: .5rem; */
+/*     padding-right: .5rem; */
+/*     padding-bottom: .5rem; */
+/*     border: 1px solid white; */
+/*     flex-grow: 1; */
+/*     min-width: 0; */
+/* } */
 
-.grid-summary h3 {
-    margin-top: 0rem;
-}
+/* .grid-summary h3 { */
+/*     margin-top: 0rem; */
+/* } */
 
-.general-grid-info {
-    list-style: none;
-    padding-left: .4rem;;
-}
+/* .general-grid-info { */
+/*     list-style: none; */
+/*     padding-left: .4rem;; */
+/* } */
 
 .currentWord-layout {
     margin-top: 1rem;

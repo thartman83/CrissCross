@@ -13,12 +13,18 @@ export default meta;
 
 export const BlurMouseTest: SidebarMenuStory = {
   args: {
-    openSidebar: true,
+    openSidebar: false,
     onLeaveHandler: onLeaveHandlerMock,
   },
   play: async ({ canvasElement, step }) => {
     const canvas = within(canvasElement);
-    const sidebar = canvas.getByRole('complementary');
+
+    await step('Open the sidebar with the toggle button', async () => {
+      const btn = canvas.getByRole('button');
+      await userEvent.click(btn);
+    });
+
+    const sidebar = await canvas.findByRole('complementary');
     const menuItems = canvas.getAllByRole('menuitem');
     const main = canvas.getByRole('main');
 
@@ -49,8 +55,9 @@ export const BlurKeyboardTest: SidebarMenuStory = {
     const menuItems = await canvas.findAllByRole('menuitem');
 
     await step('When the user tabs out of the menu it should fire the leave handler', async () => {
+      await userEvent.pointer({target: menuItems[0]});
       expect(sidebar).toHaveAttribute('aria-hidden', 'false');
-      menuItems[0].focus();
+
 
       expect(onLeaveHandlerMock).not.toHaveBeenCalled();
 
@@ -65,8 +72,12 @@ export const EscapeTest: SidebarMenuStory = {
     openSidebar: true,
     onLeaveHandler: onLeaveHandlerMock,
   },
-  play: async ({ step }) => {
-    await step('When the sidebar is open and the user presses escape, the leave hanlder should fire', async () => {
+  play: async ({canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const menuItems = await canvas.findAllByRole('menuitem');
+
+    await step('When the sidebar is open and the user presses escape, the leave handler should fire', async () => {
+      await userEvent.pointer({target: menuItems[0]});
       await userEvent.keyboard('[Escape]');
       expect(onLeaveHandlerMock).toHaveBeenCalledTimes(1);
     });

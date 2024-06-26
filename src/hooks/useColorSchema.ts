@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import useStorage from './useLocalStorage';
 
 const useColorSchema = () => {
-
   const darkModeStorageKey = 'color-schema';
+  const [getColorSchema, setColorSchema] = useStorage(darkModeStorageKey);
   const systemDark = useMediaQuery(
     {
       query: "(prefers-color-scheme: dark)",
@@ -11,7 +12,7 @@ const useColorSchema = () => {
     undefined
   );
 
-  const appDark = localStorage.getItem(darkModeStorageKey);
+  const appDark = getColorSchema();
 
   // We are going to prefer that application local storage to the system settings
   // default to system settings if local storage is undefined
@@ -23,7 +24,8 @@ const useColorSchema = () => {
   useEffect(() => {
     darkMode ? document.body.classList.add('dark') :
       document.body.classList.remove('dark');
-    localStorage.setItem(darkModeStorageKey, String(darkMode));
+
+    setColorSchema(darkMode);
   }, [darkMode]);
 
   return {
