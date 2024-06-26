@@ -80,7 +80,7 @@
   /* --fg-color: var(--fg-color-lite); */
   /* --fg-color-alt: var(--fg-color-alt-lite); */
   /* --fg-input-color: var(--fg-input-color-lite); */
-
+  --color-error-overlay: #ff000077;
 
 
   --body-gutter: 1rem;
