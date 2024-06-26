@@ -20,6 +20,7 @@ export const TabIndexTests: MenuStory = {
     const menuItems = await canvas.findAllByRole('menuitem');
 
     await step('When the menu gets focus, the first element should have a tab index of 0, all others should have tab index of -1', async () => {
+      await userEvent.pointer({target: menuItems[0]});
       expect(menuList).toBeDefined();
       expect(menuItems[0]).toHaveFocus();
 
