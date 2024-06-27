@@ -1,7 +1,8 @@
 .clue-group {
     display: flex;
     align-items: center;
-    padding: .25rem;
+    padding: .5rem;
+    cursor: pointer;
 }
 
 .clue-group:hover {
@@ -20,7 +21,13 @@
 }
 
 .clue-group .clue-label {
+    cursor: pointer;
+    text-align: center;
     width: 2rem;
+}
+
+.clue-group .clue-label label {
+    cursor: pointer;
 }
 
 .grow-wrap {
@@ -60,6 +67,7 @@
   grid-area: 1 / 1 / 2 / 2;
 
   padding: .25rem;
+  padding-left: 1rem;
   border-radius: 4px;
   background-color: var(--color-primary);
   color: var(--fg-textarea-color);

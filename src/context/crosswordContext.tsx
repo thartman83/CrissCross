@@ -39,6 +39,7 @@ export type CrosswordContextType = {
   onLoad: (puzBuf: Buffer) => void
   updateMetadata: (name: string, value: string) => void
   updateCurrentWord: (value: string) => void
+  focusWord: (wordNo: number, orientation: Orientation) => void
   undo: () => void
 };
 
@@ -304,6 +305,25 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
     setAutoSave(state);
   };
 
+  const focusWord = (wordNo: number, orientation: Orientation) => {
+    const wordList = crosswordState.wordView();
+    const newWord = wordList.find( w => w.wordNo === wordNo &&
+                                   w.orientation === orientation);
+
+    if(typeof newWord === 'undefined' || newWord === null)
+      return;
+
+    const cmds = [];
+    cmds.push(JumpPositionCommand(newWord.indicies[0],
+                                  crosswordState.position));
+
+    if(crosswordState.orientation !== orientation)
+      cmds.push(ToggleOrientationCommand());
+
+    dispatch({type: CrosswordActions.crosswordCommand, payload: cmds,
+              autoSave: autoSave});
+  };
+
   return (
     <CrosswordContext.Provider value={{
       crossword: crosswordState,
@@ -316,6 +336,7 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
       onLoad: onLoad,
       updateMetadata: updateMetadata,
       updateCurrentWord: updateCurrentWord,
+      focusWord: focusWord,
       undo: undo,
     }}>
         {children}

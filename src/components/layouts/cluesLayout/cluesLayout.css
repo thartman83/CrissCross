@@ -5,21 +5,31 @@
 }
 
 .clues-set {
-    padding-top:.25rem;
+    padding-top: .5rem;
     width: 50%;
     height: 100%;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.clues-set .clues-set-label {
+    text-align: center;
+}
+
+.clues-set .clues-set-label2 {
+    padding-top: .5rem;
 }
 
 .clues-set ul.clues-list {
     position: relative;
     list-style: none;
-    height: 90%;
+    height: 95%;
     overflow: auto;
+    padding-left: 0;
 }
 
 .clues-set ul.clues-list li {
     margin-left: none;
     padding-left: none;
-    margin-bottom: .4rem;
 }

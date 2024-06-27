@@ -11,9 +11,11 @@ export type ClueInputProps = {
   highlight: boolean,
   changeHandler: (clueValue: string, clueNo: number,
                   orientation: Orientation) => void
+  focusHandler: (clueNo: number, orientation: Orientation) => void
 };
 
-const ClueInput = ({clueNo, clue, orientation, highlight, changeHandler}: ClueInputProps) => {
+const ClueInput = ({clueNo, clue, orientation, highlight, changeHandler,
+                    focusHandler}: ClueInputProps) => {
   const growDiv = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -29,17 +31,22 @@ const ClueInput = ({clueNo, clue, orientation, highlight, changeHandler}: ClueIn
     changeHandler(e.currentTarget.value, clueNo, orientation);
   };
 
+  const focusHandlerLocal = () => {
+    focusHandler(clueNo, orientation);
+  };
+
   return (
-    <div className={"clue-group" + (highlight ? " highlight" : "")}>
+    <label className={"clue-group" + (highlight ? " highlight" : "")}
+         onClick={focusHandlerLocal}>
       <div className="clue-mask" />
       <div className="clue-label">
-        <label>{clueNo}</label>
+        {clueNo}
       </div>
       <div className="grow-wrap" ref={growDiv}>
         <textarea defaultValue={clue} onChange={changeHandlerLocal}
-                  rows={1}/>
+                  rows={1} onFocus={focusHandlerLocal}/>
       </div>
-    </div>
+    </label>
   );
 };
 
