@@ -1,8 +1,10 @@
-import { ChangeEvent, useEffect, useRef } from "react";
+import { ChangeEvent, FocusEvent, useEffect, useRef, MouseEvent } from "react";
 import "./clueInput.css";
 import Orientation from "@/types/orientation";
 
 type TextAreaChangeEvent = ChangeEvent<HTMLTextAreaElement>
+type TextAreaFocusEvent = FocusEvent<HTMLElement>
+type LabelClickEvent = MouseEvent<HTMLLabelElement>
 
 export type ClueInputProps = {
   clueNo: number,
@@ -29,22 +31,33 @@ const ClueInput = ({clueNo, clue, orientation, highlight, changeHandler,
 
     growDiv.current.dataset.replicatedValue = e.currentTarget.value;
     changeHandler(e.currentTarget.value, clueNo, orientation);
+    e.preventDefault();
   };
 
-  const focusHandlerLocal = () => {
+  const focusHandlerLocal = (e: TextAreaFocusEvent) => {
     focusHandler(clueNo, orientation);
+    e.preventDefault();
+    console.log(e);
+  };
+
+  const clickHandlerLocal = (e: LabelClickEvent) => {
+    focusHandler(clueNo, orientation);
+    e.preventDefault();
+    console.log(e);
   };
 
   return (
     <label className={"clue-group" + (highlight ? " highlight" : "")}
-         onClick={focusHandlerLocal}>
+           onClick={clickHandlerLocal}>
       <div className="clue-mask" />
       <div className="clue-label">
         {clueNo}
       </div>
       <div className="grow-wrap" ref={growDiv}>
         <textarea defaultValue={clue} onChange={changeHandlerLocal}
-                  rows={1} onFocus={focusHandlerLocal}/>
+                  rows={1} onFocus={focusHandlerLocal}
+                  onClick={e => e.stopPropagation()}
+        />
       </div>
     </label>
   );
