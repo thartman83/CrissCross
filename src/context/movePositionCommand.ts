@@ -18,11 +18,13 @@ const MovePositionCommand = (pos: number, prev: number) => {
       if(crossword.orientation === Orientation.across &&
         (prev % crossword.width) === 0 && prev > pos)
         return crossword;
+      console.log('moving');
 
       // otherwise update the position
       return {
         ...crossword,
-        position: pos
+        position: pos,
+        selection: [],
       }
     },
 

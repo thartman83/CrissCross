@@ -30,6 +30,7 @@ type Crossword = {
   wordView: () => WordView,
   currentWord: () => Word,
   clues: string[],
+  selection: number[],
 };
 
 export default Crossword;

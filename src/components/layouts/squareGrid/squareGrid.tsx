@@ -8,10 +8,11 @@ type ClickEvent = MouseEvent<HTMLElement>
 type KeyEvent = KeyboardEvent<HTMLElement>
 
 const SquareGrid = () => {
-  const { crossword, onClick, onDoubleClick, onKeyDown } = useCrossword();
+  const { crossword, onClick, onDoubleClick, onKeyDown} = useCrossword();
   const currentWord = crossword.currentWord();
   const wordNos = answerGrid(crossword).flat();
   const errors = errorGrid(crossword);
+  const selection = crossword.selection;
 
   const gridWidthCssProp =
         { "--crossword-col-width": crossword.width,
@@ -21,7 +22,7 @@ const SquareGrid = () => {
   const clickHandler = (e: ClickEvent) => {
     const target = e.target as HTMLElement;
     const newPos = Number(target?.closest('.grid-square')
-                          ?.getAttribute('data-squareno') || 0);
+                          ?.getAttribute('data-squareno') || -1);
 
     if(crossword.position === newPos) {
       onDoubleClick(newPos);
@@ -42,7 +43,8 @@ const SquareGrid = () => {
       {
         crossword.grid.map((s,i) =>
           <Square key={"grid-square-" + i.toString()} value={s as string}
-                  squareNo={i} focused={i === crossword.position}
+                  squareNo={i}
+                  focused={i === crossword.position || selection.includes(i)}
                   currentWord={currentWord.indicies.includes(i)}
                   wordNo={wordNos[i]} error={errors[i]}
           />

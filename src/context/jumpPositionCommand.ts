@@ -10,7 +10,8 @@ const JumpPositionCommand = (pos: number, prev: number) => {
 
       return {
         ...crossword,
-        position: pos
+        position: pos,
+        selection: [],
       }
     },
 

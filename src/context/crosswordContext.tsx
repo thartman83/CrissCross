@@ -17,6 +17,7 @@ import UpdateCurrentWordCommand from "./updateCurrentWordCommand";
 import { parsePuzFile } from "@/utils/puzFileUtils";
 import LoadCrosswordCommand from "./loadCrosswordCommand";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import SelectAreaCommand from "./selectAreaCommand";
 
 type SquareKeyDownEvent = KeyboardEvent<HTMLElement>
 
@@ -40,6 +41,7 @@ export type CrosswordContextType = {
   updateMetadata: (name: string, value: string) => void
   updateCurrentWord: (value: string) => void
   focusWord: (wordNo: number, orientation: Orientation) => void
+  selectArea: (topLeft: number, bottomRight: number) => void
   undo: () => void
 };
 
@@ -83,6 +85,8 @@ const initCrossword = (initArgs: any): Crossword => {
       height: height,
       width: width,
       grid: grid,
+      clues: [],
+      selection: [],
     };
   } else {
     crosswordData = JSON.parse(crosswordStr);
@@ -324,6 +328,15 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
               autoSave: autoSave});
   };
 
+  const selectArea = (topRight: number, bottomLeft: number) => {
+
+    const cmd = SelectAreaCommand(topRight, bottomLeft);
+
+    dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd],
+              autoSave: autoSave});
+  };
+
+
   return (
     <CrosswordContext.Provider value={{
       crossword: crosswordState,
@@ -337,6 +350,7 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
       updateMetadata: updateMetadata,
       updateCurrentWord: updateCurrentWord,
       focusWord: focusWord,
+      selectArea: selectArea,
       undo: undo,
     }}>
         {children}

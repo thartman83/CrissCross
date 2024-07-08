@@ -21,13 +21,16 @@ import HiddenFileInput from './components/ui/hiddenFileInput/hiddenFileInput';
 import { useEffect } from 'react';
 import useLocalStorage from './hooks/useLocalStorage';
 import Crossword from './types/crossword';
+import LassoArea from './components/containers/lassoArea/lassoArea';
 
 function App() {
   const { isOpenMenu, toggleOpenMenu, closeOpenMenu } = useOpenMenu(false);
   const { menuItems, openSettings, setOpenSettings, openNewPuzzle, setOpenNewPuzzle,
-          openHelp, setOpenHelp, setOpenLoadPuzzle, openLoadPuzzle } = useMenuItems(  );
+          openHelp, setOpenHelp, setOpenLoadPuzzle, openLoadPuzzle } =
+        useMenuItems(  );
 
-  const [ getStoredCrossword, _ ] = useLocalStorage<Crossword|null>('crossword', null);
+  const [ getStoredCrossword, _ ] =
+        useLocalStorage<Crossword|null>('crossword', null);
 
   const tabDefinitions: TabDefinition[] = [
     {
@@ -52,6 +55,7 @@ function App() {
   const defaultInit = {
     width: 15,
     height: 15,
+    autoSave: false
   };
 
   return (
@@ -63,7 +67,9 @@ function App() {
             <MenuItem key={`mainMenuItem-${i}`} {...e} />)}
         </SidebarMenu>
         <PageLayout openSidebar={isOpenMenu} >
-          <SquareGrid />
+          <LassoArea startSelection={() => {}} endSelection={() => {}}>
+            <SquareGrid />
+          </LassoArea>
           <TabLayout tabDefinitions={tabDefinitions}>
             <DetailsLayout hidden={false} labeledBy='tabDetails'
               id='tabPanelDetails' />

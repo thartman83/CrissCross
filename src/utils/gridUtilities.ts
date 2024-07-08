@@ -155,7 +155,7 @@ export const toCurrentWord = (crossword: Crossword): Word => {
   return crossword.wordView()
     .find(word => word.orientation === crossword.orientation &&
       word.indicies.includes(crossword.position)) ||
-    {wordNo: 0, indicies: [], squares: [], orientation: Orientation.across};
+    {wordNo: -1, indicies: [], squares: [], orientation: Orientation.across};
 };
 
 export const errorGrid = (crossword: Crossword): boolean[] => {

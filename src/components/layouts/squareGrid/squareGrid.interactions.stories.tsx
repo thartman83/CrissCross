@@ -261,4 +261,4 @@ export const ErrorGrid: GridStory = {
       expect(squares[5]).toHaveClass('error');
     });
   },
-}
+};
