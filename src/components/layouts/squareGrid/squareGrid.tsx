@@ -38,7 +38,7 @@ const SquareGrid = () => {
 
   return (
     <div className="square-grid" style={{...gridWidthCssProp}}
-         onClick={clickHandler} onKeyDown={keyDownHandler} tabIndex={0}
+         onMouseUp={clickHandler} onKeyDown={keyDownHandler} tabIndex={0}
          role="region" aria-label="grid">
       {
         crossword.grid.map((s,i) =>

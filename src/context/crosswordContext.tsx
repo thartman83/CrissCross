@@ -41,7 +41,7 @@ export type CrosswordContextType = {
   updateMetadata: (name: string, value: string) => void
   updateCurrentWord: (value: string) => void
   focusWord: (wordNo: number, orientation: Orientation) => void
-  selectArea: (topLeft: number, bottomRight: number) => void
+  selectArea: (startPos: number, endPos: number) => void
   undo: () => void
 };
 
@@ -328,9 +328,9 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
               autoSave: autoSave});
   };
 
-  const selectArea = (topRight: number, bottomLeft: number) => {
+  const selectArea = (startPos: number, endPos: number) => {
 
-    const cmd = SelectAreaCommand(topRight, bottomLeft);
+    const cmd = SelectAreaCommand(startPos, endPos);
 
     dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd],
               autoSave: autoSave});
