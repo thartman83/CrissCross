@@ -33,16 +33,23 @@ const LassoArea = ({children}: LassoAreaProps) => {
   };
 
   const dragHandler = (e: LassoMouseEvent) => {
-    if(isDown) {
-      const squareNo = squareNoFromMouseEvent(e);
+    const squareNo = squareNoFromMouseEvent(e);
+
+    if(isDown && startSquareNo !== squareNo) {
       selectArea(startSquareNo, squareNo);
     }
   };
 
   const endDragHandler = (e: LassoMouseEvent) => {
     const squareNo = squareNoFromMouseEvent(e);
-    selectArea(startSquareNo, squareNo);
-    setIsDown(false);
+
+    if(isDown) {
+      setIsDown(false);
+
+      if(startSquareNo !== squareNo) {
+        selectArea(startSquareNo, squareNo);
+      }
+    }
   };
 
   const blurHandler = () => {
