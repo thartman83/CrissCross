@@ -262,3 +262,40 @@ export const ErrorGrid: GridStory = {
     });
   },
 };
+
+export const TabMovement: GridStory = {
+  args: {
+    width: 15,
+    height: 15,
+  },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const squares = canvas.getAllByRole('textbox');
+    const width = 15;
+
+    await step('When tab is pressed it should jump to the next word, at the first letter', async () => {
+      await userEvent.click(squares[0]);
+      await userEvent.click(squares[0]);
+      await userEvent.tab();
+
+      expect(squares[15]).toHaveClass('focused');
+
+      const expectedWords = Array(width).fill(0).map((_, i) => i + width);
+      expect(expectedWords.every(i => squares[i].classList.contains('current-word'))).toBe(true);
+
+      await userEvent.keyboard('[ArrowRight]');
+      expect(squares[16]).toHaveClass('focused');
+
+      await userEvent.tab();
+      expect(expectedWords.every(i => squares[i+width].classList.contains('current-word'))).toBe(true);
+    });
+
+    await step('When shift tab is pressed it should jump to the previous word at the first letter', async () => {
+      await userEvent.tab({shift: true});
+
+      expect(squares[15]).toHaveClass('focused');
+      const expectedWords = Array(width).fill(0).map( (_, i) => i + width);
+      expect(expectedWords.every(i => squares[i].classList.contains('current-word'))).toBe(true);
+    });
+  },
+};

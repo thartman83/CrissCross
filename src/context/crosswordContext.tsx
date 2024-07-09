@@ -214,7 +214,7 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
                 [cmd, MovePositionCommand(pos - delta, pos)],
                autoSave: autoSave});
 
-    } else if (key === 'TAB') {
+    } else if (key === 'TAB' && !e.shiftKey) {
 
       const curDir = crosswordState.orientation;
       const otherDir = crosswordState.orientation === Orientation.across ?
@@ -240,6 +240,31 @@ const CrosswordContextProvider = ({children, initArgs}: CrosswordContextProps) =
         dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd],
                  autoSave: autoSave});
 
+      }
+    } else if (key === 'TAB' && e.shiftKey) {
+      const curDir = crosswordState.orientation;
+      const otherDir = crosswordState.orientation === Orientation.across ?
+            Orientation.down : Orientation.across;
+      const pos = crosswordState.position;
+      const wordList = crosswordState.wordView();
+      const wordsDirList = wordList.filter(w => w.orientation === curDir);
+      const wordsOtherDirList = wordList.filter(w => w.orientation === otherDir);
+
+      const idx = wordsDirList
+            .findIndex(word => word.indicies.includes(crosswordState.position));
+
+      if(idx === 0) {
+        const nextWord = wordsOtherDirList[wordsOtherDirList.length-1];
+        const cmd = JumpPositionCommand(nextWord.indicies[0], pos);
+
+        dispatch({type: CrosswordActions.crosswordCommand, payload:
+                  [cmd, ToggleOrientationCommand()], autoSave: autoSave});
+      } else {
+
+        const nextWord = wordsDirList[idx-1];
+        const cmd = JumpPositionCommand(nextWord.indicies[0], pos);
+        dispatch({type: CrosswordActions.crosswordCommand, payload: [cmd],
+                 autoSave: autoSave});
       }
     }
   };
