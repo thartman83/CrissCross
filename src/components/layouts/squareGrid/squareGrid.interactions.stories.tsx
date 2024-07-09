@@ -297,5 +297,35 @@ export const TabMovement: GridStory = {
       const expectedWords = Array(width).fill(0).map( (_, i) => i + width);
       expect(expectedWords.every(i => squares[i].classList.contains('current-word'))).toBe(true);
     });
+
+    await step('When tabbing from the last word, should change orientation and move to the first word in that orientation', async () => {
+      await userEvent.click(squares[width*width-1]);
+
+      await userEvent.tab();
+      expect(squares[0]).toHaveClass('focused');
+      const expectedWords = Array(width).fill(0).map( (_, i) => i * width);
+      expect(expectedWords.every(i => squares[i].classList.contains('current-word'))).toBe(true);
+
+      await userEvent.click(squares[width*5-1]);
+      await userEvent.tab();
+
+      expect(squares[0]).toHaveClass('focused');
+      expect(expectedWords.every( (_, i) => squares[i].classList.contains('current-word'))).toBe(true);
+
+    });
+
+    await step('When shift tabbing from the first word, should change orienation and move to the last word in that orientation', async () => {
+      await userEvent.tab({shift: true});
+
+      expect(squares[width-1]).toHaveClass('focused');
+      const expectedWords = Array(width).fill(0).map( i => i);
+      expect(expectedWords.every( i => squares[i * width + (width-1)])).toBe(true);
+
+      await userEvent.click(squares[0]);
+      await userEvent.tab({shift: true});
+
+      expect(squares[width * (width - 1)]).toHaveClass('focused');
+      expect(expectedWords.every(i => squares[(width * (width-1)) + i].classList.contains('current-word'))).toBe(true);
+    });
   },
 };
