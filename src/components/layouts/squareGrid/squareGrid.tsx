@@ -44,8 +44,8 @@ const SquareGrid = () => {
         crossword.grid.map((s,i) =>
           <Square key={"grid-square-" + i.toString()} value={s as string}
                   squareNo={i}
-                  focused={i === crossword.position || selection.includes(i)}
-                  currentWord={selection.length === 0 &&
+                  focused={i === crossword.position || selection?.includes(i)}
+                  currentWord={(selection?.length === 0) &&
                                currentWord.indicies.includes(i)}
                   wordNo={wordNos[i]} error={errors[i]}
           />
