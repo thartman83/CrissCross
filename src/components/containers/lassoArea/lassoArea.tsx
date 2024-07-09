@@ -15,8 +15,9 @@ const LassoArea = ({children}: LassoAreaProps) => {
   const [ isDown, setIsDown ] = useState<boolean>(false);
 
   const [ startSquareNo, setStartSquareNo ] = useState<number>(-1);
-  const [ endSquareNo, setEndSquareNo ] = useState<number>(-1);
-  const { selectArea } = useCrossword();
+  const { selectArea, crossword } = useCrossword();
+
+  const width = crossword.width;
 
   const squareNoFromMouseEvent = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
@@ -24,6 +25,24 @@ const LassoArea = ({children}: LassoAreaProps) => {
                             ?.getAttribute('data-squareno') || -1);
 
     return squareNo;
+  };
+
+  const getLassoAreaCoords = (startPos: number, endPos: number) => {
+    debugger;
+    // endPos is down and to the right
+    if(endPos > startPos && (endPos % width) > (startPos % width))
+      return [startPos, endPos];
+    // endPos is up and to the left
+    else if(endPos < startPos && (endPos % width) < (startPos % width))
+      return [endPos, startPos];
+    // endPos is down and to the left
+    else if(endPos > startPos && (endPos % width) < (startPos % width))
+      return [Math.floor(startPos / width) * width + (endPos % width),
+              (startPos % width) + Math.floor(endPos / width) * width];
+    // endPos is up and to the right
+    else
+      return [Math.floor(endPos / width) * width + (startPos % width),
+              (endPos % width) + Math.floor(startPos / width) * width];
   };
 
   const beginDragHandler = (e: LassoMouseEvent) => {
@@ -36,11 +55,8 @@ const LassoArea = ({children}: LassoAreaProps) => {
   const dragHandler = (e: LassoMouseEvent) => {
     if(isDown) {
       const squareNo = squareNoFromMouseEvent(e);
-      //setEndSquareNo(squareNo);
-      if(squareNo > startSquareNo)
-        selectArea(startSquareNo, squareNo);
-      else
-        selectArea(squareNo, startSquareNo);
+      const coords = getLassoAreaCoords(startSquareNo, squareNo);
+      selectArea(coords[0], coords[1]);
     }
   };
 

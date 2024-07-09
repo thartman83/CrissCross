@@ -60,5 +60,56 @@ export const SelectGrid: LassoAreaStory = {
         [12,13,17,18,22,23].includes(i));
       expect(expectedSelectArea.every( s => s.classList.contains('focused'))).toBe(true);
     });
+
+    await step('Should select a portion of the grid when dragging left and up', async () => {
+      await userEvent.click(squares[0]);
+      expect(squares.every( (s, i) => i === 0 ||
+                            !s.classList.contains('focused'))).toBe(true);
+
+      await userEvent.pointer([
+        { target: squares[12], keys: '[MouseLeft>]'},
+        { target: squares[0]},
+        { keys: '[/MouseLeft]'},
+      ]);
+
+      const expectedSelectArea = squares.filter((_, i) =>
+        [0, 1, 2, 5, 6, 7, 10, 11, 12].includes(i));
+
+      expect(expectedSelectArea.every(s => s.classList.contains('focused'))).toBe(true);
+    });
+
+    await step('Should select a portion of the grid when dragging left and down', async () => {
+      await userEvent.click(squares[0]);
+      expect(squares.every( (s, i) => i === 0 ||
+                            !s.classList.contains('focused'))).toBe(true);
+
+      await userEvent.pointer([
+        { target: squares[12], keys: '[MouseLeft>]'},
+        { target: squares[20]},
+        { keys: '[/MouseLeft]'},
+      ]);
+
+      const expectedSelectArea = squares.filter((_, i) =>
+        [10, 11, 12, 15, 16, 17, 20, 21, 22].includes(i));
+
+      expect(expectedSelectArea.every(s => s.classList.contains('focused'))).toBe(true);
+    });
+
+    await step('Should select a portion of the grid when dragging right and up', async () => {
+      await userEvent.click(squares[0]);
+      expect(squares.every( (s, i) => i === 0 ||
+                            !s.classList.contains('focused'))).toBe(true);
+
+      await userEvent.pointer([
+        { target: squares[12], keys: '[MouseLeft>]'},
+        { target: squares[4]},
+        { keys: '[/MouseLeft]'},
+      ]);
+
+      const expectedSelectArea = squares.filter((_, i) =>
+        [2, 3, 4, 7, 8, 9, 12, 13, 14].includes(i));
+
+      expect(expectedSelectArea.every(s => s.classList.contains('focused'))).toBe(true);
+    });
   },
 };
