@@ -15,7 +15,7 @@ const LassoArea = ({children}: LassoAreaProps) => {
   const [ isDown, setIsDown ] = useState<boolean>(false);
 
   const [ startSquareNo, setStartSquareNo ] = useState<number>(-1);
-  const { selectArea, crossword } = useCrossword();
+  const { selectArea } = useCrossword();
 
   const squareNoFromMouseEvent = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
