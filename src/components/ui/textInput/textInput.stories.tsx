@@ -17,6 +17,6 @@ export const BlankTextInput: TextInputStory = {
   args: {
     label: "Blank Text Input:",
     defaultValue: "",
-    onChangeHandler: () => {},
+    changeHandler: () => {},
   }
 };

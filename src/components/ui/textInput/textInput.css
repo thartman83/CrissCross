@@ -2,6 +2,7 @@
     display: flex;
     margin-bottom: .5rem;
     align-items: center;
+    position: relative;
 }
 
 label.text-input-label {
@@ -20,4 +21,16 @@ input.text-input {
 
     transition: all var(--darklite-transition-delay) ease;
     transition-property: var(--darklite-transition-properties);
+}
+
+.text-input-group .icon-right::after {
+    content: attr(data-content);
+    position: absolute;
+    margin-left: -1.75rem;
+    margin-top: -1.2rem;
+    font-size: 1.5rem;
+    -webkit-transform: rotate(var(--data-content-rotate));
+    -moz-transform: rotate(var(--data-content-rotate));
+    -o-transform: rotate(var(--data-content-rotate));
+    transform: rotate(var(--data-content-rotate));
 }
