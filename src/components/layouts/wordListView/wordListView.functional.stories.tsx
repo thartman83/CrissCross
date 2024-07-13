@@ -15,7 +15,8 @@ const newWord = (word: string, value: number): WordListWord => {
 };
 
 const loremWordList = lorem.generateWords(100).split(' ').map(
-  (s) => newWord(s, 100) );
+  (s) => newWord(s.toUpperCase(), 100) );
+
 const staticWordList = [
     { word:"ABDOMINALS", value: 21},
     { word:"ABDOMINALSOUNDS", value: 50},
@@ -97,7 +98,7 @@ export const SelectWordTests: WordListViewStory = {
 
       expect(mockWordSelectHandler).toBeCalledTimes(1);
       expect(mockWordSelectHandler.mock.lastCall[0]).toMatchObject(
-        { word: wordParts[0].toLowerCase(), value: Number(wordParts[1]) });
+        { word: wordParts[0].toUpperCase(), value: Number(wordParts[1]) });
     });
 
     mockWordSelectHandler.mockClear();
@@ -111,7 +112,7 @@ export const SelectWordTests: WordListViewStory = {
 
       expect(mockWordSelectHandler).toBeCalledTimes(1);
       expect(mockWordSelectHandler.mock.lastCall[0]).toMatchObject(
-        { word: wordParts[0].toLowerCase(), value: Number(wordParts[1]) });
+        { word: wordParts[0].toUpperCase(), value: Number(wordParts[1]) });
     });
   },
 };
