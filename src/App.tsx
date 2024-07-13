@@ -8,7 +8,6 @@ import Header from '@/components/composites/header/header';
 import DetailsLayout from '@/components/layouts/detailsLayout/detailsLayout';
 import StatisticsView from '@/components/layouts/statisticsView/statisticsView';
 import CluesLayout from '@/components/layouts/cluesLayout/cluesLayout';
-import WordListLayout from './components/layouts/wordListLayout/wordListLayout';
 import SidebarMenu from './components/containers/sidebarMenu/sidebarMenu';
 import { useOpenMenu } from './hooks/useOpenMenu';
 import { useMenuItems } from './hooks/useMenuItems';
@@ -22,6 +21,7 @@ import { useEffect } from 'react';
 import useLocalStorage from './hooks/useLocalStorage';
 import Crossword from './types/crossword';
 import LassoArea from './components/containers/lassoArea/lassoArea';
+import WordListContainer from './components/containers/wordListContainer/wordListContainer';
 
 function App() {
   const { isOpenMenu, toggleOpenMenu, closeOpenMenu } = useOpenMenu(false);
@@ -77,8 +77,8 @@ function App() {
               id='tabPanelStats' />
             <CluesLayout hidden={false} labeledBy='tabClues'
               id='tabPanelClues' />
-            <WordListLayout hidden={false} labeledBy='tabWordList'
-              id='tabPanelWordList' />
+            <WordListContainer hidden={false} labeledBy='tabWordList'
+              id='tabWordList'/>
           </TabLayout>
         </PageLayout>
       </WordListContextProvider>

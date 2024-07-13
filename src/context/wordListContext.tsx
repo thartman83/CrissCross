@@ -1,17 +1,23 @@
 import { createContext, useContext, ReactNode, useEffect, useState } from "react";
 
-export type WordList = {
+const wordListDictionary = '/src/assets/xwordlist.dict';
+
+export type WordListWord = {
   word: string,
-  value: number
-}[];
+  value: number,
+};
+
+export type WordList = WordListWord[];
 
 type WordListContextType = {
   wordList: WordList,
+  wordListByLen: WordList[],
   isLoading: boolean
 };
 
 const WordListContext = createContext<WordListContextType>({
   wordList:[],
+  wordListByLen:[],
   isLoading: false
 });
 
@@ -27,10 +33,11 @@ export const useWordList = () => {
 
 const WordListContextProvider = ({children}: {children: ReactNode}) => {
   const [wordList, setWordList] = useState<WordList>([]);
+  const [wordListByLen, setWordListByLen] = useState<WordList[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/src/assets/xwordlist.dict').then((r) => r.text()).then(text => {
+    fetch(wordListDictionary).then((r) => r.text()).then(text => {
       const newWordList = text.split('\n').map((e: string) => {
         const parts = e.split(';');
         return {
@@ -40,12 +47,23 @@ const WordListContextProvider = ({children}: {children: ReactNode}) => {
       });
 
       setWordList(newWordList);
+
+      const listsByLen: WordList[] = [];
+      newWordList.forEach((w) => {
+        const len = w.word.length;
+        typeof listsByLen[len] === 'undefined' ? listsByLen[len] = [w] :
+          listsByLen[len].push(w);
+      });
+
+      const sortedListsByLen = listsByLen.map((i) => i.sort(
+        (a,b) => a.value > b.value ? -1 : 1));
+      setWordListByLen(sortedListsByLen);
       setIsLoading(false);
     });
   },[]);
 
   return (
-    <WordListContext.Provider value={{wordList, isLoading}}>
+    <WordListContext.Provider value={{wordList, wordListByLen, isLoading}}>
       {children}
     </WordListContext.Provider>
   );

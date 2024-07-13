@@ -25,11 +25,11 @@ const DetailsLayout = ({labeledBy, id, hidden}: TabPanelProps) => {
   return (
     <TabPanel labeledBy={labeledBy} id={id} hidden={hidden} >
       <TextInput label="Title:" defaultValue={crossword.title}
-                 onChangeHandler={onTitleChangeHandler}/>
+                 changeHandler={onTitleChangeHandler}/>
       <TextInput label="Author:" defaultValue={crossword.author}
-                 onChangeHandler={onAuthorChangeHandler}/>
+                 changeHandler={onAuthorChangeHandler}/>
       <TextInput label="Copyright:" defaultValue={crossword.copyright}
-                 onChangeHandler={onCopyrightChangeHandler}/>
+                 changeHandler={onCopyrightChangeHandler}/>
       <TextArea label="Notes:" defaultValue={crossword.notes}
                  onChangeHandler={onNotesChangeHandler}/>
     </TabPanel>
